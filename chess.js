@@ -10,7 +10,11 @@ class ChessPiece {
 
     // 攻擊對手棋子
     attackPiece(opponentPiece) {
-        opponentPiece.health -= this.attack;
+        if (opponentPiece.race === this.getCounter()) {
+            opponentPiece.health -= this.attack * 1.5;
+        } else {
+            opponentPiece.health -= this.attack;
+        }
         if (opponentPiece.health <= 0) {
             opponentPiece.health = 0;
             console.log(`${opponentPiece.name} was defeated.`);
@@ -33,11 +37,14 @@ class ChessPiece {
 
     // 獲取加成
     getBonus() {
+        const levelBonusList = [1, 1.6, 1.5, 1.4, 1.3, 1.5]
         // 假設加成是攻擊力的 10%
-        return this.attack * 0.1;
+        this.attack = this.attack * levelBonusList[this.level + 1]
+        this.health = this.health * this.levelBonusList[this.level + 1]
     }
     levelUp() {
         this.level++
+        this.getBonus()
     }
 }
 
@@ -56,10 +63,3 @@ const piece = new ChessPiece(chessList[race]);
 // 攻擊一個對手棋子
 // const opponentPiece = new ChessPiece("Orc Warrior", "Orc", 30, 80, "None");
 // piece.attackPiece(opponentPiece);
-
-// // 獲取種族和效果
-// console.log(piece.getRace()); // Output: Human
-// console.log(piece.getEffect()); // Output: None
-
-// // 獲取加成
-// console.log(piece.getBonus()); // Output: 5
