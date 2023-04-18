@@ -9,7 +9,50 @@
 </head>
 
 <body>
-    <script src="./cheoss.js"></script>
+    <div id="app">
+        <div class="shop-wrap">
+            <!-- <div class="chess-item">aaa</div> -->
+        </div>
+    </div>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script type="module">
+        // import chess from './chess.js'
+        import Shop from './shop.js'
+        import lib from './lib.js';
+        // console.log(Shop)
+        // Shop.generateStock()
+        // console.log(Shop.displayStock())
+        const Store = new Shop
+        function renderStore() {
+            Store.generateStock()
+            const storeList = Store.displayStock()
+            storeList.forEach(item => {
+                const parent = document.querySelector('.shop-wrap')
+                const elementDiv = lib.createDOM('div', item, { className: 'chess-item' })
+                parent.appendChild(elementDiv)
+            })
+        }
+        renderStore()
+    </script>
+    <style>
+        .shop-wrap {
+            display: flex;
+            justify-content: center;
+            width: 550px;
+            background-color: #999;
+
+        }
+
+        .chess-item {
+            background-color: white;
+            border: solid 1px #333;
+            border-radius: 5px;
+            width: 50px;
+            height: 75px;
+            font-size: 20px;
+            margin: 0px 10px;
+        }
+    </style>
 </body>
 
 </html>
