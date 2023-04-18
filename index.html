@@ -10,47 +10,106 @@
 
 <body>
     <div id="app">
-        <div class="shop-wrap">
-            <!-- <div class="chess-item">aaa</div> -->
-        </div>
+        <div class="board-wrap"> </div>
+        <div class="shop-wrap"> </div>
     </div>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script type="module">
-        // import chess from './chess.js'
         import Shop from './shop.js'
+        import Chess from './chess.js'
+        import Table from './board.js';
         import lib from './lib.js';
-        // console.log(Shop)
-        // Shop.generateStock()
-        // console.log(Shop.displayStock())
+
         const Store = new Shop
+        const Board = new Table
         function renderStore() {
             Store.generateStock()
             const storeList = Store.displayStock()
             storeList.forEach(item => {
+                const ChessItem = new Chess(item)
                 const parent = document.querySelector('.shop-wrap')
-                const elementDiv = lib.createDOM('div', item, { className: 'chess-item' })
+                const elementDiv = lib.createDOM('div', ChessItem.name, { className: 'chess-item' })
                 parent.appendChild(elementDiv)
             })
         }
+        function renderBoard() {
+            const boardList = Board.displayBoard()
+            const parent = document.querySelector('.board-wrap')
+            boardList.forEach(row => {
+                row.fill(null)
+                const rowDiv = lib.createDOM('div', null, { className: 'board-row' })
+                parent.appendChild(rowDiv)
+                row.forEach(col => {
+                    const colDiv = lib.createDOM('div', null, { className: 'board-col' })
+                    rowDiv.appendChild(colDiv)
+                })
+            })
+        }
         renderStore()
+        renderBoard()
     </script>
     <style>
+        #app {
+            margin: 0px auto;
+            width: 500px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .board-wrap {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 350px;
+            background-color: #ddd;
+            padding: 10px 0px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+
+
+        .board-row {
+            margin: 5px 0px;
+            display: flex;
+        }
+
+        .board-col {
+            background-color: white;
+            border: solid 1px #aaa;
+            border-radius: 5px;
+            width: 75px;
+            height: 75px;
+            font-size: 20px;
+            margin: 0px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
         .shop-wrap {
             display: flex;
             justify-content: center;
-            width: 550px;
-            background-color: #999;
-
+            width: 450px;
+            background-color: #ddd;
+            padding: 10px 0px;
+            border-radius: 10px;
         }
 
         .chess-item {
             background-color: white;
-            border: solid 1px #333;
+            border: solid 1px #aaa;
             border-radius: 5px;
-            width: 50px;
+            width: 75px;
             height: 75px;
             font-size: 20px;
             margin: 0px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
     </style>
 </body>

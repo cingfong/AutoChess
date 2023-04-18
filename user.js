@@ -1,9 +1,10 @@
 class Player {
-    constructor(maxPieces, money, health) {
-        this.maxPieces = maxPieces; // 最大棋子數量
-        this.money = money; // 玩家擁有的金額
-        this.health = health; // 玩家的血量
-        this.pieces = []; // 玩家擁有的棋子
+    constructor() {
+        this.maxPieces = maxPieces || 5; // 最大棋子數量
+        this.money = money || 20; // 玩家擁有的金額
+        this.health = health || 100; // 玩家的血量
+        this.pieces = new Array(9); // 玩家擁有的棋子
+        this.pieces.fill(null);
     }
 
     // 新增一個棋子
@@ -18,7 +19,7 @@ class Player {
     }
 
     // 移除一個棋子
-    removePiece(piece) {
+    sellPiece(piece) {
         const index = this.pieces.indexOf(piece);
         if (index === -1) {
             console.log("You do not have this piece.");

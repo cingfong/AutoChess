@@ -1,11 +1,15 @@
 class ChessPiece {
-    constructor({ name, race, attack, health, counter }) {
-        this.name = name;
-        this.race = race;
-        this.attack = attack;
-        this.health = health;
-        this.counter = counter;
-        this.level = 1
+    constructor(chessName) {
+        const chessList = {
+            cavalry: { name: '騎兵', race: 'cavalry', attack: 25, health: 150, counter: 'shield', price: 20 },
+            shield: { name: '盾兵', race: 'shield', attack: 25, health: 150, counter: 'spearman', price: 20 },
+            spearman: { name: '槍兵', race: 'spearman', attack: 25, health: 150, counter: 'cavalry', price: 20 },
+            archer: { name: '弓兵', race: 'archer', attack: 40, health: 75, counter: 'handCannoneer', price: 20 },
+            handCannoneer: { name: '火槍兵', race: 'handCannoneer', attack: 40, health: 75, counter: 'horseArcher', price: 20 },
+            horseArcher: { name: '弓騎兵', race: 'horseArcher', attack: 40, health: 75, counter: 'archer', price: 20 }
+        }
+        const chess = chessList[chessName]
+        Object.assign(this, chess)
     }
 
     // 攻擊對手棋子
@@ -48,17 +52,9 @@ class ChessPiece {
     }
 }
 
-const chessList = {
-    cavalry: { name: '騎兵', race: 'cavalry', attack: 25, health: 150, counter: 'shield' },
-    shield: { name: '盾兵', race: 'shield', attack: 25, health: 150, counter: 'spearman' },
-    spearman: { name: '槍兵', race: 'spearman', attack: 25, health: 150, counter: 'cavalry' },
-    archer: { name: '弓兵', race: 'archer', attack: 40, health: 75, counter: 'handCannoneer' },
-    handCannoneer: { name: '火槍兵', race: 'handCannoneer', attack: 40, health: 75, counter: 'horseArcher' },
-    horseArcher: { name: '弓騎兵', race: 'horseArcher', attack: 40, health: 75, counter: 'archer' }
-}
-
+export default ChessPiece
 // 創建一個自走棋棋子
-const piece = new ChessPiece(chessList[race]);
+// const piece = new ChessPiece(chessList[race]);
 
 // 攻擊一個對手棋子
 // const opponentPiece = new ChessPiece("Orc Warrior", "Orc", 30, 80, "None");

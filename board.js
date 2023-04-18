@@ -14,6 +14,10 @@ class ChessBoard {
         return board;
     }
 
+    displayBoard() {
+        return this.board
+    }
+
     // 設置棋子
     setPiece(row, col, piece) {
         if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) {
@@ -23,9 +27,10 @@ class ChessBoard {
     }
 }
 
-const board = new ChessBoard();
+export default ChessBoard
+// const board = new ChessBoard();
 
-console.log(board)
+// console.log(board)
 
 // 清空棋盤
 // board.clearBoard();
