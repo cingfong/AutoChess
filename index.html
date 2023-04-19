@@ -11,6 +11,7 @@
 <body>
     <div id="app">
         <div class="board-wrap"> </div>
+        <div class="user-piece-wrap"></div>
         <div class="shop-wrap"> </div>
     </div>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
@@ -18,17 +19,19 @@
         import Shop from './shop.js'
         import Chess from './chess.js'
         import Table from './board.js';
+        import User from './user.js'
         import lib from './lib.js';
 
         const Store = new Shop
         const Board = new Table
+        const Player = new User
         function renderStore() {
             Store.generateStock()
             const storeList = Store.displayStock()
             storeList.forEach(item => {
                 const ChessItem = new Chess(item)
                 const parent = document.querySelector('.shop-wrap')
-                const elementDiv = lib.createDOM('div', ChessItem.name, { className: 'chess-item' })
+                const elementDiv = lib.createDOM('button', ChessItem.name, { className: 'chess-item' })
                 parent.appendChild(elementDiv)
             })
         }
@@ -40,13 +43,46 @@
                 const rowDiv = lib.createDOM('div', null, { className: 'board-row' })
                 parent.appendChild(rowDiv)
                 row.forEach(col => {
-                    const colDiv = lib.createDOM('div', null, { className: 'board-col' })
+                    const colDiv = lib.createDOM('button', null, { className: 'board-col' })
                     rowDiv.appendChild(colDiv)
                 })
             })
         }
+        function renderPiece() {
+            const storePiece = Player.displayPieces()
+            const parent = document.querySelector('.user-piece-wrap')
+            storePiece.forEach(piece => {
+                const pieceDiv = lib.createDOM('div', piece, { className: 'user-piece-item' })
+                pieceDiv.addEventListener('drag', (event) => { playerPieceDrag(event, pieceDiv) })
+                parent.appendChild(pieceDiv)
+            })
+        }
+        // 動畫觀測器
+        window.requestAnimationFrame(() => {
+
+        })
+        let oldMouseX = 0
+        let oldMouseY = 0
+        function playerPieceDrag(mouse, element) {
+            const { clientX: mouseX, clientY: mouseY } = mouse
+            const { left, top } = element.getBoundingClientRect()
+            if (oldMouseX === 0) {
+                oldMouseX = mouseX
+                oldMouseY = mouseY
+            }
+            const moveX = mouseX - oldMouseX
+            const moveY = mouseY - oldMouseY
+            oldMouseX = mouseX
+            oldMouseY = mouseY
+            element.style.position = 'fixed'
+            element.style.left = `${left + moveX}px`
+            element.style.top = `${top + moveY}px`
+
+        }
         renderStore()
         renderBoard()
+        renderPiece()
+        window.onload = () => { console.log('load') }
     </script>
     <style>
         #app {
@@ -57,6 +93,7 @@
             justify-content: center;
         }
 
+        /* 棋盤 */
         .board-wrap {
             display: flex;
             justify-content: center;
@@ -89,6 +126,33 @@
             cursor: pointer;
         }
 
+        /* 玩家可用棋 */
+        .user-piece-wrap {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            width: 450px;
+            background-color: #ddd;
+            padding: 5px 0px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .user-piece-item {
+            background-color: white;
+            border: solid 1px #aaa;
+            box-sizing: border-box;
+            border-radius: 5px;
+            width: 60px;
+            height: 60px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* 商店 */
         .shop-wrap {
             display: flex;
             justify-content: center;
