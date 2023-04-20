@@ -5,7 +5,7 @@ class User {
         this.health = health || 100; // 玩家的血量
         this.pieces = new Array(5); // 玩家擁有的棋子
         this.pieces.fill(null)
-        this.pieces[0]='弓兵'
+        this.pieces = ['騎兵', '盾兵', '槍兵', '弓兵', '火槍兵', '弓騎兵']
     }
 
 

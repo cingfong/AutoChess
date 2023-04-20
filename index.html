@@ -25,6 +25,7 @@
         const Store = new Shop
         const Board = new Table
         const Player = new User
+        let colDivScope = []
         function renderStore() {
             Store.generateStock()
             const storeList = Store.displayStock()
@@ -38,22 +39,48 @@
         function renderBoard() {
             const boardList = Board.displayBoard()
             const parent = document.querySelector('.board-wrap')
+            const colDivList = []
             boardList.forEach(row => {
                 row.fill(null)
                 const rowDiv = lib.createDOM('div', null, { className: 'board-row' })
                 parent.appendChild(rowDiv)
                 row.forEach(col => {
                     const colDiv = lib.createDOM('button', null, { className: 'board-col' })
+                    colDiv.setAttribute('draggable', true)
+                    colDivList.push(colDiv)
                     rowDiv.appendChild(colDiv)
                 })
             })
+            colDivScope = colDivList.map(item => {
+                const { left, right, top, bottom } = item.getBoundingClientRect()
+                return { left, right, top, bottom }
+            })
+            console.log(colDivScope)
         }
         function renderPiece() {
             const storePiece = Player.displayPieces()
             const parent = document.querySelector('.user-piece-wrap')
+            const boardDiv = document.querySelector('board-wrap')
             storePiece.forEach(piece => {
                 const pieceDiv = lib.createDOM('div', piece, { className: 'user-piece-item' })
+                pieceDiv.setAttribute('draggable', true)
                 pieceDiv.addEventListener('drag', (event) => { playerPieceDrag(event, pieceDiv) })
+                pieceDiv.addEventListener('dragover', (event) => {
+                    event.preventDefault()
+                }, false)
+                pieceDiv.addEventListener('dragend', (event) => {
+                    const { left, right, top, bottom } = pieceDiv.getBoundingClientRect()
+                    const pieceText = pieceDiv.textContent
+                    const colDivIndex = colDivScope.findIndex(item => item.left <= left && item.right >= right && item.top <= top && item.bottom >= bottom)
+                    if (colDivIndex > -1) {
+                        const row = [...boardDiv.children]
+                        // board element元素排列
+                        console.log(_child)
+                        _child[colDivIndex].textContent = pieceText
+                    }
+
+                    pieceDiv.style.opacity = 1
+                })
                 parent.appendChild(pieceDiv)
             })
         }
@@ -61,6 +88,7 @@
         window.requestAnimationFrame(() => {
 
         })
+        // const oldPlayerPieceMouse = {}
         let oldMouseX = 0
         let oldMouseY = 0
         function playerPieceDrag(mouse, element) {
@@ -75,6 +103,7 @@
             oldMouseX = mouseX
             oldMouseY = mouseY
             element.style.position = 'fixed'
+            element.style.opacity = 0
             element.style.left = `${left + moveX}px`
             element.style.top = `${top + moveY}px`
 
