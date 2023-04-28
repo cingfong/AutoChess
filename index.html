@@ -90,6 +90,10 @@
                         const _childIndex = colDivIndex % _row.length
                         // board element元素排列
                         _child[_childIndex].textContent = pieceText
+                    } else {
+                        pieceDiv.style.position = 'relative'
+                        pieceDiv.style.left = '0'
+                        pieceDiv.style.top = '0'
                     }
 
                     pieceDiv.style.opacity = 1
