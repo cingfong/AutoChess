@@ -31,6 +31,7 @@
         const Board = new Table
         const Player = new User
         let colDivScope = []
+        // 商店
         function renderStore() {
             Store.generateStock()
             const storeList = Store.displayStock()
@@ -41,26 +42,12 @@
                 parent.appendChild(elementDiv)
             })
         }
+        // 棋盤
         function renderBoard() {
-            const boardList = Board.displayBoard()
-            const parent = document.querySelector('.board-wrap')
-            const colDivList = []
-            boardList.forEach(row => {
-                row.fill(null)
-                const rowDiv = lib.createDOM('div', null, { className: 'board-row' })
-                parent.appendChild(rowDiv)
-                row.forEach(col => {
-                    const colDiv = lib.createDOM('button', null, { className: 'board-col' })
-                    colDiv.setAttribute('draggable', true)
-                    colDivList.push(colDiv)
-                    rowDiv.appendChild(colDiv)
-                })
-            })
-            colDivScope = colDivList.map(item => {
-                const { left, right, top, bottom } = item.getBoundingClientRect()
-                return { left, right, top, bottom }
-            })
+            Board.renderBoard()
+            colDivScope = Board.getColDivScope()
         }
+        // 棋子
         function renderPiece() {
             const storePiece = Player.displayPieces()
             const parent = document.querySelector('.user-piece-wrap')
@@ -89,7 +76,8 @@
                         const _child = [..._col.children]
                         const _childIndex = colDivIndex % _row.length
                         // board element元素排列
-                        _child[_childIndex].textContent = pieceText
+                        // _child[_childIndex].textContent = pieceText
+                        Board.setPiece(_rowIndex, _childIndex, pieceText)
                     } else {
                         pieceDiv.style.position = 'relative'
                         pieceDiv.style.left = '0'
@@ -110,6 +98,7 @@
         // const oldPlayerPieceMouse = {}
         let oldMouseX = 0
         let oldMouseY = 0
+        // 拖動事件
         function playerPieceDrag(mouse, element) {
             const { clientX: mouseX, clientY: mouseY } = mouse
             const { left, top } = element.getBoundingClientRect()

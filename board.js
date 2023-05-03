@@ -1,15 +1,17 @@
+import lib from './lib.js';
 class ChessBoard {
     constructor(rows, cols) {
         this.rows = rows || 3;
         this.cols = cols || 3;
         this.board = this.createBoard();
+        this.colDivScope = []
     }
 
     // 創建棋盤
     createBoard() {
         const board = new Array(this.rows)
         for (let i = 0; i < this.rows; i++) {
-            board[i] = new Array(this.cols)
+            board[i] = new Array(this.cols).fill(null)
         }
         return board;
     }
@@ -24,6 +26,35 @@ class ChessBoard {
             throw new Error("Invalid position");
         }
         this.board[row][col] = piece;
+        this.renderBoard()
+    }
+
+    renderBoard() {
+        const boardList = this.displayBoard()
+        const parent = document.querySelector('.board-wrap')
+        const _colDivScope = this.colDivScope
+        _colDivScope.length = 0
+        parent.textContent = ''
+        const colDivList = []
+        boardList.forEach(row => {
+            const rowDiv = lib.createDOM('div', null, { className: 'board-row' })
+            parent.appendChild(rowDiv)
+            row.forEach(col => {
+                const colDiv = lib.createDOM('button', col, { className: 'board-col' })
+                colDiv.setAttribute('draggable', true)
+                colDivList.push(colDiv)
+                rowDiv.appendChild(colDiv)
+            })
+        })
+        // 元素插入完才可以抓到元素範圍
+        colDivList.forEach(item => {
+            const { left, right, top, bottom } = item.getBoundingClientRect()
+            _colDivScope.push({ left, right, top, bottom })
+        })
+    }
+
+    getColDivScope() {
+        return this.colDivScope
     }
 }
 
