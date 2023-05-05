@@ -1,5 +1,5 @@
 import lib from './lib.js';
-class ChessBoard {
+class Board {
     constructor(rows, cols) {
         this.rows = rows || 3;
         this.cols = cols || 3;
@@ -58,7 +58,7 @@ class ChessBoard {
     }
 }
 
-export default ChessBoard
+export default Board
 // const board = new ChessBoard();
 
 // console.log(board)
