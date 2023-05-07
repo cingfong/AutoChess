@@ -5,6 +5,7 @@ class Board {
         this.cols = cols || 3;
         this.board = this.createBoard();
         this.colDivScope = []
+        this.renderBoard()
     }
 
     // 創建棋盤
@@ -40,16 +41,18 @@ class Board {
             const rowDiv = lib.createDOM('div', null, { className: 'board-row' })
             parent.appendChild(rowDiv)
             row.forEach(col => {
-                const colDiv = lib.createDOM('button', col, { className: 'board-col' })
-                colDiv.setAttribute('draggable', true)
+                const colDiv = lib.createDOM('div', col?.name, { className: 'board-col' })
                 colDivList.push(colDiv)
                 rowDiv.appendChild(colDiv)
             })
         })
-        // 元素插入完才可以抓到元素範圍
-        colDivList.forEach(item => {
-            const { left, right, top, bottom } = item.getBoundingClientRect()
-            _colDivScope.push({ left, right, top, bottom })
+        // promise
+        setTimeout(() => {
+            // 元素插入完才可以抓到元素範圍
+            colDivList.forEach(item => {
+                const { left, right, top, bottom } = item.getBoundingClientRect()
+                _colDivScope.push({ left: left - 15, right: right + 15, top: top - 15, bottom: bottom + 15 })
+            })
         })
     }
 

@@ -23,15 +23,14 @@
     <script type="module">
         import Shop from './shop.js'
         import Chess from './chess.js'
-        import Table from './board.js';
+        // import Table from './board.js';
         import User from './user.js'
         // import lib from './lib.js';
 
         const Store = new Shop
-        const Board = new Table
-        const Player = new User
-        const Chessman = new Chess({ Player: Player, Board })
-        let colDivScope = []
+        // const Board = new Table
+        const Player = new User()
+        // const Chessman = new Chess({ Player: Player })
         // 商店
         // function renderStore() {
         //     Store.generateStock()
@@ -45,75 +44,12 @@
         // }
         // 棋盤
         function render() {
-            Board.renderBoard()
-            Chessman.render()
-            colDivScope = Board.getColDivScope()
+            // Board.renderBoard()
+            // Chessman.render()
         }
-        // 棋子
-        // function renderPiece() {
-        //     const storePiece = Player.displayPieces()
-        //     const parent = document.querySelector('.user-piece-wrap')
-        //     const boardDiv = document.querySelector('.board-wrap')
-        //     storePiece.forEach(piece => {
-        //         const pieceDiv = lib.createDOM('div', piece, { className: 'user-piece-item' })
-        //         pieceDiv.setAttribute('draggable', true)
-        //         pieceDiv.addEventListener('drag', (event) => { playerPieceDrag(event, pieceDiv) })
-        //         pieceDiv.addEventListener('dragstart', (event) => {
-        //             const { clientX: mouseX, clientY: mouseY } = event
-        //             oldMouseX = mouseX
-        //             oldMouseY = mouseY
-        //         })
-        //         pieceDiv.addEventListener('dragover', (event) => {
-        //             event.preventDefault()
-        //         }, false)
-        //         pieceDiv.addEventListener('dragend', (event) => {
-        //             const { left, right, top, bottom } = pieceDiv.getBoundingClientRect()
-        //             const pieceText = pieceDiv.textContent
-        //             const colDivIndex = colDivScope.findIndex(item => (item.left - 15) <= left && (item.right + 15) >= right && (item.top - 15) <= top && (item.bottom + 15) >= bottom)
-        //             const cole = colDivScope.map(item => { return [item.left, item.right, item.top, item.bottom] })
-        //             if (colDivIndex > -1) {
-        //                 const _row = [...boardDiv.children]
-        //                 const _rowIndex = parseInt(colDivIndex / _row.length)
-        //                 const _col = _row[_rowIndex]
-        //                 const _child = [..._col.children]
-        //                 const _childIndex = colDivIndex % _row.length
-        //                 // board element元素排列
-        //                 // _child[_childIndex].textContent = pieceText
-        //                 Board.setPiece(_rowIndex, _childIndex, pieceText)
-        //             } else {
-        //                 pieceDiv.style.position = 'relative'
-        //                 pieceDiv.style.left = '0'
-        //                 pieceDiv.style.top = '0'
-        //             }
-
-        //             pieceDiv.style.opacity = 1
-        //             oldMouseX = 0
-        //             oldMouseY = 0
-        //         })
-        //         parent.appendChild(pieceDiv)
-        //     })
-        // }
         // 動畫觀測器
         // window.requestAnimationFrame(() => {
-
         // })
-        // const oldPlayerPieceMouse = {}
-        let oldMouseX = 0
-        let oldMouseY = 0
-        // 拖動事件
-        function playerPieceDrag(mouse, element) {
-            const { clientX: mouseX, clientY: mouseY } = mouse
-            const { left, top } = element.getBoundingClientRect()
-            const moveX = mouseX - oldMouseX
-            const moveY = mouseY - oldMouseY
-            oldMouseX = mouseX
-            oldMouseY = mouseY
-            element.style.position = 'fixed'
-            element.style.opacity = 0
-            element.style.left = `${left + moveX}px`
-            element.style.top = `${top + moveY}px`
-
-        }
         // renderStore()
         // renderPiece()
         render()
@@ -175,24 +111,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
         }
 
         /* 玩家可用棋 */
         .user-piece-wrap {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            width: 450px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            width: 420px;
             background-color: #ddd;
-            padding: 5px 0px;
+            padding: 5px;
             margin-bottom: 20px;
             border-radius: 10px;
         }
 
-        .user-piece-item {
+        .user-piece-item-wrap{
             background-color: white;
             border: solid 1px #aaa;
+            border-radius: 5px;
+            margin: 0px 3px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .user-piece-item {
+            background-color: white;
             box-sizing: border-box;
             border-radius: 5px;
             width: 60px;
