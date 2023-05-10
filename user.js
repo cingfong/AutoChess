@@ -74,37 +74,41 @@ class User {
         storagePiece.forEach((piece, pieceIndex) => {
             const pieceWrap = lib.createDOM('div', '', { className: 'user-piece-item-wrap' })
             const pieceDiv = lib.createDOM('div', piece.name, { className: 'user-piece-item' })
+            // console.log(piece.drag(pieceDiv))
             pieceDiv.setAttribute('draggable', !!piece.name)
-            pieceDiv.addEventListener('drag', (event) => { playerPieceDrag(event, pieceDiv) })
-            pieceDiv.addEventListener('dragstart', (event) => {
-                const { offsetX, offsetY } = event
-                pieceDiv.dataset.offsetX = offsetX
-                pieceDiv.dataset.offsetY = offsetY
-            })
-            pieceDiv.addEventListener('dragover', (event) => {
-                event.preventDefault()
-            }, false)
-            pieceDiv.addEventListener('dragend', (event) => {
-                const _Board = this.Board
-                const { touchLeft, touchRight, touchTop, touchBottom } = pieceDiv.dataset
-                // object
-                const boardScopeList = this.Board.getColDivScope()
-                const boardIndex = boardScopeList.findIndex(item => item.top <= touchTop && item.right >= touchRight && item.bottom >= touchBottom && item.left <= touchLeft)
-                const storageIndex = this.storageDivScope.findIndex(item => item.top <= touchTop && item.right >= touchRight && item.bottom >= touchBottom && item.left <= touchLeft)
-                if (!~boardIndex && !~storageIndex) {
-                    this.renderStoragePiece()
-                    return
-                }
-                if (~boardIndex) {
-                    const setPiceRow = Math.floor(boardIndex / 3)
-                    const setPiceCol = boardIndex % 3
-                    _Board.setPiece(setPiceRow, setPiceCol, piece)
-                }
-                if (~storageIndex) {
-                    this.setPiece(pieceIndex, storageIndex, piece)
-                }
+            if (piece) {
+                piece.drag(pieceDiv, pieceIndex, this.Board, this)
+            }
+            // pieceDiv.addEventListener('drag', (event) => { playerPieceDrag(event, pieceDiv) })
+            // pieceDiv.addEventListener('dragstart', (event) => {
+            //     const { offsetX, offsetY } = event
+            //     pieceDiv.dataset.offsetX = offsetX
+            //     pieceDiv.dataset.offsetY = offsetY
+            // })
+            // pieceDiv.addEventListener('dragover', (event) => {
+            //     event.preventDefault()
+            // }, false)
+            // pieceDiv.addEventListener('dragend', (event) => {
+            //     const _Board = this.Board
+            //     const { touchLeft, touchRight, touchTop, touchBottom } = pieceDiv.dataset
+            //     // object
+            //     const boardScopeList = this.Board.getColDivScope()
+            //     const boardIndex = boardScopeList.findIndex(item => item.top <= touchTop && item.right >= touchRight && item.bottom >= touchBottom && item.left <= touchLeft)
+            //     const storageIndex = this.storageDivScope.findIndex(item => item.top <= touchTop && item.right >= touchRight && item.bottom >= touchBottom && item.left <= touchLeft)
+            //     if (!~boardIndex && !~storageIndex) {
+            //         this.renderStoragePiece()
+            //         return
+            //     }
+            //     if (~boardIndex) {
+            //         const setPiceRow = Math.floor(boardIndex / 3)
+            //         const setPiceCol = boardIndex % 3
+            //         _Board.setPiece(setPiceRow, setPiceCol, piece)
+            //     }
+            //     if (~storageIndex) {
+            //         this.setPiece(pieceIndex, storageIndex, piece)
+            //     }
 
-            })
+            // })
             pieceWrap.appendChild(pieceDiv)
             storeDivList.push(pieceWrap)
             parent.appendChild(pieceWrap)
@@ -119,21 +123,25 @@ class User {
             })
         })
 
-        function playerPieceDrag(mouse, element) {
-            const { clientX: mouseX, clientY: mouseY } = mouse
-            const { offsetX, offsetY } = element.dataset
-            const { offsetWidth, offsetHeight } = element
-            const touchLeft = mouseX - offsetX
-            const touchRight = mouseX + (offsetWidth - offsetX)
-            const touchTop = mouseY - offsetY
-            const touchBottom = mouseY + (offsetHeight - offsetY)
-            if (touchLeft < 0 || touchTop < 0) return
-            Object.assign(element.dataset, { touchLeft, touchRight, touchTop, touchBottom })
-            element.style.position = 'fixed'
-            element.style.opacity = 0
-            element.style.left = `${mouseX - offsetX}px`
-            element.style.top = `${mouseY - offsetY}px`
-        }
+        // function playerPieceDrag(mouse, element) {
+        //     const { clientX: mouseX, clientY: mouseY } = mouse
+        //     const { offsetX, offsetY } = element.dataset
+        //     const { offsetWidth, offsetHeight } = element
+        //     const touchLeft = mouseX - offsetX
+        //     const touchRight = mouseX + (offsetWidth - offsetX)
+        //     const touchTop = mouseY - offsetY
+        //     const touchBottom = mouseY + (offsetHeight - offsetY)
+        //     if (touchLeft < 0 || touchTop < 0) return
+        //     Object.assign(element.dataset, { touchLeft, touchRight, touchTop, touchBottom })
+        //     element.style.position = 'fixed'
+        //     element.style.opacity = 0
+        //     element.style.left = `${mouseX - offsetX}px`
+        //     element.style.top = `${mouseY - offsetY}px`
+        // }
+    }
+
+    getColDivScope() {
+        return this.colDivScope
     }
 }
 export default User
