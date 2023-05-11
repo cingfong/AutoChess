@@ -136,10 +136,18 @@ class ChessPiece {
       }
       if (~boardIndex) {
         const _oldIndex = type === "board" ? typeIndex : null;
+        if (_oldIndex === boardIndex) {
+          _Board.renderBoard();
+          return;
+        }
         _Board.setPiece(_oldIndex, boardIndex, this);
       }
       if (~storageIndex) {
         const _oldIndex = type === "user" ? typeIndex : null;
+        if (_oldIndex === storageIndex) {
+          User.renderStoragePiece();
+          return;
+        }
         User.setPiece(_oldIndex, storageIndex, this);
       }
       if (type === "user") User.removePiece(typeIndex);
