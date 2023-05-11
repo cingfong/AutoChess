@@ -1,206 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <div class="wrap">
-            <div class="board-wrap"> </div>
-            <div class="user-piece-wrap"></div>
-            <div class="dialog-wrap">
-                <div class="dialog-title">商店</div>
-                <div class="shop-wrap"> </div>
-            </div>
+      <div class="wrap">
+        <div class="board-wrap"></div>
+        <div class="user-piece-wrap"></div>
+        <div class="dialog-wrap">
+          <div class="dialog-title">商店</div>
+          <div class="shop-wrap"></div>
         </div>
+      </div>
     </div>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script type="module">
-        import Shop from './shop.js'
-        import Chess from './chess.js'
-        // import Table from './board.js';
-        import User from './user.js'
-        // import lib from './lib.js';
+      import Shop from "./shop.js";
+      import Chess from "./chess.js";
+      // import Table from './board.js';
+      import User from "./user.js";
+      // import lib from './lib.js';
 
-        const Store = new Shop
-        // const Board = new Table
-        const Player = new User()
-        // const Chessman = new Chess({ Player: Player })
-        // 商店
-        // function renderStore() {
-        //     Store.generateStock()
-        //     const storeList = Store.displayStock()
-        //     storeList.forEach(item => {
-        //         const ChessItem = new Chess(item)
-        //         const parent = document.querySelector('.shop-wrap')
-        //         const elementDiv = lib.createDOM('button', ChessItem.name, { className: 'chess-item' })
-        //         parent.appendChild(elementDiv)
-        //     })
-        // }
-        // 棋盤
-        function render() {
-            // Board.renderBoard()
-            // Chessman.render()
-        }
-        // 動畫觀測器
-        // window.requestAnimationFrame(() => {
-        // })
-        // renderStore()
-        // renderPiece()
-        render()
-        window.onload = () => { console.log('load') }
+      const Store = new Shop();
+      // const Board = new Table
+      const Player = new User();
+      // const Chessman = new Chess({ Player: Player })
+      // 商店
+      // function renderStore() {
+      //     Store.generateStock()
+      //     const storeList = Store.displayStock()
+      //     storeList.forEach(item => {
+      //         const ChessItem = new Chess(item)
+      //         const parent = document.querySelector('.shop-wrap')
+      //         const elementDiv = lib.createDOM('button', ChessItem.name, { className: 'chess-item' })
+      //         parent.appendChild(elementDiv)
+      //     })
+      // }
+      // 棋盤
+      function render() {
+        // Board.renderBoard()
+        // Chessman.render()
+      }
+      // 動畫觀測器
+      // window.requestAnimationFrame(() => {
+      // })
+      // renderStore()
+      // renderPiece()
+      render();
+      window.onload = () => {
+        console.log("load");
+      };
     </script>
     <style>
-        body {
-            margin: 0px;
-            padding: 0px;
-        }
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
 
-        #app {
-            margin: 0px auto;
-            background-color: gray;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      #app {
+        margin: 0px auto;
+        background-color: gray;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-        .wrap {
-            width: 500px;
-            background-color: white;
-            border-radius: 10px;
-            padding: 10px 0px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+      .wrap {
+        width: 500px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 10px 0px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
 
-        /* 棋盤 */
-        .board-wrap {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            width: 350px;
-            background-color: #ddd;
-            padding: 10px 0px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
+      /* 棋盤 */
+      .board-wrap {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 300px;
+        background-color: #ddd;
+        padding: 10px 0px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+      }
 
+      .board-row {
+        margin: 5px 0px;
+        display: flex;
+      }
+      .board-col-item-wrap {
+        background-color: white;
+        border: solid 1px #aaa;
+        border-radius: 5px;
+        width: 60px;
+        height: 60px;
+        margin: 0px 10px;
+      }
 
+      .board-col-item {
+        width: 60px;
+        height: 60px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-        .board-row {
-            margin: 5px 0px;
-            display: flex;
-        }
+      /* 玩家可用棋 */
+      .user-piece-wrap {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        width: 420px;
+        background-color: #ddd;
+        padding: 5px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+      }
 
-        .board-col {
-            background-color: white;
-            border: solid 1px #aaa;
-            border-radius: 5px;
-            width: 75px;
-            height: 75px;
-            font-size: 20px;
-            margin: 0px 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      .user-piece-item-wrap {
+        background-color: white;
+        border: solid 1px #aaa;
+        border-radius: 5px;
+        margin: 0px 3px;
+        width: 60px;
+        height: 60px;
+      }
 
-        /* 玩家可用棋 */
-        .user-piece-wrap {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            width: 420px;
-            background-color: #ddd;
-            padding: 5px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
+      .user-piece-item {
+        background-color: white;
+        box-sizing: border-box;
+        border-radius: 5px;
+        width: 60px;
+        height: 60px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
 
-        .user-piece-item-wrap{
-            background-color: white;
-            border: solid 1px #aaa;
-            border-radius: 5px;
-            margin: 0px 3px;
-            width: 60px;
-            height: 60px;
-        }
+      /* 彈窗 */
+      .dialog-wrap {
+        position: fixed;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        display: none;
+      }
 
-        .user-piece-item {
-            background-color: white;
-            box-sizing: border-box;
-            border-radius: 5px;
-            width: 60px;
-            height: 60px;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
+      .dialog-wrap::before {
+        content: "";
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.6);
+        left: 0px;
+        top: 0px;
+        position: fixed;
+        z-index: -1;
+      }
 
-        /* 彈窗 */
-        .dialog-wrap {
-            position: fixed;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            display: none;
-        }
+      .dialog-title {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5px 0px;
+        font-size: 18px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+      }
 
-        .dialog-wrap::before {
-            content: '';
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.6);
-            left: 0px;
-            top: 0px;
-            position: fixed;
-            z-index: -1;
-        }
+      /* 商店 */
+      .shop-wrap {
+        display: flex;
+        justify-content: center;
+        width: 450px;
+        background-color: #ddd;
+        padding: 10px 0px;
+        border-radius: 10px;
+      }
 
-        .dialog-title {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 5px 0px;
-            font-size: 18px;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-        }
-
-        /* 商店 */
-        .shop-wrap {
-            display: flex;
-            justify-content: center;
-            width: 450px;
-            background-color: #ddd;
-            padding: 10px 0px;
-            border-radius: 10px;
-        }
-
-        .chess-item {
-            background-color: white;
-            border: solid 1px #aaa;
-            border-radius: 5px;
-            width: 75px;
-            height: 75px;
-            font-size: 20px;
-            margin: 0px 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
+      .chess-item {
+        background-color: white;
+        border: solid 1px #aaa;
+        border-radius: 5px;
+        width: 75px;
+        height: 75px;
+        font-size: 20px;
+        margin: 0px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
     </style>
-</body>
-
+  </body>
 </html>
