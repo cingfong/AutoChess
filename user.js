@@ -14,7 +14,13 @@ class User {
     this.testAddPiece();
 
     // 渲染
-    this.renderStoragePiece();
+    this.render();
+  }
+
+  render() {
+    this.renderStoragePiece()
+    this.renderMoney()
+
   }
   testAddPiece() {
     const chess = new Chess("cavalry");
@@ -47,12 +53,12 @@ class User {
         this.storage[oldIndex] = oldPiece;
       }
     }
-    this.renderStoragePiece();
+    this.render();
   }
 
   removePiece(index) {
     this.storage[index] = null;
-    this.renderStoragePiece();
+    this.render();
   }
 
   // 移除一個棋子
@@ -110,6 +116,15 @@ class User {
 
   getColDivScope() {
     return this.colDivScope;
+  }
+
+  getMoney() {
+    return this.money
+  }
+
+  renderMoney() {
+    const _moneyDom = document.querySelector('.user-money')
+    _moneyDom.textContent = this.getMoney()
   }
 }
 export default User;
