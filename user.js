@@ -4,7 +4,7 @@ import lib from "./lib.js";
 class User {
   constructor(maxPieces, money, health) {
     this.maxPieces = maxPieces || 6; // 最大棋子數量
-    this.money = money || 20; // 玩家擁有的金額
+    this.money = money || 100; // 玩家擁有的金額
     this.health = health || 100; // 玩家的血量
     this.storage = [null, null, null, null, null, null]; // 玩家擁有的棋子
     // this.storage = ['騎兵', '盾兵', '槍兵', '弓兵', '火槍兵', '弓騎兵']
@@ -18,13 +18,14 @@ class User {
   }
 
   render() {
-    this.renderStoragePiece()
-    this.renderMoney()
-
+    this.renderStoragePiece();
+    this.renderMoney();
   }
   testAddPiece() {
     const chess = new Chess("cavalry");
+    const chess2 = new Chess("shield");
     this.addPiece(chess);
+    this.addPiece(chess2);
   }
 
   // 新增一個棋子
@@ -37,28 +38,47 @@ class User {
     this.setPiece(null, addChessIndex, piece);
   }
 
+  buyPiece(piece) {
+    this.money = this.money - piece.price;
+    this.addPiece(piece);
+  }
+
+  getPiece(index) {
+    return this.storage[index];
+  }
+
   setPiece(oldIndex, index, piece) {
-    const nextPiece = this.storage[index];
+    const nextPieceRace = this.storage[index]?.race;
+    let oldPiece = null;
     // 從棋盤移來
     if (oldIndex === null) {
+      if (this.storage[index]) {
+        const nextPieceRace = this.storage[index]?.race;
+        oldPiece = new Chess(nextPieceRace);
+      }
       this.storage[index] = piece;
     } else {
-      if (!nextPiece) {
+      if (!nextPieceRace) {
         this.storage[index] = piece;
         this.storage[oldIndex] = null;
       } else {
-        const oldPiece = {};
-        Object.assign(oldPiece, nextPiece);
+        oldPiece = new Chess(nextPieceRace);
         this.storage[index] = piece;
-        this.storage[oldIndex] = oldPiece;
       }
     }
     this.render();
+    return oldPiece;
   }
 
   removePiece(index) {
+    const delPiece = this.storage[index];
+    let piece = null;
+    if (!delPiece) {
+      piece = new Chess(delPiece?.race);
+    }
     this.storage[index] = null;
     this.render();
+    return piece;
   }
 
   // 移除一個棋子
@@ -74,6 +94,10 @@ class User {
   // 顯示玩家擁有的棋子
   displayPieces() {
     return this.storage;
+  }
+
+  displayPiecesLength() {
+    return this.storage.filter((e) => e).length;
   }
 
   renderStoragePiece() {
@@ -119,12 +143,15 @@ class User {
   }
 
   getMoney() {
-    return this.money
+    return this.money;
   }
 
   renderMoney() {
-    const _moneyDom = document.querySelector('.user-money')
-    _moneyDom.textContent = this.getMoney()
+    const _userMoney = this.getMoney().toString();
+    const _moneyDom = document.querySelector(".user-money");
+    const moneyDiv = lib.createDOM("span", _userMoney);
+    _moneyDom.innerHTML = "";
+    _moneyDom.appendChild(moneyDiv);
   }
 }
 export default User;

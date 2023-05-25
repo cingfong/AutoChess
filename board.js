@@ -1,3 +1,4 @@
+import ChessPiece from "./chess.js";
 import lib from "./lib.js";
 class Board {
   constructor(rows, cols) {
@@ -23,6 +24,15 @@ class Board {
     return this.board;
   }
 
+  getPiece(index) {
+    const row = Math.floor(index / this.rows);
+    const col = index % this.cols;
+    if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) {
+      throw new Error("Invalid position");
+    }
+    return this.board[row][col];
+  }
+
   // 設置棋子
   setPiece(oldIndex, index, piece) {
     const row = Math.floor(index / this.rows);
@@ -30,31 +40,41 @@ class Board {
     if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) {
       throw new Error("Invalid position");
     }
+    let oldPiece = null;
     // 從玩家拖動到棋盤
     if (oldIndex === null) {
+      if (this.board[row][col]) {
+        const nextPieceRace = this.board[row][col]?.race;
+        oldPiece = new ChessPiece(nextPieceRace);
+      }
       this.board[row][col] = piece;
     } else {
       const oldRow = Math.floor(oldIndex / this.rows);
       const oldCol = oldIndex % this.cols;
-      const nextPiece = this.board[row][col];
-      if (!nextPiece) {
+      const nextPieceRace = this.board[row][col]?.race;
+      if (!nextPieceRace) {
         this.board[row][col] = piece;
         this.board[oldRow][oldCol] = "";
       } else {
-        const oldPiece = {};
-        Object.assign(oldPiece, nextPiece);
+        oldPiece = new ChessPiece(nextPieceRace);
         this.board[row][col] = piece;
-        this.board[oldRow][oldCol] = oldPiece;
       }
     }
     this.renderBoard();
+    return oldPiece;
   }
 
   removePiece(index) {
     const row = Math.floor(index / this.rows);
     const col = index % this.cols;
+    let piece = null;
+    const delPiece = this.board[row][col];
+    if (delPiece) {
+      piece = new ChessPiece(delPiece?.race);
+    }
     this.board[row][col] = null;
     this.renderBoard();
+    return piece;
   }
 
   renderBoard() {

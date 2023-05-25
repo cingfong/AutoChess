@@ -134,13 +134,15 @@ class ChessPiece {
         _Board.renderBoard();
         return;
       }
+
+      let oldPiece = null;
       if (~boardIndex) {
         const _oldIndex = type === "board" ? typeIndex : null;
         if (_oldIndex === boardIndex) {
           _Board.renderBoard();
           return;
         }
-        _Board.setPiece(_oldIndex, boardIndex, this);
+        oldPiece = _Board.setPiece(_oldIndex, boardIndex, this);
       }
       if (~storageIndex) {
         const _oldIndex = type === "user" ? typeIndex : null;
@@ -148,10 +150,17 @@ class ChessPiece {
           User.renderStoragePiece();
           return;
         }
-        User.setPiece(_oldIndex, storageIndex, this);
+        oldPiece = User.setPiece(_oldIndex, storageIndex, this);
       }
       if (type === "user") User.removePiece(typeIndex);
       if (type === "board") _Board.removePiece(typeIndex);
+      if (oldPiece) {
+        if (type === "user") {
+          User.setPiece(null, typeIndex, oldPiece);
+        } else {
+          _Board.setPiece(null, typeIndex, oldPiece);
+        }
+      }
     });
     function playerPieceDrag(mouse, element) {
       const { clientX: mouseX, clientY: mouseY } = mouse;

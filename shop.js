@@ -1,71 +1,99 @@
 import Chess from "./chess.js";
-import lib from './lib.js';
+import lib from "./lib.js";
 class ChessStore {
-    constructor(level) {
-        // this.level = level; // 商店等級
-        this.stock = []; // 商品庫存
-        this.generateStock()
-    }
+  constructor(level) {
+    // this.level = level; // 商店等級
+    this.stock = []; // 商品庫存
+    this.generateStock();
+    this.User = null;
+  }
 
-    // 升級商店
-    upgrade() {
-        this.level++;
-    }
+  // 升級商店
+  upgrade() {
+    this.level++;
+  }
 
-    // 隨機生成商品庫存
-    generateStock() {
-        const races = ["cavalry", "shield", "spearman", "archer", "handCannoneer", "horseArcher"];
-        this.stock = [];
-        for (let i = 0; i < 5; i++) { // 每次生成五種商品
-            const race = races[Math.floor(Math.random() * races.length)];
-            // 旗子金額
-            this.stock.push(race);
-        }
+  // 隨機生成商品庫存
+  generateStock() {
+    const races = [
+      "cavalry",
+      "shield",
+      "spearman",
+      "archer",
+      "handCannoneer",
+      "horseArcher",
+    ];
+    this.stock = [];
+    for (let i = 0; i < 5; i++) {
+      // 每次生成五種商品
+      const race = races[Math.floor(Math.random() * races.length)];
+      const piece = new Chess(race);
+      // 旗子金額
+      this.stock.push(piece);
     }
+  }
 
-    // 展示商品庫存
-    displayStock() {
-        return this.stock
-    }
+  // 展示商品庫存
+  displayStock() {
+    return this.stock;
+  }
 
-    // 購買商品
-    purchase(index) {
-        if (index < 0 || index > 5) {
-            console.log("Invalid index.");
-            return;
-        }
-        // 判斷玩家金額
-        const piece = this.stock.splice(index, 1, ''); // 從庫存中移除已購買的商品
-        this.renderShop()
-        return piece;
+  // 購買商品
+  purchase(index) {
+    if (index < 0 || index > 5) {
+      console.log("Invalid index.");
+      return;
     }
+    // 判斷玩家金額
+    const _user = this.User;
+    const _userMoney = _user.getMoney();
+    const _userMaxPieces = _user.maxPieces;
+    const _userPieceLength = _user.displayPiecesLength();
+    const _chess = this.stock[index];
+    const _chessMoney = _chess.price;
+    if (_userMoney < _chessMoney) {
+      alert("玩家金額不足");
+      return;
+    }
+    if (_userMaxPieces <= _userPieceLength) {
+      alert("棋子已滿");
+      return;
+    }
+    const piece = this.stock.splice(index, 1, "")[0]; // 從庫存中移除已購買的商品
+    _user.buyPiece(piece);
+    this.renderShop();
+    return piece;
+  }
 
-    render() {
-        this.renderShop()
-    }
+  render() {
+    this.renderShop();
+  }
 
-    renderShop() {
-        const _this = this
-        const storeList = this.displayStock()
-        const parent = document.querySelector('.shop-wrap')
-        parent.textContent = ''
-        storeList.forEach((item, index) => {
-            const ChessItem = new Chess(item)
-            const chessWrap = lib.createDOM("div", "", {
-                className: "chess-item-wrap",
-            });
-            const elementDiv = lib.createDOM('button', ChessItem.name, {
-                className: 'chess-item'
-            })
-            elementDiv.addEventListener('click', () => {
-                const _chess = _this.purchase(index)
-            })
-            chessWrap.appendChild(elementDiv)
-            parent.appendChild(chessWrap)
-        })
-    }
+  renderShop() {
+    const _this = this;
+    const storeList = this.displayStock();
+    const parent = document.querySelector(".shop-piece");
+    parent.textContent = "";
+    storeList.forEach((item, index) => {
+      const chessWrap = lib.createDOM("div", "", {
+        className: "chess-item-wrap",
+      });
+      const elementDiv = lib.createDOM("button", item.name, {
+        className: "chess-item",
+      });
+      elementDiv.addEventListener("click", () => {
+        const _chess = _this.purchase(index);
+      });
+      chessWrap.appendChild(elementDiv);
+      parent.appendChild(chessWrap);
+    });
+  }
+
+  setUserObject(User) {
+    this.User = User;
+  }
 }
-export default ChessStore
+export default ChessStore;
 // 創建一個商店
 // const store = new ChessStore(1);
 
