@@ -51,6 +51,7 @@ class ChessStore {
     const _userPieceLength = _user.displayPiecesLength();
     const _chess = this.stock[index];
     const _chessMoney = _chess.price;
+    if (!_chess) return;
     if (_userMoney < _chessMoney) {
       alert("玩家金額不足");
       return;
