@@ -1,6 +1,7 @@
 import Board from "./board.js";
 import Chess from "./chess.js";
 import lib from "./lib.js";
+import chessDefaultList from "./chessList.json" assert { type: "json" };
 class User {
   constructor(maxPieces, money, health) {
     this.maxPieces = maxPieces || 6; // 最大棋子數量
@@ -23,9 +24,13 @@ class User {
   }
   testAddPiece() {
     const chess = new Chess("cavalry");
-    const chess2 = new Chess("shield");
+    const chess2 = new Chess("cavalry");
+    const chess3 = new Chess("cavalry", 2);
+    const chess4 = new Chess("cavalry", 2);
     this.addPiece(chess);
     this.addPiece(chess2);
+    this.addPiece(chess3);
+    this.addPiece(chess4);
   }
 
   // 新增一個棋子
@@ -41,10 +46,15 @@ class User {
   buyPiece(piece) {
     this.money = this.money - piece.price;
     this.addPiece(piece);
+    this.makeupPieceLevel();
   }
 
   getPiece(index) {
     return this.storage[index];
+  }
+
+  getStorage() {
+    return this.storage;
   }
 
   setPiece(oldIndex, index, piece) {
@@ -109,7 +119,7 @@ class User {
       const pieceWrap = lib.createDOM("div", "", {
         className: "user-piece-item-wrap",
       });
-      const pieceDiv = lib.createDOM("div", piece?.name, {
+      const pieceDiv = lib.createDOM("div", piece?.chname, {
         className: "user-piece-item",
       });
 
@@ -152,6 +162,58 @@ class User {
     const moneyDiv = lib.createDOM("span", _userMoney);
     _moneyDom.innerHTML = "";
     _moneyDom.appendChild(moneyDiv);
+  }
+
+  makeupPieceLevel() {
+    const chessNameList = [];
+    for (const key in chessDefaultList) {
+      const chessName = chessDefaultList[key].name;
+      chessNameList.push(chessName);
+    }
+    const getTotalChess = () => {
+      return [
+        ...this.Board.displayBoard().flat(Infinity),
+        ...this.getStorage(),
+      ];
+    };
+
+    let chessLevel = 1;
+    const repeatChessFunc = (list) => {
+      const groupChessList = chessNameList.map((name) => {
+        return list.filter(
+          (item) => item?.name === name && item?.level === chessLevel
+        );
+      });
+      const repeatChess = groupChessList.find((e) => e.length >= 3);
+      if (repeatChess) {
+        const getRepeatChess = (list) => {
+          return list.reduce((list, item, index) => {
+            if (!item) return list;
+            if (item.name !== repeatName) return list;
+            if (item.level !== chessLevel) return list;
+            list.push(index);
+            return list;
+          }, []);
+        };
+        const removeForeach = (list, Class) => {
+          list.forEach((e) => {
+            Class.removePiece(e);
+          });
+        };
+        const repeatName = repeatChess[0].name;
+        const boardRepeatChess = getRepeatChess(
+          this.Board.displayBoard().flat(Infinity)
+        );
+        const userRepeatChess = getRepeatChess(this.getStorage());
+        removeForeach(boardRepeatChess, this.Board);
+        removeForeach(userRepeatChess, this);
+        const chessLevelUp = new Chess(repeatName, chessLevel + 1);
+        this.addPiece(chessLevelUp);
+        chessLevel++;
+        repeatChessFunc(getTotalChess());
+      }
+    };
+    repeatChessFunc(getTotalChess());
   }
 }
 export default User;

@@ -91,7 +91,7 @@ class Board {
         const colWrap = lib.createDOM("div", "", {
           className: "board-col-item-wrap",
         });
-        const colDiv = lib.createDOM("div", col?.name, {
+        const colDiv = lib.createDOM("div", col?.chname, {
           className: "board-col-item",
         });
         colDiv.setAttribute("draggable", !!col);

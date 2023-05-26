@@ -1,57 +1,9 @@
 import lib from "./lib.js";
+import chessDefaultList from "./chessList.json" assert { type: "json" };
 class ChessPiece {
-  constructor(chessName) {
-    const chessDefault = {
-      cavalry: {
-        name: "騎兵",
-        race: "cavalry",
-        attack: 25,
-        health: 150,
-        counter: "shield",
-        price: 20,
-      },
-      shield: {
-        name: "盾兵",
-        race: "shield",
-        attack: 25,
-        health: 150,
-        counter: "spearman",
-        price: 20,
-      },
-      spearman: {
-        name: "槍兵",
-        race: "spearman",
-        attack: 25,
-        health: 150,
-        counter: "cavalry",
-        price: 20,
-      },
-      archer: {
-        name: "弓兵",
-        race: "archer",
-        attack: 40,
-        health: 75,
-        counter: "handCannoneer",
-        price: 20,
-      },
-      handCannoneer: {
-        name: "火槍兵",
-        race: "handCannoneer",
-        attack: 40,
-        health: 75,
-        counter: "horseArcher",
-        price: 20,
-      },
-      horseArcher: {
-        name: "弓騎兵",
-        race: "horseArcher",
-        attack: 40,
-        health: 75,
-        counter: "archer",
-        price: 20,
-      },
-    };
-    const chess = chessDefault[chessName];
+  constructor(chessName, level) {
+    const chess = chessDefaultList[chessName];
+    this.level = level || 1;
     Object.assign(this, chess);
   }
   // 攻擊對手棋子

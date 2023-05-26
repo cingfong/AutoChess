@@ -79,7 +79,7 @@ class ChessStore {
       const chessWrap = lib.createDOM("div", "", {
         className: "chess-item-wrap",
       });
-      const elementDiv = lib.createDOM("button", item.name, {
+      const elementDiv = lib.createDOM("button", item.chname, {
         className: "chess-item",
       });
       elementDiv.addEventListener("click", () => {
