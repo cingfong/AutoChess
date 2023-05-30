@@ -46,7 +46,7 @@ class ChessPiece {
   }
 
   // 頁面事件
-  drag(element, type, typeIndex, Board, User) {
+  drag(element, type, typeIndex, Board, User, Shop) {
     element.addEventListener("drag", (event) => {
       playerPieceDrag(event, element);
     });
@@ -65,6 +65,24 @@ class ChessPiece {
     element.addEventListener("dragend", (event) => {
       const _Board = Board;
       const { touchLeft, touchRight, touchTop, touchBottom } = element.dataset;
+      // 旗子被賣掉
+      if (Shop && Shop.getDisplay()) {
+        const {
+          left: ShopLeft,
+          right: ShopRight,
+          top: ShopTop,
+          bottom: SHopBottom,
+        } = Shop.getScope();
+        if (
+          ShopTop <= touchTop &&
+          ShopRight >= touchRight &&
+          SHopBottom >= touchBottom &&
+          ShopLeft <= touchLeft
+        ) {
+          console.log("chess sell");
+          return;
+        }
+      }
       // object
       const boardScopeList = _Board.getColDivScope();
       const boardIndex = boardScopeList.findIndex(

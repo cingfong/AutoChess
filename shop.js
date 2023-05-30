@@ -6,11 +6,24 @@ class ChessStore {
     this.stock = []; // 商品庫存
     this.generateStock();
     this.User = null;
+    this.display = true;
+    this.storeScope = null;
+    this.render();
   }
 
   // 升級商店
   upgrade() {
     this.level++;
+  }
+  hidden() {
+    this.display = false;
+  }
+  show() {
+    this.display = true;
+  }
+
+  getDisplay() {
+    return this.display;
   }
 
   // 隨機生成商品庫存
@@ -72,6 +85,7 @@ class ChessStore {
 
   renderShop() {
     const _this = this;
+    const shopWrap = document.querySelector(".shop-wrap");
     const storeList = this.displayStock();
     const parent = document.querySelector(".shop-piece");
     parent.textContent = "";
@@ -88,6 +102,14 @@ class ChessStore {
       chessWrap.appendChild(elementDiv);
       parent.appendChild(chessWrap);
     });
+    setTimeout(() => {
+      const { left, right, top, bottom } = shopWrap.getBoundingClientRect();
+      this.storeScope = { left, right, top, bottom };
+    });
+  }
+
+  getScope() {
+    return this.storeScope;
   }
 
   setUserObject(User) {

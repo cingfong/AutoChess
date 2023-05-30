@@ -1,5 +1,6 @@
 import Board from "./board.js";
 import Chess from "./chess.js";
+import Shop from "./shop.js";
 import lib from "./lib.js";
 import chessDefaultList from "./chessList.json" assert { type: "json" };
 class User {
@@ -10,6 +11,8 @@ class User {
     this.storage = [null, null, null, null, null, null]; // 玩家擁有的棋子
     // this.storage = ['騎兵', '盾兵', '槍兵', '弓兵', '火槍兵', '弓騎兵']
     this.Board = new Board();
+    this.Shop = new Shop();
+    this.Shop.setUserObject(this);
     this.storageDivScope = [];
     // 模擬事件
     this.testAddPiece();
@@ -125,7 +128,7 @@ class User {
 
       pieceDiv.setAttribute("draggable", !!piece);
       if (piece) {
-        piece.drag(pieceDiv, "user", pieceIndex, this.Board, this);
+        piece.drag(pieceDiv, "user", pieceIndex, this.Board, this, this.Shop);
       }
       pieceWrap.appendChild(pieceDiv);
       storeDivList.push(pieceWrap);
