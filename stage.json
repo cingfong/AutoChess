@@ -1,0 +1,24 @@
+{
+  "level1": {
+    "chessList": [
+      [null, null, null],
+      [{ "race": "cavalry", "level": 1 }, null, null],
+      [{ "race": "shield", "level": 1 }, null, null]
+    ]
+  },
+  "level2": {
+    "chessList": [
+      [null, null, null],
+      [
+        { "race": "cavalry", "level": 1 },
+        { "race": "cavalry", "level": 1 },
+        null
+      ],
+      [
+        { "race": "shield", "level": 2 },
+        { "race": "shield", "level": 1 },
+        { "race": "shield", "level": 1 }
+      ]
+    ]
+  }
+}
