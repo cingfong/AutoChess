@@ -47,18 +47,6 @@
         // renderStore()
       }
       function mainRender() {
-        shopAddEvent();
-      }
-      function shopAddEvent() {
-        const shopCloseBtn = document.querySelector(".shop-close");
-        const shopWrap = document.querySelector(".shop-wrap");
-        const shopShowBtn = document.querySelector(".shop-show-btn");
-        shopCloseBtn.addEventListener("click", () => {
-          shopWrap.style.display = "none";
-        });
-        shopShowBtn.addEventListener("click", () => {
-          shopWrap.style.display = "flex";
-        });
       }
       // 動畫觀測器
       // window.requestAnimationFrame(() => {

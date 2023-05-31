@@ -105,6 +105,21 @@ class ChessStore {
     setTimeout(() => {
       const { left, right, top, bottom } = shopWrap.getBoundingClientRect();
       this.storeScope = { left, right, top, bottom };
+      this.shopAddEvent();
+    });
+  }
+
+  shopAddEvent() {
+    const shopCloseBtn = document.querySelector(".shop-close");
+    const shopWrap = document.querySelector(".shop-wrap");
+    const shopShowBtn = document.querySelector(".shop-show-btn");
+    shopCloseBtn.addEventListener("click", () => {
+      shopWrap.style.display = "none";
+      this.hidden();
+    });
+    shopShowBtn.addEventListener("click", () => {
+      shopWrap.style.display = "flex";
+      this.show();
     });
   }
 
