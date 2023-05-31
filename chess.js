@@ -33,6 +33,12 @@ class ChessPiece {
     return this.counter;
   }
 
+  getPrice() {
+    const chessNum = 3 ** (this.level - 1);
+    if (this.level === 1) return this.price;
+    return this.price * 0.8 * chessNum;
+  }
+
   // 獲取加成
   getBonus() {
     const levelBonusList = [1, 1.6, 1.5, 1.4, 1.3, 1.5];
@@ -79,7 +85,9 @@ class ChessPiece {
           SHopBottom >= touchBottom &&
           ShopLeft <= touchLeft
         ) {
-          console.log("chess sell");
+          const sellPrice = this.getPrice();
+          User.removePiece(typeIndex);
+          User.sellChess(sellPrice);
           return;
         }
       }

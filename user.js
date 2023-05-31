@@ -52,6 +52,11 @@ class User {
     this.makeupPieceLevel();
   }
 
+  sellChess(price) {
+    this.money = this.money + price;
+    this.renderMoney();
+  }
+
   getPiece(index) {
     return this.storage[index];
   }
@@ -95,14 +100,14 @@ class User {
   }
 
   // 移除一個棋子
-  sellPiece(piece) {
-    const index = this.storage.indexOf(piece);
-    if (index === -1) {
-      console.log("You do not have this piece.");
-      return;
-    }
-    this.storage.splice(index, 1);
-  }
+  // sellPiece(piece) {
+  //   const index = this.storage.indexOf(piece);
+  //   if (index === -1) {
+  //     console.log("You do not have this piece.");
+  //     return;
+  //   }
+  //   this.storage.splice(index, 1);
+  // }
 
   // 顯示玩家擁有的棋子
   displayPieces() {
