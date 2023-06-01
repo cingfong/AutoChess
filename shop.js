@@ -8,7 +8,6 @@ class ChessStore {
     this.User = null;
     this.display = true;
     this.storeScope = null;
-    this.render();
   }
 
   // 升級商店

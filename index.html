@@ -7,9 +7,10 @@
     <title>Document</title>
   </head>
   <body>
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./prepare.css" />
+    <link rel="stylesheet" href="./fight.css" />
     <div id="app">
-      <div class="wrap">
+      <div class="prepare-wrap">
         <div class="board-wrap"></div>
         <div class="user-piece-wrap"></div>
         <div class="shop-wrap">
@@ -23,6 +24,7 @@
         </div>
         <div class="shop-show-btn">商店</div>
       </div>
+      <!-- <div class="fight-wrap"></div> -->
     </div>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script type="module">
@@ -34,25 +36,30 @@
 
       // const Board = new Table
       // const Store = new Shop();
-      const Player = new User();
       // Store.setUserObject(Player);
       // const Chessman = new Chess({ Player: Player })
       // 商店
       // 棋盤
-      function render() {
-        // Store.render();
-        mainRender();
-        // Board.renderBoard()
-        // Chessman.render()
-        // renderStore()
+      function mainRnder() {
+        const _globalAutoChess = {
+          Player: new User(),
+          prepareRender: function () {
+            this.Player.render();
+          },
+          getUser: function () {
+            return this.Player;
+          },
+          fightRender: function () {},
+        };
+        window._globalAutoChess = _globalAutoChess;
+        _globalAutoChess.prepareRender();
       }
-      function mainRender() {
-      }
+      mainRnder();
       // 動畫觀測器
       // window.requestAnimationFrame(() => {
       // })
       // renderPiece()
-      render();
+      // render();
       window.onload = () => {
         console.log("load");
       };

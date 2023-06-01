@@ -9,21 +9,19 @@ class User {
     this.money = money || 100; // 玩家擁有的金額
     this.health = health || 100; // 玩家的血量
     this.storage = [null, null, null, null, null, null]; // 玩家擁有的棋子
-    // this.storage = ['騎兵', '盾兵', '槍兵', '弓兵', '火槍兵', '弓騎兵']
     this.Board = new Board();
     this.Shop = new Shop();
     this.Shop.setUserObject(this);
     this.storageDivScope = [];
     // 模擬事件
-    this.testAddPiece();
-
-    // 渲染
-    this.render();
+    // this.testAddPiece();
   }
 
   render() {
     this.renderStoragePiece();
     this.renderMoney();
+    this.Board.render();
+    this.Shop.render();
   }
   testAddPiece() {
     const chess = new Chess("cavalry");

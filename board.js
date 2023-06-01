@@ -8,9 +8,10 @@ class Board {
     this.colDivScope = [];
     this.User = null;
     this.createBoard();
+  }
+  render() {
     this.renderBoard();
   }
-
   // 創建棋盤
   createBoard() {
     const board = new Array(this.rows);
