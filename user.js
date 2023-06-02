@@ -14,7 +14,7 @@ class User {
     this.Shop.setUserObject(this);
     this.storageDivScope = [];
     // 模擬事件
-    // this.testAddPiece();
+    this.testAddPiece();
   }
 
   render() {
@@ -30,12 +30,15 @@ class User {
   testAddPiece() {
     const chess = new Chess("cavalry");
     const chess2 = new Chess("cavalry");
-    const chess3 = new Chess("cavalry", 2);
-    const chess4 = new Chess("cavalry", 2);
-    this.addPiece(chess);
-    this.addPiece(chess2);
-    this.addPiece(chess3);
-    this.addPiece(chess4);
+
+    this.Board.setPiece(null, 2, chess);
+    this.Board.setPiece(null, 1, chess2);
+    // const chess3 = new Chess("cavalry", 2);
+    // const chess4 = new Chess("cavalry", 2);
+    // this.addPiece(chess);
+    // this.addPiece(chess2);
+    // this.addPiece(chess3);
+    // this.addPiece(chess4);
   }
 
   // 新增一個棋子

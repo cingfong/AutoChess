@@ -56,13 +56,22 @@
           fightRender: function () {
             this.Stage.renderBoard();
           },
+          fight: function () {
+            this.Stage.fight();
+          },
         };
 
         window._globalAutoChess = _globalAutoChess;
         _globalAutoChess.ready();
         _globalAutoChess.prepareRender();
+        _globalAutoChess.fightRender();
+        _globalAutoChess.fight();
+        testFightRender();
       }
-
+      function testFightRender() {
+        const fightWrap = document.querySelector(".fight-wrap");
+        fightWrap.classList.remove("hidden");
+      }
       mainRnder();
       // 動畫觀測器
       // window.requestAnimationFrame(() => {
