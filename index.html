@@ -23,37 +23,46 @@
           <div class="user-money"></div>
         </div>
         <div class="shop-show-btn">商店</div>
+        <div class="fight-show-btn">戰鬥</div>
       </div>
-      <!-- <div class="fight-wrap"></div> -->
+      <div class="fight-wrap hidden">
+        <div class="fight-board-wrap">
+          <div class="compute-board-wrap"></div>
+          <div class="user-board-wrap"></div>
+        </div>
+      </div>
     </div>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script type="module">
       import Shop from "./shop.js";
       import Chess from "./chess.js";
-      // import Table from './board.js';
       import User from "./user.js";
-      // import lib from './lib.js';
-
-      // const Board = new Table
-      // const Store = new Shop();
-      // Store.setUserObject(Player);
-      // const Chessman = new Chess({ Player: Player })
+      import Stage from "./stage.js";
       // 商店
       // 棋盤
       function mainRnder() {
         const _globalAutoChess = {
-          Player: new User(),
+          User: new User(),
+          Stage: new Stage(),
+          ready: function () {
+            this.Stage.setUserObject(this.User);
+          },
           prepareRender: function () {
-            this.Player.render();
+            this.User.render();
           },
           getUser: function () {
-            return this.Player;
+            return this.User;
           },
-          fightRender: function () {},
+          fightRender: function () {
+            this.Stage.renderBoard();
+          },
         };
+
         window._globalAutoChess = _globalAutoChess;
+        _globalAutoChess.ready();
         _globalAutoChess.prepareRender();
       }
+
       mainRnder();
       // 動畫觀測器
       // window.requestAnimationFrame(() => {
@@ -62,6 +71,12 @@
       // render();
       window.onload = () => {
         console.log("load");
+        const fightBtn = document.querySelector(".fight-show-btn");
+        const fightWrap = document.querySelector(".fight-wrap");
+        fightBtn.addEventListener("click", () => {
+          _globalAutoChess.fightRender();
+          fightWrap.classList.remove("hidden");
+        });
       };
     </script>
   </body>

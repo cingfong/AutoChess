@@ -23,6 +23,10 @@ class User {
     this.Board.render();
     this.Shop.render();
   }
+
+  getBoard() {
+    return this.Board.displayBoard();
+  }
   testAddPiece() {
     const chess = new Chess("cavalry");
     const chess2 = new Chess("cavalry");
