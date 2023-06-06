@@ -27,8 +27,16 @@ class stage {
   }
 
   renderBoard() {
+    const arrFristLastCheange = (arr) => {
+      const _arr = arr.slice();
+      const first = _arr.shift();
+      const last = _arr.pop();
+      return [last, ..._arr, first];
+    };
     const userBoardList = this.User.getBoard();
     const stageBoardList = this.getStageData().chessList;
+    // 順序調換，關卡棋子佈局與遊戲戰鬥剛好相反
+    const renderStageBoardList = arrFristLastCheange(stageBoardList);
     const userBoardWrap = document.querySelector(".user-board-wrap");
     const computeBoardWrap = document.querySelector(".compute-board-wrap");
     userBoardWrap.textContent = "";
@@ -53,7 +61,7 @@ class stage {
       });
     });
 
-    stageBoardList.forEach((row, rowIndex) => {
+    renderStageBoardList.forEach((row, rowIndex) => {
       const rowDiv = lib.createDOM("div", null, {
         className: "compute-board-row",
       });
