@@ -9,7 +9,7 @@ class ChessPiece {
   // 攻擊對手棋子
   attackPiece(opponentPiece) {
     if (opponentPiece.race === this.getCounter()) {
-      opponentPiece.health -= this.attack * 1.5;
+      opponentPiece.health -= this.attack * 2;
     } else {
       opponentPiece.health -= this.attack;
     }
