@@ -33,6 +33,10 @@ class ChessPiece {
     return this.counter;
   }
 
+  getHealth() {
+    return this.health;
+  }
+
   getPrice() {
     const chessNum = 3 ** (this.level - 1);
     if (this.level === 1) return this.price;

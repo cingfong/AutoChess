@@ -1,11 +1,13 @@
 import Chess from "./chess.js";
-import stageData from "./stageData.json" assert { type: "json" };
+import stageDataList from "./stageData.json" assert { type: "json" };
 import lib from "./lib.js";
 class stage {
   constructor() {
     this.User = null;
-    this.stageData = stageData;
+    this.stageDataList = stageDataList;
+    this.nowStage = null;
     this.level = 1;
+    this.getStageData();
   }
 
   clearance() {
@@ -14,8 +16,9 @@ class stage {
   setUserObject(User) {
     this.User = User;
   }
+
   getStageData() {
-    const _nowStageData = this.stageData[`level${this.level}`];
+    const _nowStageData = this.stageDataList[`level${this.level}`];
     _nowStageData.chessList.forEach((row, rowIndex) => {
       row.forEach((col, colIndex) => {
         if (col === null) return;
@@ -23,7 +26,7 @@ class stage {
         _nowStageData.chessList[rowIndex][colIndex] = new Chess(race, level);
       });
     });
-    return _nowStageData;
+    this.nowStage = _nowStageData;
   }
 
   renderBoard() {
@@ -34,7 +37,7 @@ class stage {
       return [last, ..._arr, first];
     };
     const userBoardList = this.User.getBoard();
-    const stageBoardList = this.getStageData().chessList;
+    const stageBoardList = this.nowStage.chessList;
     // 順序調換，關卡棋子佈局與遊戲戰鬥剛好相反
     const renderStageBoardList = arrFristLastCheange(stageBoardList);
     const userBoardWrap = document.querySelector(".user-board-wrap");
@@ -85,7 +88,7 @@ class stage {
   fight() {
     const _this = this;
     const userBoardList = this.User.getBoard();
-    const stageBoardList = this.getStageData().chessList;
+    const stageBoardList = this.nowStage.chessList;
     const userBoardIterator = userBoardList[Symbol.iterator]();
     const stageBoardIterator = stageBoardList[Symbol.iterator]();
     let userRowIndex = -1;
@@ -96,10 +99,10 @@ class stage {
       if (_item.done) {
         if (type === "user") {
           userRowIndex = -1;
-          // return getNowRowChess("user", userBoardList[Symbol.iterator]());
+          return getNowRowChess("user", userBoardList[Symbol.iterator]());
         } else {
           stageRowIndex = -1;
-          // return getNowRowChess("stage", stageBoardList[Symbol.iterator]());
+          return getNowRowChess("stage", stageBoardList[Symbol.iterator]());
         }
       }
       if (type === "user") userRowIndex++;
@@ -122,23 +125,30 @@ class stage {
         attacker,
         eval(`${attacker}BoardIterator`)
       ).value;
+      const receiverBoardList = eval(`${receiver}BoardList`);
       attackerChessList.forEach((attackChess, colIndex) => {
-        if (!attackChess) return;
-        // const attackRowIndex = eval(`${type}RowIndex`);
+        if (!attackChess || !attackChess.health || winner) return;
         const receiverChess = _this.getEnemyChess(attacker, colIndex);
         attackChess.attackPiece(receiverChess);
+        const receiverChessSurvive = receiverBoardList
+          .flat()
+          .some((e) => e?.health);
+        if (!receiverChessSurvive) {
+          winner = attacker;
+        }
       });
       // 輪流攻擊
-      fightForeach(receiver);
+      if (!winner) {
+        fightForeach(receiver);
+      }
     }
     // 由玩家先攻擊
-    // console.log(this.getStageData());
     return fightForeach("user");
   }
 
   getEnemyChess(type, index) {
     let enemyChessList, orderIndex;
-    if (type === "user") enemyChessList = this.getStageData().chessList;
+    if (type === "user") enemyChessList = this.nowStage.chessList;
     else enemyChessList = this.User.getBoard();
     switch (index) {
       case 0:
@@ -155,6 +165,7 @@ class stage {
     enemyChessList.some((rowList) => {
       return orderIndex.some((index) => {
         if (!rowList[index]) return false;
+        if (!rowList[index].health) return false;
         enemyChess = rowList[index];
         return true;
       });
