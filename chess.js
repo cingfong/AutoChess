@@ -4,6 +4,7 @@ class ChessPiece {
   constructor(chessName, level) {
     const chess = chessDefaultList[chessName];
     this.level = level || 1;
+    this.backgroundElement = null;
     this.element = null;
     Object.assign(this, chess);
     this.fullHealth = this.health;
@@ -27,9 +28,12 @@ class ChessPiece {
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
       );
     }
-    opponentPiece.element.style.height = `${
-      (1 - opponentPiece.health / opponentPiece.fullHealth) * 100
-    }%`;
+    opponentPiece.backgroundElement.style.height = `${(1 - opponentPiece.health / opponentPiece.fullHealth) * 100
+      }%`;
+  }
+
+  setBackgroundElement(element) {
+    this.backgroundElement = element;
   }
 
   setElement(element) {

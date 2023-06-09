@@ -58,14 +58,15 @@ class stage {
         const colDiv = lib.createDOM("div", col?.chname, {
           className: "user-board-col-item",
         });
-        const colDivBackgound = lib.createDOM("div", "", {
+        const colDivBackground = lib.createDOM("div", "", {
           className: "user-board-col-item-background",
         });
         if (col) {
-          col.setElement(colDivBackgound);
+          col.setBackgroundElement(colDivBackground);
+          col.setElement(colDiv);
         }
 
-        colDiv.appendChild(colDivBackgound);
+        colDiv.appendChild(colDivBackground);
         colWrap.appendChild(colDiv);
         rowDiv.appendChild(colWrap);
       });
@@ -85,14 +86,15 @@ class stage {
         const colDiv = lib.createDOM("div", col?.chname, {
           className: "compute-board-col-item",
         });
-        const colDivBackgound = lib.createDOM("div", "", {
+        const colDivBackground = lib.createDOM("div", "", {
           className: "compute-board-col-item-background",
         });
         if (col) {
-          col.setElement(colDivBackgound);
+          col.setBackgroundElement(colDivBackground);
+          col.setElement(colDiv);
         }
 
-        colDiv.appendChild(colDivBackgound);
+        colDiv.appendChild(colDivBackground);
 
         colWrap.appendChild(colDiv);
         rowDiv.appendChild(colWrap);
@@ -146,6 +148,7 @@ class stage {
         if (!attackChess || !attackChess.health || winner) continue;
         await delay(1000);
         const receiverChess = _this.getEnemyChess(attacker, colIndex);
+        await animation(attackChess, receiverChess, attacker)
         attackChess.attackPiece(receiverChess);
         const receiverChessSurvive = receiverBoardList
           .flat()
@@ -156,6 +159,26 @@ class stage {
       }
       async function delay(duration) {
         return new Promise((resolve) => setTimeout(resolve, duration));
+      }
+      async function animation(attack, receive, type) {
+        return new Promise((resolve) => setTimeout(() => {
+          const attackChess = attack.element
+          const receiveChess = receive.element
+          const receiveChessLeft = receiveChess.offsetLeft
+          const receiveChessTop = receiveChess.offsetTop
+          const typeHeight = type === 'user' ? 60 : -60
+          attack.element.style.position = 'fixed'
+          attack.element.style.left = `${receiveChessLeft}px`
+          attack.element.style.top = `${receiveChessTop + typeHeight}px`
+          resolve()
+        }, 200)
+        ).then(v => {
+          setTimeout(() => {
+            attack.element.style.position = 'relative'
+            attack.element.style.left = 'auto'
+            attack.element.style.top = 'auto'
+          }, 200)
+        })
       }
       // 輪流攻擊
       if (!winner) {
