@@ -89,8 +89,8 @@ class stage {
     const _this = this;
     const userBoardList = this.User.getBoard();
     const stageBoardList = this.nowStage.chessList;
-    const userBoardIterator = userBoardList[Symbol.iterator]();
-    const stageBoardIterator = stageBoardList[Symbol.iterator]();
+    let userBoardIterator = userBoardList.values();
+    let stageBoardIterator = stageBoardList.values();
     let userRowIndex = -1;
     let stageRowIndex = -1;
     const getNowRowChess = (type, arriIerator) => {
@@ -99,16 +99,17 @@ class stage {
       if (_item.done) {
         if (type === "user") {
           userRowIndex = -1;
-          return getNowRowChess("user", userBoardList[Symbol.iterator]());
+          userBoardIterator = userBoardList.values();
+          return getNowRowChess("user", userBoardIterator);
         } else {
           stageRowIndex = -1;
-          return getNowRowChess("stage", stageBoardList[Symbol.iterator]());
+          stageBoardIterator = stageBoardList.values();
+          return getNowRowChess("stage", stageBoardIterator);
         }
       }
       if (type === "user") userRowIndex++;
       else stageRowIndex++;
-      if (_item.value || _item.done) return _item;
-      return getNowRowChess(type, arriIerator);
+      if (_item.value && !_item.done) return _item;
     };
     function fightForeach(type) {
       let winner = null;
@@ -139,7 +140,9 @@ class stage {
       });
       // 輪流攻擊
       if (!winner) {
-        fightForeach(receiver);
+        return fightForeach(receiver);
+      } else {
+        return winner;
       }
     }
     // 由玩家先攻擊

@@ -57,7 +57,7 @@
             this.Stage.renderBoard();
           },
           fight: function () {
-            this.Stage.fight();
+            return this.Stage.fight();
           },
         };
 
@@ -65,7 +65,8 @@
         _globalAutoChess.ready();
         _globalAutoChess.prepareRender();
         _globalAutoChess.fightRender();
-        _globalAutoChess.fight();
+        const winner = _globalAutoChess.fight();
+        console.log(winner);
         testFightRender();
       }
       function testFightRender() {
