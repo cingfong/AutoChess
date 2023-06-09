@@ -58,7 +58,14 @@ class stage {
         const colDiv = lib.createDOM("div", col?.chname, {
           className: "user-board-col-item",
         });
+        const colDivBackgound = lib.createDOM("div", "", {
+          className: "user-board-col-item-background",
+        });
+        if (col) {
+          col.setElement(colDivBackgound);
+        }
 
+        colDiv.appendChild(colDivBackgound);
         colWrap.appendChild(colDiv);
         rowDiv.appendChild(colWrap);
       });
@@ -78,6 +85,14 @@ class stage {
         const colDiv = lib.createDOM("div", col?.chname, {
           className: "compute-board-col-item",
         });
+        const colDivBackgound = lib.createDOM("div", "", {
+          className: "compute-board-col-item-background",
+        });
+        if (col) {
+          col.setElement(colDivBackgound);
+        }
+
+        colDiv.appendChild(colDivBackgound);
 
         colWrap.appendChild(colDiv);
         rowDiv.appendChild(colWrap);
@@ -111,7 +126,7 @@ class stage {
       else stageRowIndex++;
       if (_item.value && !_item.done) return _item;
     };
-    function fightForeach(type) {
+    async function fightForeach(type) {
       let winner = null;
       if (winner) return winner;
       let attacker, receiver;
@@ -127,8 +142,9 @@ class stage {
         eval(`${attacker}BoardIterator`)
       ).value;
       const receiverBoardList = eval(`${receiver}BoardList`);
-      attackerChessList.forEach((attackChess, colIndex) => {
-        if (!attackChess || !attackChess.health || winner) return;
+      for (const [colIndex, attackChess] of attackerChessList.entries()) {
+        if (!attackChess || !attackChess.health || winner) continue;
+        await delay(1000);
         const receiverChess = _this.getEnemyChess(attacker, colIndex);
         attackChess.attackPiece(receiverChess);
         const receiverChessSurvive = receiverBoardList
@@ -137,7 +153,10 @@ class stage {
         if (!receiverChessSurvive) {
           winner = attacker;
         }
-      });
+      }
+      async function delay(duration) {
+        return new Promise((resolve) => setTimeout(resolve, duration));
+      }
       // 輪流攻擊
       if (!winner) {
         return fightForeach(receiver);

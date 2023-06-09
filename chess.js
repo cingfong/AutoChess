@@ -4,14 +4,20 @@ class ChessPiece {
   constructor(chessName, level) {
     const chess = chessDefaultList[chessName];
     this.level = level || 1;
+    this.element = null;
     Object.assign(this, chess);
+    this.fullHealth = this.health;
   }
   // 攻擊對手棋子
   attackPiece(opponentPiece) {
+    const attackRandom = Math.floor(
+      this.attack * ((Math.random(4) + 8) / 10),
+      2
+    );
     if (opponentPiece.race === this.getCounter()) {
-      opponentPiece.health -= this.attack * 2;
+      opponentPiece.health -= attackRandom * 2;
     } else {
-      opponentPiece.health -= this.attack;
+      opponentPiece.health -= attackRandom;
     }
     if (opponentPiece.health <= 0) {
       opponentPiece.health = 0;
@@ -21,6 +27,13 @@ class ChessPiece {
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
       );
     }
+    opponentPiece.element.style.height = `${
+      (1 - opponentPiece.health / opponentPiece.fullHealth) * 100
+    }%`;
+  }
+
+  setElement(element) {
+    this.element = element;
   }
 
   // 獲取種族

@@ -65,8 +65,9 @@
         _globalAutoChess.ready();
         _globalAutoChess.prepareRender();
         _globalAutoChess.fightRender();
-        const winner = _globalAutoChess.fight();
-        console.log(winner);
+        _globalAutoChess.fight().then((winner) => {
+          console.log("winner: " + winner);
+        });
         testFightRender();
       }
       function testFightRender() {
