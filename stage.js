@@ -57,9 +57,10 @@ class stage {
         const colWrap = lib.createDOM("div", "", {
           className: "user-board-col-item-wrap",
         });
-        const colDiv = lib.createDOM("div", col?.chname, {
+        const colDiv = lib.createDOM("div", "", {
           className: "user-board-col-item",
         });
+        const colSpan = lib.createDOM('span', col?.chname, {})
         const colDivBackground = lib.createDOM("div", "", {
           className: "user-board-col-item-background",
         });
@@ -68,6 +69,7 @@ class stage {
           col.setElement(colDiv);
         }
 
+        colDiv.appendChild(colSpan);
         colDiv.appendChild(colDivBackground);
         colWrap.appendChild(colDiv);
         rowDiv.appendChild(colWrap);
@@ -85,9 +87,10 @@ class stage {
         const colWrap = lib.createDOM("div", "", {
           className: "compute-board-col-item-wrap",
         });
-        const colDiv = lib.createDOM("div", col?.chname, {
+        const colDiv = lib.createDOM("div", "", {
           className: "compute-board-col-item",
         });
+        const colSpan = lib.createDOM('span', col?.chname, {})
         const colDivBackground = lib.createDOM("div", "", {
           className: "compute-board-col-item-background",
         });
@@ -96,6 +99,7 @@ class stage {
           col.setElement(colDiv);
         }
 
+        colDiv.appendChild(colSpan);
         colDiv.appendChild(colDivBackground);
 
         colWrap.appendChild(colDiv);
@@ -197,6 +201,7 @@ class stage {
             attackChess.classList.remove("attack-move-chess");
             receiveChess.classList.add("revice-move-chess");
             receiveChess.style.top = `${receiveChessTop + receiveEffect}px`;
+            callBack();
             setTimeout(() => {
               console.log("b");
               resolve();
@@ -206,43 +211,70 @@ class stage {
         function animation3() {
           return new Promise((resolve, reject) => {
             receiveChess.style.top = `${receiveChessTop}px`;
-            callBack();
             setTimeout(() => {
               console.log("c");
               resolve();
             }, 500);
           });
         }
+        function animation4() {
+          return new Promise((resolve, reject) => {
+            const chessPosition = {
+              left: attackOriginLeft,
+              top: attackOriginTop,
+            };
+            chessMove(attack, 1000, chessPosition);
+            attackChess.classList.remove("revice-move-chess");
+            attackChess.classList.add("attack-move-chess");
+            setTimeout(() => {
+              console.log("a");
+              resolve();
+            }, 1000);
+          });
+        }
+        function animation5() {
+          return new Promise((resolve, reject) => {
+            attackChess.style.zIndex = 1
+            setTimeout(() => {
+              resolve();
+            }, 10);
+          });
+        }
         await animation1();
         await animation2();
         await animation3();
+        await animation4();
+        await animation5();
       }
       function chessMove(chess, time, position) {
         const { left: endLeft, top: endTop } = position;
         const chessLeft = chess.element.offsetLeft;
         const chessTop = chess.element.offsetTop;
         let timeSplit = (time / 1000) * 60;
-        const timeSplitTotal = timeSplit;
-        const moveLeft = (endLeft - chessLeft) / (timeSplitTotal / 2);
-        const moveTop = (endTop - chessTop) / (timeSplitTotal / 2);
-        move();
-        function move() {
-          window.requestAnimationFrame(() => {
-            if (timeSplit > timeSplitTotal / 2) {
-              chess.element.style.left = `${endLeft}px`;
-              chess.element.style.top = `${endTop}px`;
-            } else if (timeSplit > 0) {
-              chess.element.style.left = `${chessLeft}px`;
-              chess.element.style.top = `${chessTop}px`;
-            } else if (timeSplit === 0) {
-              // chess.element.style.position = "relative";
-              // chess.element.style.left = "auto";
-              // chess.element.style.top = "auto";
-            }
-            timeSplit--;
-            move();
-          });
-        }
+        // const timeSplitTotal = timeSplit;
+        // const moveLeft = (endLeft - chessLeft) / timeSplit;
+        // const moveTop = (endTop - chessTop) / timeSplit;
+        chess.element.style.zIndex = 2
+        chess.element.style.left = `${endLeft}px`;
+        chess.element.style.top = `${endTop}px`;
+        // move();
+        // function move() {
+        // window.requestAnimationFrame(() => {
+        //   if (timeSplit > timeSplitTotal / 2) {
+        //     chess.element.style.left = `${endLeft}px`;
+        //     chess.element.style.top = `${endTop}px`;
+        //   } else if (timeSplit > 0) {
+        //     chess.element.style.left = `${chessLeft}px`;
+        //     chess.element.style.top = `${chessTop}px`;
+        //   } else if (timeSplit === 0) {
+        //     // chess.element.style.position = "relative";
+        //     // chess.element.style.left = "auto";
+        //     // chess.element.style.top = "auto";
+        //   }
+        //   timeSplit--;
+        //   move();
+        // });
+        // }
       }
       // 輪流攻擊
       if (!winner) {
