@@ -7,6 +7,8 @@ class stage {
     this.stageDataList = stageDataList;
     this.nowStage = null;
     this.level = 1;
+    this.speedLsit = [1, 2, 3];
+    this.speedIndex = 0;
     this.getStageData();
   }
 
@@ -148,8 +150,10 @@ class stage {
         if (!attackChess || !attackChess.health || winner) continue;
         await delay(1000);
         const receiverChess = _this.getEnemyChess(attacker, colIndex);
-        await animation(attackChess, receiverChess, attacker)
-        attackChess.attackPiece(receiverChess);
+        await animation(attackChess, receiverChess, attacker, attack);
+        function attack() {
+          attackChess.attackPiece(receiverChess);
+        }
         const receiverChessSurvive = receiverBoardList
           .flat()
           .some((e) => e?.health);
@@ -160,25 +164,85 @@ class stage {
       async function delay(duration) {
         return new Promise((resolve) => setTimeout(resolve, duration));
       }
-      async function animation(attack, receive, type) {
-        return new Promise((resolve) => setTimeout(() => {
-          const attackChess = attack.element
-          const receiveChess = receive.element
-          const receiveChessLeft = receiveChess.offsetLeft
-          const receiveChessTop = receiveChess.offsetTop
-          const typeHeight = type === 'user' ? 60 : -60
-          attack.element.style.position = 'fixed'
-          attack.element.style.left = `${receiveChessLeft}px`
-          attack.element.style.top = `${receiveChessTop + typeHeight}px`
-          resolve()
-        }, 200)
-        ).then(v => {
-          setTimeout(() => {
-            attack.element.style.position = 'relative'
-            attack.element.style.left = 'auto'
-            attack.element.style.top = 'auto'
-          }, 200)
-        })
+      async function animation(attack, receive, type, callBack) {
+        const attackChess = attack.element;
+        const attackOriginLeft = attackChess.offsetLeft;
+        const attackOriginTop = attackChess.offsetTop;
+        const receiveChess = receive.element;
+        const receiveChessLeft = receiveChess.offsetLeft;
+        const receiveChessTop = receiveChess.offsetTop;
+        const typeHeight = type === "user" ? 60 : -60;
+        attackChess.style.position = "fixed";
+        receiveChess.style.position = "fixed";
+        function animation1() {
+          return new Promise((resolve, reject) => {
+            attack.element.style.left = `${attackOriginLeft}px`;
+            attack.element.style.top = `${attackOriginTop}px`;
+            attackChess.classList.remove("revice-move-chess");
+            attackChess.classList.add("attack-move-chess");
+            const chessPosition = {
+              left: receiveChessLeft,
+              top: receiveChessTop + typeHeight,
+            };
+            chessMove(attack, 1000, chessPosition);
+            setTimeout(() => {
+              console.log("a");
+              resolve();
+            }, 1000);
+          });
+        }
+        function animation2() {
+          return new Promise((resolve, reject) => {
+            const receiveEffect = type === "user" ? -20 : 20;
+            attackChess.classList.remove("attack-move-chess");
+            receiveChess.classList.add("revice-move-chess");
+            receiveChess.style.top = `${receiveChessTop + receiveEffect}px`;
+            setTimeout(() => {
+              console.log("b");
+              resolve();
+            }, 500);
+          });
+        }
+        function animation3() {
+          return new Promise((resolve, reject) => {
+            receiveChess.style.top = `${receiveChessTop}px`;
+            callBack();
+            setTimeout(() => {
+              console.log("c");
+              resolve();
+            }, 500);
+          });
+        }
+        await animation1();
+        await animation2();
+        await animation3();
+      }
+      function chessMove(chess, time, position) {
+        const { left: endLeft, top: endTop } = position;
+        const chessLeft = chess.element.offsetLeft;
+        const chessTop = chess.element.offsetTop;
+        let timeSplit = (time / 1000) * 60;
+        const timeSplitTotal = timeSplit;
+        const moveLeft = (endLeft - chessLeft) / (timeSplitTotal / 2);
+        const moveTop = (endTop - chessTop) / (timeSplitTotal / 2);
+        move();
+        function move() {
+          window.requestAnimationFrame(() => {
+            if (timeSplit > timeSplitTotal / 2) {
+              chess.element.style.left = `${endLeft}px`;
+              chess.element.style.top = `${endTop}px`;
+            } else if (timeSplit > 0) {
+              chess.element.style.left = `${chessLeft}px`;
+              chess.element.style.top = `${chessTop}px`;
+            } else if (timeSplit === 0) {
+              // chess.element.style.position = "relative";
+              // chess.element.style.left = "auto";
+              // chess.element.style.top = "auto";
+            }
+            timeSplit--;
+            move();
+          });
+        }
       }
       // 輪流攻擊
       if (!winner) {
