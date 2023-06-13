@@ -60,7 +60,11 @@ class stage {
         const colDiv = lib.createDOM("div", "", {
           className: "user-board-col-item",
         });
-        const colSpan = lib.createDOM('span', col?.chname, {})
+        const colEffect = lib.createDOM("div", "", {
+          className:
+            "user-board-col-item-effect-wrap board-col-item-effect-wrap",
+        });
+        const colSpan = lib.createDOM("span", col?.chname, {});
         const colDivBackground = lib.createDOM("div", "", {
           className: "user-board-col-item-background",
         });
@@ -69,6 +73,7 @@ class stage {
           col.setElement(colDiv);
         }
 
+        colDiv.appendChild(colEffect);
         colDiv.appendChild(colSpan);
         colDiv.appendChild(colDivBackground);
         colWrap.appendChild(colDiv);
@@ -90,7 +95,11 @@ class stage {
         const colDiv = lib.createDOM("div", "", {
           className: "compute-board-col-item",
         });
-        const colSpan = lib.createDOM('span', col?.chname, {})
+        const colEffect = lib.createDOM("div", "", {
+          className:
+            "compute-board-col-item-effect-wrap board-col-item-effect-wrap",
+        });
+        const colSpan = lib.createDOM("span", col?.chname, {});
         const colDivBackground = lib.createDOM("div", "", {
           className: "compute-board-col-item-background",
         });
@@ -99,6 +108,7 @@ class stage {
           col.setElement(colDiv);
         }
 
+        colDiv.appendChild(colEffect);
         colDiv.appendChild(colSpan);
         colDiv.appendChild(colDivBackground);
 
@@ -190,20 +200,27 @@ class stage {
             };
             chessMove(attack, 1000, chessPosition);
             setTimeout(() => {
-              console.log("a");
               resolve();
             }, 1000);
           });
         }
         function animation2() {
           return new Promise((resolve, reject) => {
-            const receiveEffect = type === "user" ? -20 : 20;
+            const receiveEffect = type === "user" ? -10 : 10;
             attackChess.classList.remove("attack-move-chess");
             receiveChess.classList.add("revice-move-chess");
             receiveChess.style.top = `${receiveChessTop + receiveEffect}px`;
-            callBack();
+            const receiveChessEffect = receiveChess.getElementsByClassName(
+              "board-col-item-effect-wrap"
+            )[0];
+            receiveChessEffect.style.opacity = "1";
+            receiveChessEffect.style.height = "100%";
             setTimeout(() => {
-              console.log("b");
+              callBack();
+            }, 200);
+            setTimeout(() => {
+              receiveChessEffect.style.opacity = "0";
+              receiveChessEffect.style.height = "0%";
               resolve();
             }, 500);
           });
@@ -212,7 +229,6 @@ class stage {
           return new Promise((resolve, reject) => {
             receiveChess.style.top = `${receiveChessTop}px`;
             setTimeout(() => {
-              console.log("c");
               resolve();
             }, 500);
           });
@@ -227,14 +243,13 @@ class stage {
             attackChess.classList.remove("revice-move-chess");
             attackChess.classList.add("attack-move-chess");
             setTimeout(() => {
-              console.log("a");
               resolve();
             }, 1000);
           });
         }
         function animation5() {
           return new Promise((resolve, reject) => {
-            attackChess.style.zIndex = 1
+            attackChess.parentNode.style.zIndex = 1;
             setTimeout(() => {
               resolve();
             }, 10);
@@ -254,7 +269,7 @@ class stage {
         // const timeSplitTotal = timeSplit;
         // const moveLeft = (endLeft - chessLeft) / timeSplit;
         // const moveTop = (endTop - chessTop) / timeSplit;
-        chess.element.style.zIndex = 2
+        chess.element.parentNode.style.zIndex = 2;
         chess.element.style.left = `${endLeft}px`;
         chess.element.style.top = `${endTop}px`;
         // move();
