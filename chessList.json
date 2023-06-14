@@ -6,7 +6,18 @@
     "attack": 25,
     "health": 150,
     "counter": "shield",
-    "price": 20
+    "price": 20,
+    "skill": ""
+  },
+  "axeman": {
+    "chname": "斧兵",
+    "name": "axeman",
+    "race": "axeman",
+    "attack": 25,
+    "health": 150,
+    "counter": "shield",
+    "price": 20,
+    "skill": ""
   },
   "shield": {
     "chname": "盾兵",
@@ -15,7 +26,8 @@
     "attack": 25,
     "health": 150,
     "counter": "spearman",
-    "price": 20
+    "price": 20,
+    "skill": ""
   },
   "spearman": {
     "chname": "槍兵",
@@ -24,7 +36,28 @@
     "attack": 25,
     "health": 150,
     "counter": "cavalry",
-    "price": 20
+    "price": 20,
+    "skill": ""
+  },
+  "infantry": {
+    "chname": "步兵",
+    "name": "infantry",
+    "race": "infantry",
+    "attack": 25,
+    "health": 150,
+    "counter": "spearman",
+    "price": 20,
+    "skill": ""
+  },
+  "spear-shield": {
+    "chname": "長矛盾兵",
+    "name": "spear-shield",
+    "race": "spear-shield",
+    "attack": 25,
+    "health": 150,
+    "counter": "infantry",
+    "price": 20,
+    "skill": ""
   },
   "archer": {
     "chname": "弓兵",
@@ -33,7 +66,8 @@
     "attack": 40,
     "health": 75,
     "counter": "handCannoneer",
-    "price": 20
+    "price": 20,
+    "skill": ""
   },
   "handCannoneer": {
     "chname": "火槍兵",
@@ -42,7 +76,8 @@
     "attack": 40,
     "health": 75,
     "counter": "horseArcher",
-    "price": 20
+    "price": 20,
+    "skill": ""
   },
   "horseArcher": {
     "chname": "弓騎兵",
@@ -51,6 +86,37 @@
     "attack": 40,
     "health": 75,
     "counter": "archer",
-    "price": 20
+    "price": 20,
+    "skill": ""
+  },
+  "ninja": {
+    "chname": "忍者",
+    "name": "ninja",
+    "race": "ninja",
+    "attack": 10,
+    "health": 50,
+    "counter": "",
+    "price": 20,
+    "skill": "anyAttack"
+  },
+  "drummer": {
+    "chname": "戰鼓者",
+    "name": "drummer",
+    "race": "drummer",
+    "attack": 0,
+    "health": 50,
+    "counter": "",
+    "price": 20,
+    "skill": "attackBuff"
+  },
+  "medic": {
+    "chname": "醫療兵",
+    "name": "medic",
+    "race": "medic",
+    "attack": 0,
+    "health": 50,
+    "counter": "",
+    "price": 20,
+    "skill": "treat"
   }
 }
