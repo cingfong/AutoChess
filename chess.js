@@ -15,7 +15,8 @@ class ChessPiece {
       this.attack * ((Math.random(4) + 8) / 10),
       2
     );
-    if (opponentPiece.race === this.getCounter()) {
+    const _counterChess = this.getCounter()
+    if (_counterChess.includes(opponentPiece.race)) {
       opponentPiece.health -= attackRandom * 2;
     } else {
       opponentPiece.health -= attackRandom;

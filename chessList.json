@@ -5,7 +5,7 @@
     "race": "cavalry",
     "attack": 25,
     "health": 150,
-    "counter": "shield",
+    "counter": ["shield", "axeman"],
     "price": 20,
     "skill": ""
   },
@@ -15,7 +15,7 @@
     "race": "axeman",
     "attack": 25,
     "health": 150,
-    "counter": "shield",
+    "counter": ["skirmisher", "shield"],
     "price": 20,
     "skill": ""
   },
@@ -25,7 +25,7 @@
     "race": "shield",
     "attack": 25,
     "health": 150,
-    "counter": "spearman",
+    "counter": ["infantry", "skirmisher"],
     "price": 20,
     "skill": ""
   },
@@ -35,7 +35,7 @@
     "race": "spearman",
     "attack": 25,
     "health": 150,
-    "counter": "cavalry",
+    "counter": ["skirmisher", "cavalry"],
     "price": 20,
     "skill": ""
   },
@@ -45,17 +45,17 @@
     "race": "infantry",
     "attack": 25,
     "health": 150,
-    "counter": "spearman",
+    "counter": ["spearman", "cavalry"],
     "price": 20,
     "skill": ""
   },
-  "spear-shield": {
-    "chname": "長矛盾兵",
-    "name": "spear-shield",
-    "race": "spear-shield",
+  "skirmisher": {
+    "chname": "盾矛兵",
+    "name": "skirmisher",
+    "race": "skirmisher",
     "attack": 25,
     "health": 150,
-    "counter": "infantry",
+    "counter": ["spearman", "infantry"],
     "price": 20,
     "skill": ""
   },
@@ -65,7 +65,7 @@
     "race": "archer",
     "attack": 40,
     "health": 75,
-    "counter": "handCannoneer",
+    "counter": ["handCannoneer", "infantry", "spearman"],
     "price": 20,
     "skill": ""
   },
@@ -75,7 +75,7 @@
     "race": "handCannoneer",
     "attack": 40,
     "health": 75,
-    "counter": "horseArcher",
+    "counter": ["horseArcher", "cavalry", "axeman"],
     "price": 20,
     "skill": ""
   },
@@ -85,7 +85,7 @@
     "race": "horseArcher",
     "attack": 40,
     "health": 75,
-    "counter": "archer",
+    "counter": ["archer", "skirmisher", "shield"],
     "price": 20,
     "skill": ""
   },
