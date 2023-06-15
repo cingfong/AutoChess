@@ -60,10 +60,16 @@ class stage {
         const colDiv = lib.createDOM("div", "", {
           className: "user-board-col-item",
         });
-        const colEffect = lib.createDOM("div", "", {
+        const colAttack = lib.createDOM("div", "", {
           className:
-            "user-board-col-item-effect-wrap board-col-item-effect-wrap",
+            "user-board-col-item-attack-wrap board-col-item-attack-wrap",
         });
+        const colAttack2 = lib.createDOM("div", "", {
+          className:
+            "user-board-col-item-attack-wrap board-col-item-attack-wrap",
+        });
+        colAttack.style.backgroundImage = "url('./static/cut-effect.png')";
+        colAttack2.style.backgroundImage = "url('./static/cut-effect-2.png')";
         const colSpan = lib.createDOM("span", col?.chname, {});
         const colDivBackground = lib.createDOM("div", "", {
           className: "user-board-col-item-background",
@@ -73,7 +79,8 @@ class stage {
           col.setElement(colDiv);
         }
 
-        colDiv.appendChild(colEffect);
+        colDiv.appendChild(colAttack);
+        colDiv.appendChild(colAttack2);
         colDiv.appendChild(colSpan);
         colDiv.appendChild(colDivBackground);
         colWrap.appendChild(colDiv);
@@ -95,10 +102,16 @@ class stage {
         const colDiv = lib.createDOM("div", "", {
           className: "compute-board-col-item",
         });
-        const colEffect = lib.createDOM("div", "", {
+        const colAttack = lib.createDOM("div", "", {
           className:
-            "compute-board-col-item-effect-wrap board-col-item-effect-wrap",
+            "compute-board-col-item-attack-wrap board-col-item-attack-wrap",
         });
+        const colAttack2 = lib.createDOM("div", "", {
+          className:
+            "compute-board-col-item-attack-wrap board-col-item-attack-wrap",
+        });
+        colAttack.style.backgroundImage = `url('./static/${col?.effect[0]}.png')`;
+        colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
         const colSpan = lib.createDOM("span", col?.chname, {});
         const colDivBackground = lib.createDOM("div", "", {
           className: "compute-board-col-item-background",
@@ -108,7 +121,8 @@ class stage {
           col.setElement(colDiv);
         }
 
-        colDiv.appendChild(colEffect);
+        colDiv.appendChild(colAttack);
+        colDiv.appendChild(colAttack2);
         colDiv.appendChild(colSpan);
         colDiv.appendChild(colDivBackground);
 
@@ -162,7 +176,7 @@ class stage {
       const receiverBoardList = eval(`${receiver}BoardList`);
       for (const [colIndex, attackChess] of attackerChessList.entries()) {
         if (!attackChess || !attackChess.health || winner) continue;
-        await delay(1000);
+        await delay(100);
         const receiverChess = _this.getEnemyChess(attacker, colIndex);
         await animation(attackChess, receiverChess, attacker, attack);
         function attack() {
@@ -210,17 +224,28 @@ class stage {
             attackChess.classList.remove("attack-move-chess");
             receiveChess.classList.add("revice-move-chess");
             receiveChess.style.top = `${receiveChessTop + receiveEffect}px`;
-            const receiveChessEffect = receiveChess.getElementsByClassName(
-              "board-col-item-effect-wrap"
+            const attackChessEffect = attackChess.getElementsByClassName(
+              "board-col-item-attack-wrap"
             )[0];
-            receiveChessEffect.style.opacity = "1";
-            receiveChessEffect.style.height = "100%";
+            const attackChessEffect2 = attackChess.getElementsByClassName(
+              "board-col-item-attack-wrap"
+            )[1];
+            attackChessEffect.style.opacity = "1";
+            attackChessEffect.style.height = "100%";
+            if (attack.counter.includes(receive.race)) {
+              setTimeout(() => {
+                attackChessEffect2.style.opacity = "1";
+                attackChessEffect2.style.height = "100%";
+              }, 100);
+            }
             setTimeout(() => {
               callBack();
             }, 200);
             setTimeout(() => {
-              receiveChessEffect.style.opacity = "0";
-              receiveChessEffect.style.height = "0%";
+              attackChessEffect.style.opacity = "0";
+              attackChessEffect.style.height = "0%";
+              attackChessEffect2.style.opacity = "0";
+              attackChessEffect2.style.height = "0%";
               resolve();
             }, 500);
           });

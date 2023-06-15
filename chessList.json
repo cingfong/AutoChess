@@ -7,7 +7,8 @@
     "health": 150,
     "counter": ["shield", "axeman"],
     "price": 20,
-    "skill": ""
+    "skill": "",
+    "effect": ["cut-effect", "cut-effect-2"]
   },
   "axeman": {
     "chname": "斧兵",
@@ -17,7 +18,8 @@
     "health": 150,
     "counter": ["skirmisher", "shield"],
     "price": 20,
-    "skill": ""
+    "skill": "",
+    "effect": ["cut-effect", "cut-effect-2"]
   },
   "shield": {
     "chname": "盾兵",
@@ -27,7 +29,8 @@
     "health": 150,
     "counter": ["infantry", "skirmisher"],
     "price": 20,
-    "skill": ""
+    "skill": "",
+    "effect": ["cut-effect", "cut-effect-2"]
   },
   "spearman": {
     "chname": "槍兵",
@@ -37,7 +40,8 @@
     "health": 150,
     "counter": ["skirmisher", "cavalry"],
     "price": 20,
-    "skill": ""
+    "skill": "",
+    "effect": ["cut-effect", "cut-effect-2"]
   },
   "infantry": {
     "chname": "步兵",
@@ -47,7 +51,8 @@
     "health": 150,
     "counter": ["spearman", "cavalry"],
     "price": 20,
-    "skill": ""
+    "skill": "",
+    "effect": ["cut-effect", "cut-effect-2"]
   },
   "skirmisher": {
     "chname": "盾矛兵",
@@ -57,7 +62,8 @@
     "health": 150,
     "counter": ["spearman", "infantry"],
     "price": 20,
-    "skill": ""
+    "skill": "",
+    "effect": ["cut-effect", "cut-effect-2"]
   },
   "archer": {
     "chname": "弓兵",
@@ -67,7 +73,8 @@
     "health": 75,
     "counter": ["handCannoneer", "infantry", "spearman"],
     "price": 20,
-    "skill": ""
+    "skill": "",
+    "effect": ["bow-effect", "bow-effect-2"]
   },
   "handCannoneer": {
     "chname": "火槍兵",
@@ -77,7 +84,8 @@
     "health": 75,
     "counter": ["horseArcher", "cavalry", "axeman"],
     "price": 20,
-    "skill": ""
+    "skill": "",
+    "effect": ["bow-effect", "bow-effect-2"]
   },
   "horseArcher": {
     "chname": "弓騎兵",
@@ -87,7 +95,8 @@
     "health": 75,
     "counter": ["archer", "skirmisher", "shield"],
     "price": 20,
-    "skill": ""
+    "skill": "",
+    "effect": ["bow-effect", "bow-effect-2"]
   },
   "ninja": {
     "chname": "忍者",
@@ -97,7 +106,8 @@
     "health": 50,
     "counter": "",
     "price": 20,
-    "skill": "anyAttack"
+    "skill": "anyAttack",
+    "effect": ["cut-effect"]
   },
   "drummer": {
     "chname": "戰鼓者",
@@ -107,7 +117,8 @@
     "health": 50,
     "counter": "",
     "price": 20,
-    "skill": "attackBuff"
+    "skill": "attackBuff",
+    "effect": [""]
   },
   "medic": {
     "chname": "醫療兵",
@@ -117,6 +128,7 @@
     "health": 50,
     "counter": "",
     "price": 20,
-    "skill": "treat"
+    "skill": "treat",
+    "effect": [""]
   }
 }
