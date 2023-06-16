@@ -128,7 +128,7 @@
     "health": 50,
     "counter": "",
     "price": 20,
-    "skill": "treat",
+    "skill": "anyTreat",
     "effect": [""]
   }
 }

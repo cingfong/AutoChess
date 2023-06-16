@@ -178,15 +178,36 @@ class stage {
         if (!attackChess || !attackChess.health || winner) continue;
         await delay(100);
         const receiverChess = _this.getEnemyChess(attacker, colIndex);
-        await animation(attackChess, receiverChess, attacker, attack);
-        function attack() {
-          attackChess.attackPiece(receiverChess);
-        }
-        const receiverChessSurvive = receiverBoardList
-          .flat()
-          .some((e) => e?.health);
-        if (!receiverChessSurvive) {
-          winner = attacker;
+        if (attackChess.skill) {
+          console.log("補血");
+        } else {
+          await animation(attackChess, receiverChess, attacker, attack);
+          function attack() {
+            //判斷輔助有即return
+            if (attackChess.skill) {
+              console.log(attackChess.skill);
+              return;
+            }
+            //攻擊
+            attackChess.attackPiece(receiverChess);
+            // 判斷忍者
+            const attackChessList = eval(`${attacker}BoardList`)
+              .flat()
+              .filter((e) => e !== null);
+            const attackNinjaList = attackChessList.filter(
+              (e) => e === "ninja"
+            );
+            console.log(attackNinjaList);
+            if (attackNinjaList.length) {
+              console.log(attackChessList);
+            }
+          }
+          const receiverChessSurvive = receiverBoardList
+            .flat()
+            .some((e) => e?.health);
+          if (!receiverChessSurvive) {
+            winner = attacker;
+          }
         }
       }
       async function delay(duration) {
