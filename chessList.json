@@ -106,8 +106,8 @@
     "health": 50,
     "counter": "",
     "price": 20,
-    "skill": "anyAttack",
-    "effect": ["cut-effect"]
+    "skill": "appendAttack",
+    "effect": ["raid-effect-1"]
   },
   "drummer": {
     "chname": "戰鼓者",
@@ -117,8 +117,8 @@
     "health": 50,
     "counter": "",
     "price": 20,
-    "skill": "attackBuff",
-    "effect": [""]
+    "skill": "addAttack",
+    "effect": ["add-attack-effect"]
   },
   "medic": {
     "chname": "醫療兵",
@@ -129,6 +129,6 @@
     "counter": "",
     "price": 20,
     "skill": "anyTreat",
-    "effect": [""]
+    "effect": ["treat-effect", "treat-effect-2"]
   }
 }

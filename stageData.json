@@ -1,9 +1,17 @@
 {
   "level1": {
     "chessList": [
-      [{ "race": "spearman", "level": 3 }, null, null],
-      [{ "race": "ninja", "level": 3 }, null, null],
-      [null, null, null]
+      [
+        null,
+        { "race": "shield", "level": 1 },
+        { "race": "spearman", "level": 1 }
+      ],
+      [
+        { "race": "ninja", "level": 1 },
+        { "race": "ninja", "level": 1 },
+        { "race": "ninja", "level": 1 }
+      ],
+      [{ "race": "ninja", "level": 1 }, { "race": "medic", "level": 1 }, null]
     ]
   },
   "level2": {

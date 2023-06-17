@@ -15,7 +15,7 @@ class ChessPiece {
       this.attack * ((Math.random(4) + 8) / 10),
       2
     );
-    const _counterChess = this.getCounter()
+    const _counterChess = this.getCounter();
     if (_counterChess.includes(opponentPiece.race)) {
       opponentPiece.health -= attackRandom * 2;
     } else {
@@ -29,8 +29,16 @@ class ChessPiece {
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
       );
     }
-    opponentPiece.backgroundElement.style.height = `${(1 - opponentPiece.health / opponentPiece.fullHealth) * 100
-      }%`;
+    opponentPiece.backgroundElement.style.height = `${
+      (1 - opponentPiece.health / opponentPiece.fullHealth) * 100
+    }%`;
+  }
+  restore(treat) {
+    if (!this.health) return;
+    this.health += treat;
+    this.backgroundElement.style.height = `${
+      (1 - this.health / this.fullHealth) * 100
+    }%`;
   }
 
   setBackgroundElement(element) {

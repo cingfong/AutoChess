@@ -1,6 +1,7 @@
 import Chess from "./chess.js";
 import stageDataList from "./stageData.json" assert { type: "json" };
 import lib from "./lib.js";
+import chessSkill from "./chessSkill.js";
 class stage {
   constructor() {
     this.User = null;
@@ -46,13 +47,14 @@ class stage {
     const computeBoardWrap = document.querySelector(".compute-board-wrap");
     userBoardWrap.textContent = "";
     computeBoardWrap.textContent = "";
+    let ninjaIndex = 1;
     userBoardList.forEach((row, rowIndex) => {
       const rowDiv = lib.createDOM("div", null, {
         className: "user-board-row",
       });
       userBoardWrap.appendChild(rowDiv);
-      let i = 0;
 
+      let ninjaIndex = 1;
       row.forEach((col, colIndex) => {
         const colWrap = lib.createDOM("div", "", {
           className: "user-board-col-item-wrap",
@@ -68,17 +70,27 @@ class stage {
           className:
             "user-board-col-item-attack-wrap board-col-item-attack-wrap",
         });
-        colAttack.style.backgroundImage = "url('./static/cut-effect.png')";
-        colAttack2.style.backgroundImage = "url('./static/cut-effect-2.png')";
+        colAttack.style.backgroundImage = `url('./static/${col?.effect[0]}.png')`;
+        colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
+        if (col?.race === "ninja") {
+          const _effectName = col.effect[0];
+          const _newEffectName = _effectName.slice(0, -1) + ninjaIndex;
+          colAttack.style.backgroundImage = `url('./static/${_newEffectName}.png')`;
+          ninjaIndex++;
+        }
         const colSpan = lib.createDOM("span", col?.chname, {});
         const colDivBackground = lib.createDOM("div", "", {
           className: "user-board-col-item-background",
+        });
+        const colDivBuffBackground = lib.createDOM("div", "", {
+          className: "user-board-col-item-buff board-col-item-buff",
         });
         if (col) {
           col.setBackgroundElement(colDivBackground);
           col.setElement(colDiv);
         }
 
+        colDiv.appendChild(colDivBuffBackground);
         colDiv.appendChild(colAttack);
         colDiv.appendChild(colAttack2);
         colDiv.appendChild(colSpan);
@@ -112,15 +124,25 @@ class stage {
         });
         colAttack.style.backgroundImage = `url('./static/${col?.effect[0]}.png')`;
         colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
+        if (col?.race === "ninja") {
+          const _effectName = col.effect[0];
+          const _effectBackground = _effectName.slice(0, -1) + ninjaIndex;
+          colAttack.style.backgroundImage = `url('./static/${_effectBackground}.png')`;
+          ninjaIndex++;
+        }
         const colSpan = lib.createDOM("span", col?.chname, {});
         const colDivBackground = lib.createDOM("div", "", {
           className: "compute-board-col-item-background",
+        });
+        const colDivBuffBackground = lib.createDOM("div", "", {
+          className: "compute-board-col-item-buff board-col-item-buff",
         });
         if (col) {
           col.setBackgroundElement(colDivBackground);
           col.setElement(colDiv);
         }
 
+        colDiv.appendChild(colDivBuffBackground);
         colDiv.appendChild(colAttack);
         colDiv.appendChild(colAttack2);
         colDiv.appendChild(colSpan);
@@ -169,6 +191,9 @@ class stage {
         attacker = "stage";
         receiver = "user";
       }
+      async function delay(duration) {
+        return new Promise((resolve) => setTimeout(resolve, duration));
+      }
       const attackerChessList = getNowRowChess(
         attacker,
         eval(`${attacker}BoardIterator`)
@@ -176,44 +201,67 @@ class stage {
       const receiverBoardList = eval(`${receiver}BoardList`);
       for (const [colIndex, attackChess] of attackerChessList.entries()) {
         if (!attackChess || !attackChess.health || winner) continue;
-        await delay(100);
+        await delay(10);
+        // 特殊技能直接調過攻擊
+        if (chessSkill.anyAttck.includes(attackChess.skill)) continue;
+        // 輔助技能
+        if (chessSkill.anyAssist.includes(attackChess.skill)) {
+          const attackChessSkill = attackChess.skill;
+          const receiverChessList = eval(`${attacker}BoardList`);
+          await chessSkill[attackChessSkill](attackChess, receiverChessList);
+          continue;
+        }
         const receiverChess = _this.getEnemyChess(attacker, colIndex);
-        if (attackChess.skill) {
-          console.log("補血");
-        } else {
-          await animation(attackChess, receiverChess, attacker, attack);
-          function attack() {
-            //判斷輔助有即return
-            if (attackChess.skill) {
-              console.log(attackChess.skill);
-              return;
-            }
-            //攻擊
-            attackChess.attackPiece(receiverChess);
-            // 判斷忍者
-            const attackChessList = eval(`${attacker}BoardList`)
-              .flat()
-              .filter((e) => e !== null);
-            const attackNinjaList = attackChessList.filter(
-              (e) => e === "ninja"
-            );
-            console.log(attackNinjaList);
-            if (attackNinjaList.length) {
-              console.log(attackChessList);
-            }
-          }
-          const receiverChessSurvive = receiverBoardList
-            .flat()
-            .some((e) => e?.health);
-          if (!receiverChessSurvive) {
-            winner = attacker;
+
+        // 判斷每次攻擊技能
+        const attackChessList = eval(`${attacker}BoardList`)
+          .flat()
+          .filter((e) => e !== null);
+        const _chessAnyAttackSkill = attackChessList.filter(
+          (e) => chessSkill.anyAttck.includes(e.skill) && e.health
+        );
+        // 攻擊追加動畫
+        if (_chessAnyAttackSkill.length) {
+          const _chessSkillIterator = _chessAnyAttackSkill.values();
+          let _chessSkillitem = _chessSkillIterator.next();
+          while (!_chessSkillitem.done) {
+            const chessItem = _chessSkillitem.value;
+            const skillAnimationRequest = {
+              attack: chessItem,
+              receive: receiverChess,
+              type: attacker,
+              callBack: () => {
+                if (receiverChess.health) chessItem.attackPiece(receiverChess);
+              },
+            };
+            setTimeout(() => {
+              attackAnimation(skillAnimationRequest);
+            }, 500);
+            _chessSkillitem = _chessSkillIterator.next();
           }
         }
+
+        // 一般攻擊
+        const chessAnimationRequest = {
+          attack: attackChess,
+          receive: receiverChess,
+          type: attacker,
+          callBack: () => {
+            attackChess.attackPiece(receiverChess);
+          },
+          delayTime: _chessAnyAttackSkill.length ? 500 : 0,
+        };
+        await attackAnimation(chessAnimationRequest);
+
+        const receiverChessSurvive = receiverBoardList
+          .flat()
+          .some((e) => e?.health);
+        if (!receiverChessSurvive) {
+          winner = attacker;
+        }
       }
-      async function delay(duration) {
-        return new Promise((resolve) => setTimeout(resolve, duration));
-      }
-      async function animation(attack, receive, type, callBack) {
+      async function attackAnimation(configure) {
+        const { attack, receive, type, callBack, delayTime = 0 } = configure;
         const attackChess = attack.element;
         const attackOriginLeft = attackChess.offsetLeft;
         const attackOriginTop = attackChess.offsetTop;
@@ -236,7 +284,7 @@ class stage {
             chessMove(attack, 1000, chessPosition);
             setTimeout(() => {
               resolve();
-            }, 1000);
+            }, 1000 + delayTime);
           });
         }
         function animation2() {
@@ -312,30 +360,13 @@ class stage {
         const chessLeft = chess.element.offsetLeft;
         const chessTop = chess.element.offsetTop;
         let timeSplit = (time / 1000) * 60;
-        // const timeSplitTotal = timeSplit;
-        // const moveLeft = (endLeft - chessLeft) / timeSplit;
-        // const moveTop = (endTop - chessTop) / timeSplit;
-        chess.element.parentNode.style.zIndex = 2;
+        if (chess.race === "ninja") {
+          chess.element.parentNode.style.zIndex = 2;
+        } else {
+          chess.element.parentNode.style.zIndex = 3;
+        }
         chess.element.style.left = `${endLeft}px`;
         chess.element.style.top = `${endTop}px`;
-        // move();
-        // function move() {
-        // window.requestAnimationFrame(() => {
-        //   if (timeSplit > timeSplitTotal / 2) {
-        //     chess.element.style.left = `${endLeft}px`;
-        //     chess.element.style.top = `${endTop}px`;
-        //   } else if (timeSplit > 0) {
-        //     chess.element.style.left = `${chessLeft}px`;
-        //     chess.element.style.top = `${chessTop}px`;
-        //   } else if (timeSplit === 0) {
-        //     // chess.element.style.position = "relative";
-        //     // chess.element.style.left = "auto";
-        //     // chess.element.style.top = "auto";
-        //   }
-        //   timeSplit--;
-        //   move();
-        // });
-        // }
       }
       // 輪流攻擊
       if (!winner) {
