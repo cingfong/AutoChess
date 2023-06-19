@@ -67,6 +67,9 @@
   height: 60px;
   margin: 0px 10px;
   transition: height 0.3s cubic-bezier(0.39, 0.58, 0.57, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .user-board-col-item-wrap,
 .compute-board-col-item-wrap {
@@ -85,6 +88,7 @@
   z-index: 2;
   scale: 1.2;
   transition: height 0.3s cubic-bezier(0.39, 0.58, 0.57, 1);
+  overflow: hidden;
 }
 .user-board-col-item-attack-wrap {
   top: calc(-100% - 10px);
@@ -103,8 +107,6 @@
   position: relative;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 5px;
-  background-size: 100% 0%;
-  background-image: url("./static/chess-dead.png");
 }
 
 .compute-board-row {
@@ -118,6 +120,9 @@
   width: 60px;
   height: 60px;
   margin: 0px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .compute-board-col-item {
@@ -131,8 +136,6 @@
   position: relative;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 5px;
-  background-size: 100% 0%;
-  background-image: url("./static/chess-dead.png");
 }
 .attack-move-chess {
   transition: all 1s cubic-bezier(0.39, 0.58, 0.57, 1);
@@ -165,19 +168,14 @@
   background-color: transparent;
 }
 .dead {
-  animation: chessDead 5s forwards;
+  animation: chessDead 2s forwards;
 }
 
 @keyframes chessDead {
   0% {
-    background-size: 100% 0%;
-  }
-  50% {
-    background-size: 100% 100%;
-    opacity: 1;
+    scale: 1;
   }
   100% {
-    opacity: 0;
-    background-size: 0 100%;
+    scale: 0;
   }
 }
