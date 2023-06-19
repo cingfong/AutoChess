@@ -103,6 +103,8 @@
   position: relative;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 5px;
+  background-size: 100% 0%;
+  background-image: url("./static/chess-dead.png");
 }
 
 .compute-board-row {
@@ -129,6 +131,8 @@
   position: relative;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 5px;
+  background-size: 100% 0%;
+  background-image: url("./static/chess-dead.png");
 }
 .attack-move-chess {
   transition: all 1s cubic-bezier(0.39, 0.58, 0.57, 1);
@@ -159,4 +163,21 @@
 }
 .background-transparent {
   background-color: transparent;
+}
+.dead {
+  animation: chessDead 5s forwards;
+}
+
+@keyframes chessDead {
+  0% {
+    background-size: 100% 0%;
+  }
+  50% {
+    background-size: 100% 100%;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    background-size: 0 100%;
+  }
 }

@@ -23,7 +23,7 @@ class ChessPiece {
     }
     if (opponentPiece.health <= 0) {
       opponentPiece.health = 0;
-      console.log(`${opponentPiece.name} was defeated.`);
+      opponentPiece.element.classList.add("dead");
     } else {
       console.log(
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
