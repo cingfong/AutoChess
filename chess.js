@@ -8,6 +8,7 @@ class ChessPiece {
     this.element = null;
     Object.assign(this, chess);
     this.fullHealth = this.health;
+    this.fightAddition = null
   }
   // 攻擊對手棋子
   attackPiece(opponentPiece) {
@@ -15,11 +16,13 @@ class ChessPiece {
       this.attack * ((Math.random(4) + 8) / 10),
       2
     );
+    const getAddition = this.fightAddition?.attack || 0
+    const attackAddition = attackRandom + (getAddition || 0)
     const _counterChess = this.getCounter();
     if (_counterChess.includes(opponentPiece.race)) {
-      opponentPiece.health -= attackRandom * 2;
+      opponentPiece.health -= attackAddition * 2;
     } else {
-      opponentPiece.health -= attackRandom;
+      opponentPiece.health -= attackAddition;
     }
     if (opponentPiece.health <= 0) {
       opponentPiece.health = 0;
@@ -67,6 +70,15 @@ class ChessPiece {
     const chessNum = 3 ** (this.level - 1);
     if (this.level === 1) return this.price;
     return this.price * 0.8 * chessNum;
+  }
+
+  setFightAddition({ addAttack, type, items }) {
+    if (!this.fightAddition) this.fightAddition = {}
+    if (!this.fightAddition && !this.fightAddition[type]) {
+      this.fightAddition[type] = addAttack
+    }
+    this.fightAddition[type] += addAttack
+    this.fightAddition.items = items
   }
 
   // 獲取加成

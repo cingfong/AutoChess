@@ -31,22 +31,22 @@ class User {
     const chess1 = new Chess("cavalry", 3);
     const chess = new Chess("cavalry", 3);
     const chess2 = new Chess("cavalry", 3);
-    const chess3 = new Chess("ninja", 3);
-    const chess4 = new Chess("ninja", 3);
-    const chess5 = new Chess("ninja", 3);
-    const chess6 = new Chess("ninja", 3);
-    const chess7 = new Chess("ninja", 3);
-    const chess8 = new Chess("ninja", 3);
+    // const chess3 = new Chess("ninja", 3);
+    // const chess4 = new Chess("ninja", 3);
+    // const chess5 = new Chess("ninja", 3);
+    // const chess6 = new Chess("ninja", 3);
+    // const chess7 = new Chess("ninja", 3);
+    // const chess8 = new Chess("ninja", 3);
 
     this.Board.setPiece(null, 0, chess1);
     this.Board.setPiece(null, 2, chess);
     this.Board.setPiece(null, 1, chess2);
-    this.Board.setPiece(null, 3, chess3);
-    this.Board.setPiece(null, 4, chess4);
-    this.Board.setPiece(null, 5, chess5);
-    this.Board.setPiece(null, 6, chess6);
-    this.Board.setPiece(null, 7, chess7);
-    this.Board.setPiece(null, 8, chess8);
+    // this.Board.setPiece(null, 3, chess3);
+    // this.Board.setPiece(null, 4, chess4);
+    // this.Board.setPiece(null, 5, chess5);
+    // this.Board.setPiece(null, 6, chess6);
+    // this.Board.setPiece(null, 7, chess7);
+    // this.Board.setPiece(null, 8, chess8);
   }
 
   // 新增一個棋子

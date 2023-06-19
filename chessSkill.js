@@ -5,12 +5,23 @@ export default {
   appendAttack(attack, receive, callBack) {
     callBack(attack, receive);
   },
-  addAttack(chess, ourChessList, enemyChessList, callBack) {
+  async addAttack(chess, ourChessList, enemyChessList, callBack) {
     const ourList = ourChessList.flat();
     ourList.forEach((e) => {
-      const itemElement = e.element;
-      e.element.style.background;
+      if (!e) return;
+      if (this.support.includes(e.race)) return;
+      if (!e.health) return;
+      if (e.fightAddition?.items >= 4) return
+      this.animation(e, chess, 0);
+      const chessAttack = e.attack
+      const chessAddition = e.fightAddition?.attack || 0
+      const chessAdditionItems = e.fightAddition?.items ? e.fightAddition?.items + 1 : 1
+      const additionPercent = [0.15, 0.3, 0.5][chess.level];
+      const additionAttack = (chessAttack + chessAddition) * additionPercent
+      e.setFightAddition({ addAttack: additionAttack, attack: 'attack', items: chessAdditionItems })
+      e.element.style.backgroundImage = `url('./static/attack-icon-${chessAdditionItems}.png')`
     });
+    await this.delay(1000);
   },
   async anyTreat(chess, ourChessList, enemyChessList, callBack) {
     const ourList = ourChessList.flat();
