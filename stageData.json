@@ -8,7 +8,8 @@
       ],
       [null, null, null],
       [{ "race": "drummer", "level": 1 }, { "race": "medic", "level": 1 }, null]
-    ]
+    ],
+    "money": 50
   },
   "level2": {
     "chessList": [
@@ -23,6 +24,7 @@
         { "race": "shield", "level": 1 },
         { "race": "shield", "level": 1 }
       ]
-    ]
+    ],
+    "money": 50
   }
 }

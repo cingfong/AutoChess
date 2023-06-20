@@ -118,7 +118,7 @@
     "counter": "",
     "price": 20,
     "skill": "addAttack",
-    "effect": ["add-attack-effect"]
+    "effect": ["add-attack-effect", "add-attack-effect-2"]
   },
   "medic": {
     "chname": "醫療兵",

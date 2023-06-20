@@ -372,7 +372,7 @@ class stage {
       if (!winner) {
         return fightForeach(receiver);
       } else {
-        return winner;
+        return { winner, money: this.nowStage.money };
       }
     }
     // 由玩家先攻擊

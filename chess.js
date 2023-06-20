@@ -8,7 +8,7 @@ class ChessPiece {
     this.element = null;
     Object.assign(this, chess);
     this.fullHealth = this.health;
-    this.fightAddition = null
+    this.fightAddition = null;
   }
   // 攻擊對手棋子
   attackPiece(opponentPiece) {
@@ -16,8 +16,8 @@ class ChessPiece {
       this.attack * ((Math.random(4) + 8) / 10),
       2
     );
-    const getAddition = this.fightAddition?.attack || 0
-    const attackAddition = attackRandom + (getAddition || 0)
+    const getAddition = this.fightAddition?.attack || 0;
+    const attackAddition = attackRandom + getAddition;
     const _counterChess = this.getCounter();
     if (_counterChess.includes(opponentPiece.race)) {
       opponentPiece.health -= attackAddition * 2;
@@ -28,20 +28,22 @@ class ChessPiece {
       opponentPiece.health = 0;
       setTimeout(() => {
         opponentPiece.element.classList.add("dead");
-      }, 1000)
+      }, 1000);
     } else {
       console.log(
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
       );
     }
-    opponentPiece.backgroundElement.style.height = `${(1 - opponentPiece.health / opponentPiece.fullHealth) * 100
-      }%`;
+    opponentPiece.backgroundElement.style.height = `${
+      (1 - opponentPiece.health / opponentPiece.fullHealth) * 100
+    }%`;
   }
   restore(treat) {
     if (!this.health) return;
     this.health += treat;
-    this.backgroundElement.style.height = `${(1 - this.health / this.fullHealth) * 100
-      }%`;
+    this.backgroundElement.style.height = `${
+      (1 - this.health / this.fullHealth) * 100
+    }%`;
   }
 
   setBackgroundElement(element) {
@@ -73,12 +75,14 @@ class ChessPiece {
   }
 
   setFightAddition({ addAttack, type, items }) {
-    if (!this.fightAddition) this.fightAddition = {}
-    if (!this.fightAddition && !this.fightAddition[type]) {
-      this.fightAddition[type] = addAttack
+    if (!this.fightAddition) this.fightAddition = {};
+    if (!this.fightAddition[type]) {
+      this.fightAddition[type] = addAttack;
+      this.fightAddition.items = 1;
+      return;
     }
-    this.fightAddition[type] += addAttack
-    this.fightAddition.items = items
+    this.fightAddition[type] += addAttack;
+    this.fightAddition.items = items;
   }
 
   // 獲取加成
