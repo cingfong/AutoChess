@@ -9,7 +9,16 @@
   <body>
     <link rel="stylesheet" href="./prepare.css" />
     <link rel="stylesheet" href="./fight.css" />
+    <link rel="stylesheet" href="./utils.css" />
     <div id="app">
+      <div class="pop-up-card hidden">
+        <div class="title">獲勝</div>
+        <div class="content">前往下一關</div>
+        <div class="button-wrap">
+          <div class="button confirm">確定</div>
+          <!-- <div class="button cancel"></div> -->
+        </div>
+      </div>
       <div class="prepare-wrap">
         <div class="board-wrap"></div>
         <div class="user-piece-wrap"></div>
@@ -66,9 +75,14 @@
         _globalAutoChess.prepareRender();
         _globalAutoChess.fightRender();
         setTimeout(() => {
-          _globalAutoChess.fight().then((winner) => {
+          _globalAutoChess.fight().then(({ winner, money }) => {
             alert("winner: " + winner);
             console.log("winner: " + winner);
+            if (winner === "user") {
+              const User = _globalAutoChess.getUser();
+              User.battleOver();
+              User.addMoney(money);
+            }
           });
         }, 0);
         testFightRender();

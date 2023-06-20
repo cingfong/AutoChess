@@ -112,6 +112,23 @@ class User {
     return piece;
   }
 
+  battleOver() {
+    const boardList = this.getBoard().flat();
+    boardList.forEach((e, i) => {
+      if (!e) return;
+      if (e.health) {
+        const treatHealth = (e.fullhealth - e.health) * 0.5;
+        this.health += Math.round(treatHealth);
+      } else {
+        this.Board.removePiece(i);
+      }
+    });
+  }
+
+  addMoney(money) {
+    this.money += money;
+  }
+
   // 移除一個棋子
   // sellPiece(piece) {
   //   const index = this.storage.indexOf(piece);

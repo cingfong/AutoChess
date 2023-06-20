@@ -1,0 +1,49 @@
+.pop-up-card {
+  z-index: 9999999;
+  position: fixed;
+  height: auto;
+  width: 320px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: Bisque;
+}
+.pop-up-card .title {
+  width: 100%;
+  position: relative;
+  padding: 5px 0;
+  font-size: 26px;
+  font-weight: 900;
+  text-align: center;
+  color: white;
+  background-color: DarkOrange;
+}
+.pop-up-card .content {
+  padding: 15px;
+  font-size: 16px;
+  text-align: center;
+}
+.pop-up-card .button-wrap {
+  margin: 0px auto;
+  max-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pop-up-card .button {
+  width: 50px;
+  color: white;
+  line-height: 30px;
+  text-align: center;
+  background-color: brown;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.pop-up-card .title.success {
+  color: white;
+  background-color: DarkOrange;
+}
+.pop-up-card .title.danger {
+  color: white;
+  background-color: #dc3545;
+}
