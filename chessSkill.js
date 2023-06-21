@@ -20,6 +20,9 @@ export default {
         ? e.fightAddition?.items + 1
         : 1;
       const additionPercent = [0.15, 0.3, 0.5][chess.level];
+      const chessBattleSkill = e.element.querySelector(
+        ".borard-col-batle-skill"
+      );
       const additionAttack = Math.round(
         (chessAttack + chessAddition) * additionPercent
       );
@@ -28,7 +31,7 @@ export default {
         type: "attack",
         items: chessAdditionItems,
       });
-      e.element.style.backgroundImage = `url('./static/attack-icon-${chessAdditionItems}.png')`;
+      chessBattleSkill.style.backgroundImage = `url('./static/attack-icon-${chessAdditionItems}.png')`;
     });
     await this.delay(1000);
   },

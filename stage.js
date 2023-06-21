@@ -78,7 +78,12 @@ class stage {
           colAttack.style.backgroundImage = `url('./static/${_newEffectName}.png')`;
           ninjaIndex++;
         }
-        const colSpan = lib.createDOM("span", col?.chname, {});
+        const colImg = lib.createDOM("img", "", {
+          src: `./static/user/${col?.name ?? "space"}.png`,
+        });
+        const colBatleSkill = lib.createDOM("div", "", {
+          className: "borard-col-batle-skill",
+        });
         const colDivBackground = lib.createDOM("div", "", {
           className: "user-board-col-item-background",
         });
@@ -93,7 +98,8 @@ class stage {
         colDiv.appendChild(colDivBuffBackground);
         colDiv.appendChild(colAttack);
         colDiv.appendChild(colAttack2);
-        colDiv.appendChild(colSpan);
+        colDiv.appendChild(colBatleSkill);
+        colDiv.appendChild(colImg);
         colDiv.appendChild(colDivBackground);
         colWrap.appendChild(colDiv);
         rowDiv.appendChild(colWrap);
@@ -130,7 +136,12 @@ class stage {
           colAttack.style.backgroundImage = `url('./static/${_effectBackground}.png')`;
           ninjaIndex++;
         }
-        const colSpan = lib.createDOM("span", col?.chname, {});
+        const colImg = lib.createDOM("img", "", {
+          src: `./static/stage/${col?.name ?? "space"}.png`,
+        });
+        const colBatleSkill = lib.createDOM("div", "", {
+          className: "borard-col-batle-skill",
+        });
         const colDivBackground = lib.createDOM("div", "", {
           className: "compute-board-col-item-background",
         });
@@ -145,7 +156,8 @@ class stage {
         colDiv.appendChild(colDivBuffBackground);
         colDiv.appendChild(colAttack);
         colDiv.appendChild(colAttack2);
-        colDiv.appendChild(colSpan);
+        colDiv.appendChild(colBatleSkill);
+        colDiv.appendChild(colImg);
         colDiv.appendChild(colDivBackground);
 
         colWrap.appendChild(colDiv);
@@ -372,7 +384,7 @@ class stage {
       if (!winner) {
         return fightForeach(receiver);
       } else {
-        return { winner, money: this.nowStage.money };
+        return { winner, money: _this.nowStage.money };
       }
     }
     // 由玩家先攻擊
