@@ -92,8 +92,11 @@ class Board {
         const colWrap = lib.createDOM("div", "", {
           className: "board-col-item-wrap",
         });
-        const colDiv = lib.createDOM("div", col?.chname, {
+        const colDiv = lib.createDOM("div", "", {
           className: "board-col-item",
+        });
+        const colImg = lib.createDOM("img", "", {
+          src: `./static/user/${col?.name ?? "space"}.png`,
         });
         colDiv.setAttribute("draggable", !!col);
         if (col) {
@@ -101,6 +104,7 @@ class Board {
           col.drag(colDiv, "board", pieceIndex, this, this.User);
         }
 
+        colDiv.appendChild(colImg);
         colWrap.appendChild(colDiv);
         colDivList.push(colWrap);
         rowDiv.appendChild(colWrap);

@@ -7,6 +7,9 @@
   overflow: hidden;
   background-color: Bisque;
 }
+.pop-up-card.fail {
+  background-color: #eee;
+}
 .pop-up-card .title {
   width: 100%;
   position: relative;
@@ -34,16 +37,23 @@
   color: white;
   line-height: 30px;
   text-align: center;
-  background-color: brown;
   border-radius: 10px;
   cursor: pointer;
   margin-bottom: 10px;
 }
-.pop-up-card .title.success {
+.pop-up-card .title.win {
   color: white;
-  background-color: DarkOrange;
+  background-color: #ff8d00;
 }
-.pop-up-card .title.danger {
+.pop-up-card .button.win {
   color: white;
-  background-color: #dc3545;
+  background-color: #ff981a;
+}
+.pop-up-card .title.fail {
+  color: white;
+  background-color: #4b5156;
+}
+.pop-up-card .button.fail {
+  color: white;
+  background-color: #636b71;
 }

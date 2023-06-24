@@ -92,12 +92,16 @@ class ChessStore {
       const chessWrap = lib.createDOM("div", "", {
         className: "chess-item-wrap",
       });
-      const elementDiv = lib.createDOM("button", item.chname, {
+      const elementDiv = lib.createDOM("div", "", {
         className: "chess-item",
       });
-      elementDiv.addEventListener("click", () => {
-        const _chess = _this.purchase(index);
+      const elementImg = lib.createDOM("img", "", {
+        src: `./static/user/${item?.name ?? "space"}.png`,
       });
+      elementDiv.addEventListener("click", () => {
+        _this.purchase(index);
+      });
+      elementDiv.appendChild(elementImg)
       chessWrap.appendChild(elementDiv);
       parent.appendChild(chessWrap);
     });

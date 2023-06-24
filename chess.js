@@ -34,16 +34,14 @@ class ChessPiece {
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
       );
     }
-    opponentPiece.backgroundElement.style.height = `${
-      (1 - opponentPiece.health / opponentPiece.fullHealth) * 100
-    }%`;
+    opponentPiece.backgroundElement.style.height = `${(1 - opponentPiece.health / opponentPiece.fullHealth) * 100
+      }%`;
   }
   restore(treat) {
     if (!this.health) return;
     this.health += treat;
-    this.backgroundElement.style.height = `${
-      (1 - this.health / this.fullHealth) * 100
-    }%`;
+    this.backgroundElement.style.height = `${(1 - this.health / this.fullHealth) * 100
+      }%`;
   }
 
   setBackgroundElement(element) {
@@ -118,6 +116,7 @@ class ChessPiece {
       const _Board = Board;
       const { touchLeft, touchRight, touchTop, touchBottom } = element.dataset;
       // 旗子被賣掉
+      // 待調整
       if (Shop && Shop.getDisplay()) {
         const {
           left: ShopLeft,
@@ -131,8 +130,9 @@ class ChessPiece {
           SHopBottom >= touchBottom &&
           ShopLeft <= touchLeft
         ) {
-          const sellPrice = this.getPrice();
           User.removePiece(typeIndex);
+          User.renderStoragePiece();
+          const sellPrice = this.getPrice();
           User.sellChess(sellPrice);
           return;
         }

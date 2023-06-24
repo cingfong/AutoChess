@@ -2,6 +2,7 @@ import Chess from "./chess.js";
 import stageDataList from "./stageData.json" assert { type: "json" };
 import lib from "./lib.js";
 import chessSkill from "./chessSkill.js";
+import utils from './utils.js'
 class stage {
   constructor() {
     this.User = null;
@@ -166,7 +167,32 @@ class stage {
     });
   }
 
-  fight() {
+  startFight(callBack) {
+    const _this = this
+    this.fightProcess().then(({ winner, money }) => {
+      if (winner === "user") {
+        const User = _this.User;
+        User.battleOver();
+        User.addMoney(money);
+        utils.popUps({ type: 'win', title: "獲勝", content: "前往下一關" }).then((v) => {
+          _this.level++
+          _this.getStageData();
+          User.render()
+          const fightWrap = document.querySelector(".fight-wrap");
+          fightWrap.classList.add("hidden");
+        });
+      } else {
+        // 待調整
+        utils.popUps({ type: 'fail', title: "失敗", content: "重新開始" }).then((v) => {
+          const fightWrap = document.querySelector(".fight-wrap");
+          fightWrap.classList.add("hidden");
+          callBack()
+        })
+      }
+    })
+  }
+
+  fightProcess() {
     const _this = this;
     const userBoardList = this.User.getBoard();
     const stageBoardList = this.nowStage.chessList;
@@ -174,6 +200,8 @@ class stage {
     let stageBoardIterator = stageBoardList.values();
     let userRowIndex = -1;
     let stageRowIndex = -1;
+    const fightWrap = document.querySelector(".fight-wrap");
+    fightWrap.classList.remove("hidden");
     const getNowRowChess = (type, arriIerator) => {
       const _item = arriIerator.next();
       // 二次遍歷

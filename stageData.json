@@ -2,12 +2,12 @@
   "level1": {
     "chessList": [
       [
-        null,
-        { "race": "spearman", "level": 1 },
-        { "race": "spearman", "level": 1 }
+        { "race": "shield", "level": 1 },
+        { "race": "shield", "level": 1 },
+        { "race": "shield", "level": 1 }
       ],
       [null, null, null],
-      [{ "race": "drummer", "level": 1 }, { "race": "medic", "level": 1 }, null]
+      [null, null, null]
     ],
     "money": 50
   },

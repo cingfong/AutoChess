@@ -28,9 +28,9 @@ class User {
     return this.Board.displayBoard();
   }
   testAddPiece() {
-    const chess1 = new Chess("cavalry", 3);
-    const chess = new Chess("cavalry", 3);
-    const chess2 = new Chess("cavalry", 3);
+    const chess1 = new Chess("infantry", 1);
+    // const chess = new Chess("cavalry", 3);
+    // const chess2 = new Chess("cavalry", 3);
     // const chess3 = new Chess("ninja", 3);
     // const chess4 = new Chess("ninja", 3);
     // const chess5 = new Chess("ninja", 3);
@@ -39,8 +39,8 @@ class User {
     // const chess8 = new Chess("ninja", 3);
 
     this.Board.setPiece(null, 0, chess1);
-    this.Board.setPiece(null, 2, chess);
-    this.Board.setPiece(null, 1, chess2);
+    // this.Board.setPiece(null, 2, chess);
+    // this.Board.setPiece(null, 1, chess2);
     // this.Board.setPiece(null, 3, chess3);
     // this.Board.setPiece(null, 4, chess4);
     // this.Board.setPiece(null, 5, chess5);
@@ -157,14 +157,18 @@ class User {
       const pieceWrap = lib.createDOM("div", "", {
         className: "user-piece-item-wrap",
       });
-      const pieceDiv = lib.createDOM("div", piece?.chname, {
+      const pieceDiv = lib.createDOM("div", "", {
         className: "user-piece-item",
+      });
+      const pieceImg = lib.createDOM("img", "", {
+        src: `./static/user/${piece?.name ?? "space"}.png`,
       });
 
       pieceDiv.setAttribute("draggable", !!piece);
       if (piece) {
         piece.drag(pieceDiv, "user", pieceIndex, this.Board, this, this.Shop);
       }
+      pieceDiv.appendChild(pieceImg)
       pieceWrap.appendChild(pieceDiv);
       storeDivList.push(pieceWrap);
       parent.appendChild(pieceWrap);

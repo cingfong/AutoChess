@@ -11,11 +11,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("./static/background.png");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: left bottom;
 }
 
 .prepare-wrap {
   width: 500px;
-  background-color: white;
+  /* background-color: white; */
+  background-image: url("./static/userBoardBackground.png");
+  background-size: cover;
+  background-position: center bottom;
   border-radius: 10px;
   padding: 10px 0px;
   display: flex;
@@ -30,7 +37,8 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   width: 300px;
-  background-color: #ddd;
+  /* background-color: #ddd; */
+  background-color: rgba(200, 200, 200, 0.1);
   padding: 10px 0px;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -42,7 +50,7 @@ body {
 }
 
 .board-col-item-wrap {
-  background-color: white;
+  /* background-color: white; */
   border: solid 1px #aaa;
   border-radius: 5px;
   width: 60px;
@@ -59,20 +67,23 @@ body {
   justify-content: center;
   user-select: none;
 }
+.board-col-item img {
+  width: 100%;
+}
 
 /* 玩家可用棋 */
 .user-piece-wrap {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   width: 420px;
-  background-color: #ddd;
+  background-color: rgba(200, 200, 200, 0.2);
   padding: 5px;
   margin-bottom: 20px;
   border-radius: 10px;
 }
 
 .user-piece-item-wrap {
-  background-color: white;
+  /* background-color: white; */
   border: solid 1px #aaa;
   border-radius: 5px;
   margin: 0px 3px;
@@ -81,7 +92,7 @@ body {
 }
 
 .user-piece-item {
-  background-color: white;
+  /* background-color: white; */
   box-sizing: border-box;
   border-radius: 5px;
   width: 60px;
@@ -91,6 +102,9 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+.user-piece-item img {
+  width: 100%;
 }
 
 /* 彈窗 */
@@ -146,7 +160,7 @@ body {
 
 .shop-piece {
   width: 380px;
-  background-color: #ddd;
+  /* background-color: #ddd; */
   padding: 5px 5px;
   border-radius: 5px;
   display: grid;
@@ -164,7 +178,7 @@ body {
 }
 
 .chess-item-wrap {
-  background-color: white;
+  /* background-color: white; */
   border: solid 1px #aaa;
   border-radius: 5px;
   margin: 0px 8px;
@@ -174,7 +188,7 @@ body {
 
 .chess-item {
   border: solid 0px;
-  background-color: white;
+  /* background-color: white; */
   box-sizing: border-box;
   border-radius: 5px;
   width: 60px;
@@ -184,4 +198,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+.chess-item img {
+  width: 100%;
 }
