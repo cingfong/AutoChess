@@ -122,7 +122,7 @@ class ChessStore {
     if (!this.firstLoad) {
       setTimeout(() => {
         const { left, right, top, bottom } = shopWrap.getBoundingClientRect();
-        this.storeScope = { left, right, top, bottom };
+        this.storeScope = { left: left - 15, right: right + 15, top: top - 15, bottom: bottom + 15 };
         this.shopAddEvent();
       });
       this.firstLoad = true;

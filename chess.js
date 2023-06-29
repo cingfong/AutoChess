@@ -201,6 +201,7 @@ class ChessPiece {
         touchTop,
         touchBottom,
       });
+      element.style.zIndex = 1;
       element.style.position = "fixed";
       element.style.opacity = 0;
       element.style.left = `${mouseX - offsetX}px`;

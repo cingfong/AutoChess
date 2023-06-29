@@ -9,8 +9,8 @@ class stage {
     this.stageDataList = stageDataList;
     this.nowStage = null;
     this.level = 1;
-    this.speedLsit = [1, 2, 3];
-    this.speedIndex = 0;
+    this.speedList = [1, 2, 3];
+    this.mpveSpeed = 1;
     this.getStageData();
   }
 
@@ -31,6 +31,15 @@ class stage {
       });
     });
     this.nowStage = _nowStageData;
+  }
+
+  addSpeed() {
+    const moveSpeed = this.moveSpeed
+    if (moveSpeed === 4) {
+      this.moveSpeed = 1
+    } else {
+      this.moveSpeed *= 2
+    }
   }
 
   renderBoard() {
