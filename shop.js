@@ -8,6 +8,7 @@ class ChessStore {
     this.User = null;
     this.display = true;
     this.storeScope = null;
+    this.firstLoad = false;
   }
 
   // 升級商店
@@ -78,6 +79,19 @@ class ChessStore {
     return piece;
   }
 
+  refresh() {
+    const refreshMoney = 10;
+    const _user = this.User;
+    const _userMoney = _user.getMoney();
+    if (_userMoney < refreshMoney) {
+      alert("玩家金額不足");
+      return;
+    }
+    _user.reduceMoney(refreshMoney);
+    this.generateStock();
+    this.render();
+  }
+
   render() {
     this.renderShop();
   }
@@ -101,21 +115,25 @@ class ChessStore {
       elementDiv.addEventListener("click", () => {
         _this.purchase(index);
       });
-      elementDiv.appendChild(elementImg)
+      elementDiv.appendChild(elementImg);
       chessWrap.appendChild(elementDiv);
       parent.appendChild(chessWrap);
     });
-    setTimeout(() => {
-      const { left, right, top, bottom } = shopWrap.getBoundingClientRect();
-      this.storeScope = { left, right, top, bottom };
-      this.shopAddEvent();
-    });
+    if (!this.firstLoad) {
+      setTimeout(() => {
+        const { left, right, top, bottom } = shopWrap.getBoundingClientRect();
+        this.storeScope = { left, right, top, bottom };
+        this.shopAddEvent();
+      });
+      this.firstLoad = true;
+    }
   }
 
   shopAddEvent() {
     const shopCloseBtn = document.querySelector(".shop-close");
     const shopWrap = document.querySelector(".shop-wrap");
     const shopShowBtn = document.querySelector(".shop-show-btn");
+    const shopRefreshBtn = document.querySelector(".shop-refresh-btn");
     shopCloseBtn.addEventListener("click", () => {
       shopWrap.style.display = "none";
       this.hidden();
@@ -123,6 +141,9 @@ class ChessStore {
     shopShowBtn.addEventListener("click", () => {
       shopWrap.style.display = "flex";
       this.show();
+    });
+    shopRefreshBtn.addEventListener("click", () => {
+      this.refresh();
     });
   }
 

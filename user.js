@@ -60,12 +60,17 @@ class User {
   }
 
   buyPiece(piece) {
-    this.money = this.money - piece.price;
+    this.reduceMoney(piece.price);
     this.addPiece(piece);
     this.makeupPieceLevel();
   }
 
-  sellChess(price) {
+  reduceMoney(price = 0) {
+    this.money = this.money - price;
+    this.renderMoney();
+  }
+
+  sellChess(price = 0) {
     this.money = this.money + price;
     this.renderMoney();
   }
@@ -168,7 +173,7 @@ class User {
       if (piece) {
         piece.drag(pieceDiv, "user", pieceIndex, this.Board, this, this.Shop);
       }
-      pieceDiv.appendChild(pieceImg)
+      pieceDiv.appendChild(pieceImg);
       pieceWrap.appendChild(pieceDiv);
       storeDivList.push(pieceWrap);
       parent.appendChild(pieceWrap);
