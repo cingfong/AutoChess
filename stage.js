@@ -2,15 +2,16 @@ import Chess from "./chess.js";
 import stageDataList from "./stageData.json" assert { type: "json" };
 import lib from "./lib.js";
 import chessSkill from "./chessSkill.js";
-import utils from './utils.js'
+import utils from "./utils.js";
 class stage {
   constructor() {
+    this.firstLoad = true;
     this.User = null;
     this.stageDataList = stageDataList;
     this.nowStage = null;
     this.level = 1;
     this.speedList = [1, 2, 3];
-    this.mpveSpeed = 1;
+    this.moveSpeed = 1;
     this.getStageData();
   }
 
@@ -34,11 +35,11 @@ class stage {
   }
 
   addSpeed() {
-    const moveSpeed = this.moveSpeed
+    const moveSpeed = this.moveSpeed;
     if (moveSpeed === 4) {
-      this.moveSpeed = 1
+      this.moveSpeed = 1;
     } else {
-      this.moveSpeed *= 2
+      this.moveSpeed *= 2;
     }
   }
 
@@ -174,31 +175,46 @@ class stage {
         rowDiv.appendChild(colWrap);
       });
     });
+    if (this.firstLoad) {
+      this.firstLoad = false;
+      this.addEvent();
+    }
+  }
+
+  addEvent() {
+    const speedBtn = document.querySelector(".speed-btn");
+    speedBtn.addEventListener("click", () => {
+      this.addSpeed();
+    });
   }
 
   startFight(callBack) {
-    const _this = this
+    const _this = this;
     this.fightProcess().then(({ winner, money }) => {
       if (winner === "user") {
         const User = _this.User;
         User.battleOver();
         User.addMoney(money);
-        utils.popUps({ type: 'win', title: "獲勝", content: "前往下一關" }).then((v) => {
-          _this.level++
-          _this.getStageData();
-          User.render()
-          const fightWrap = document.querySelector(".fight-wrap");
-          fightWrap.classList.add("hidden");
-        });
+        utils
+          .popUps({ type: "win", title: "獲勝", content: "前往下一關" })
+          .then((v) => {
+            _this.level++;
+            _this.getStageData();
+            User.render();
+            const fightWrap = document.querySelector(".fight-wrap");
+            fightWrap.classList.add("hidden");
+          });
       } else {
         // 待調整
-        utils.popUps({ type: 'fail', title: "失敗", content: "重新開始" }).then((v) => {
-          const fightWrap = document.querySelector(".fight-wrap");
-          fightWrap.classList.add("hidden");
-          callBack()
-        })
+        utils
+          .popUps({ type: "fail", title: "失敗", content: "重新開始" })
+          .then((v) => {
+            const fightWrap = document.querySelector(".fight-wrap");
+            fightWrap.classList.add("hidden");
+            callBack();
+          });
       }
-    })
+    });
   }
 
   fightProcess() {
@@ -280,7 +296,8 @@ class stage {
               receive: receiverChess,
               type: attacker,
               callBack: () => {
-                if (receiverChess.health) chessItem.attackPiece(receiverChess);
+                if (receiverChess.health)
+                  chessItem.attackPiece(receiverChess, _this.moveSpeed);
               },
             };
             setTimeout(() => {
@@ -296,7 +313,7 @@ class stage {
           receive: receiverChess,
           type: attacker,
           callBack: () => {
-            attackChess.attackPiece(receiverChess);
+            attackChess.attackPiece(receiverChess, _this.moveSpeed);
           },
           delayTime: _chessAnyAttackSkill.length ? 500 : 0,
         };
@@ -326,14 +343,17 @@ class stage {
             attack.element.style.top = `${attackOriginTop}px`;
             attackChess.classList.remove("revice-move-chess");
             attackChess.classList.add("attack-move-chess");
+            attackChess.classList.add(
+              `attack-move-chess-speed-${_this.moveSpeed}`
+            );
             const chessPosition = {
               left: receiveChessLeft,
               top: receiveChessTop + typeHeight,
             };
-            chessMove(attack, 1000, chessPosition);
+            chessMove(attack, 1000 / _this.moveSpeed, chessPosition);
             setTimeout(() => {
               resolve();
-            }, 1000 + delayTime);
+            }, 1000 / _this.moveSpeed + delayTime);
           });
         }
         function animation2() {
@@ -385,9 +405,12 @@ class stage {
             chessMove(attack, 1000, chessPosition);
             attackChess.classList.remove("revice-move-chess");
             attackChess.classList.add("attack-move-chess");
+            attackChess.classList.add(
+              `attack-move-chess-speed-${_this.moveSpeed}`
+            );
             setTimeout(() => {
               resolve();
-            }, 1000);
+            }, 1000 / _this.moveSpeed);
           });
         }
         function animation5() {

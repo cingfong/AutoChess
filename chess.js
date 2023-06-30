@@ -11,7 +11,7 @@ class ChessPiece {
     this.fightAddition = null;
   }
   // 攻擊對手棋子
-  attackPiece(opponentPiece) {
+  attackPiece(opponentPiece, moveSpeed) {
     const attackRandom = Math.floor(
       this.attack * ((Math.random(4) + 8) / 10),
       2
@@ -27,21 +27,23 @@ class ChessPiece {
     if (opponentPiece.health <= 0) {
       opponentPiece.health = 0;
       setTimeout(() => {
-        opponentPiece.element.classList.add("dead");
-      }, 1000);
+        opponentPiece.element.classList.add(`dead-${moveSpeed}`);
+      }, 1000 / moveSpeed);
     } else {
       console.log(
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
       );
     }
-    opponentPiece.backgroundElement.style.height = `${(1 - opponentPiece.health / opponentPiece.fullHealth) * 100
-      }%`;
+    opponentPiece.backgroundElement.style.height = `${
+      (1 - opponentPiece.health / opponentPiece.fullHealth) * 100
+    }%`;
   }
   restore(treat) {
     if (!this.health) return;
     this.health += treat;
-    this.backgroundElement.style.height = `${(1 - this.health / this.fullHealth) * 100
-      }%`;
+    this.backgroundElement.style.height = `${
+      (1 - this.health / this.fullHealth) * 100
+    }%`;
   }
 
   setBackgroundElement(element) {
