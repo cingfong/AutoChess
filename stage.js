@@ -98,6 +98,11 @@ class stage {
         const colDivBackground = lib.createDOM("div", "", {
           className: "user-board-col-item-background",
         });
+        if (col) {
+          colDivBackground.style.height = `${
+            (1 - col.health / col.fullHealth) * 100
+          }%`;
+        }
         const colDivBuffBackground = lib.createDOM("div", "", {
           className: "user-board-col-item-buff board-col-item-buff",
         });
@@ -156,6 +161,11 @@ class stage {
         const colDivBackground = lib.createDOM("div", "", {
           className: "compute-board-col-item-background",
         });
+        if (col) {
+          colDivBackground.style.height = `${
+            (1 - col.health / col.fullHealth) * 100
+          }%`;
+        }
         const colDivBuffBackground = lib.createDOM("div", "", {
           className: "compute-board-col-item-buff board-col-item-buff",
         });

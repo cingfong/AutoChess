@@ -66,6 +66,7 @@ body {
   align-items: center;
   justify-content: center;
   user-select: none;
+  position: relative;
 }
 .board-col-item img {
   width: 100%;

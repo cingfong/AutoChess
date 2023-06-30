@@ -91,6 +91,7 @@ class ChessPiece {
     // 假設加成是攻擊力的 10%
     this.attack = this.attack * levelBonusList[this.level + 1];
     this.health = this.health * this.levelBonusList[this.level + 1];
+    this.fullHealth = this.health * this.levelBonusList[this.level + 1];
   }
   levelUp() {
     this.level++;

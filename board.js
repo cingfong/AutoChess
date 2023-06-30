@@ -103,7 +103,15 @@ class Board {
           const pieceIndex = rowIndex * 3 + colIndex;
           col.drag(colDiv, "board", pieceIndex, this, this.User);
         }
-
+        if (col) {
+          const colDivBackground = lib.createDOM("div", "", {
+            className: "ready-board-col-item-background",
+          });
+          colDivBackground.style.height = `${
+            (1 - col.health / col.fullHealth) * 100
+          }%`;
+          colDiv.appendChild(colDivBackground);
+        }
         colDiv.appendChild(colImg);
         colWrap.appendChild(colDiv);
         colDivList.push(colWrap);
