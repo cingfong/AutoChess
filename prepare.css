@@ -169,22 +169,24 @@ body {
 }
 
 .shop-close {
-  background-color: white;
   position: absolute;
   top: 5px;
   right: 5px;
   width: 30px;
   height: 30px;
   cursor: pointer;
+  background-image: url("./static/close.png");
+  background-size: cover;
 }
 .shop-refresh-btn {
-  background-color: white;
   position: absolute;
   left: 5px;
   top: 5px;
   width: 30px;
   height: 30px;
   cursor: pointer;
+  background-image: url("./static/update.png");
+  background-size: cover;
 }
 
 .chess-item-wrap {

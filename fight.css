@@ -209,7 +209,16 @@
   position: sticky;
   width: 40px;
   height: 40px;
-  background-color: white;
+  background-size: cover;
+}
+.speed-btn-1 {
+  background-image: url("./static/speed-1.png");
+}
+.speed-btn-2 {
+  background-image: url("./static/speed-2.png");
+}
+.speed-btn-4 {
+  background-image: url("./static/speed-3.png");
 }
 /* 共用class */
 .hidden {

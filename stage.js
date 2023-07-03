@@ -10,11 +10,10 @@ class stage {
     this.stageDataList = stageDataList;
     this.nowStage = null;
     this.level = 1;
-    this.speedList = [1, 2, 3];
+    this.speedList = [1, 2, 4];
     this.moveSpeed = 1;
     this.getStageData();
   }
-
   clearance() {
     this.level = this.level + 1;
   }
@@ -192,9 +191,14 @@ class stage {
   }
 
   addEvent() {
+    const _this = this;
+    const speedClassList = _this.speedList.map((e) => `speed-btn-${e}`);
     const speedBtn = document.querySelector(".speed-btn");
     speedBtn.addEventListener("click", () => {
-      this.addSpeed();
+      _this.addSpeed();
+      const nowSpeed = _this.moveSpeed;
+      speedBtn.classList.remove(...speedClassList);
+      speedBtn.classList.add(`speed-btn-${nowSpeed}`);
     });
   }
 
@@ -347,12 +351,16 @@ class stage {
         const typeHeight = type === "user" ? 60 : -60;
         attackChess.style.position = "fixed";
         receiveChess.style.position = "fixed";
+        const speedClassList = _this.speedList.map(
+          (e) => `attack-move-chess-speed-${e}`
+        );
         function animation1() {
           return new Promise((resolve, reject) => {
             attack.element.style.left = `${attackOriginLeft}px`;
             attack.element.style.top = `${attackOriginTop}px`;
             attackChess.classList.remove("revice-move-chess");
             attackChess.classList.add("attack-move-chess");
+            attackChess.classList.remove(...speedClassList);
             attackChess.classList.add(
               `attack-move-chess-speed-${_this.moveSpeed}`
             );
@@ -415,6 +423,7 @@ class stage {
             chessMove(attack, 1000, chessPosition);
             attackChess.classList.remove("revice-move-chess");
             attackChess.classList.add("attack-move-chess");
+            attackChess.classList.remove(...speedClassList);
             attackChess.classList.add(
               `attack-move-chess-speed-${_this.moveSpeed}`
             );
