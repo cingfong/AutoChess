@@ -119,11 +119,13 @@ class User {
 
   battleOver() {
     const boardList = this.getBoard().flat();
+    this.Shop.generateStock();
+    this.Shop.show();
     boardList.forEach((e, i) => {
       if (!e) return;
       if (e.health) {
-        const treatHealth = (e.fullhealth - e.health) * 0.5;
-        this.health += Math.round(treatHealth);
+        const treatHealth = (e.fullHealth - e.health) * 0.5;
+        e.health += Math.round(treatHealth);
       } else {
         this.Board.removePiece(i);
       }
@@ -172,6 +174,13 @@ class User {
       pieceDiv.setAttribute("draggable", !!piece);
       if (piece) {
         piece.drag(pieceDiv, "user", pieceIndex, this.Board, this, this.Shop);
+        const pieceDivBackground = lib.createDOM("div", "", {
+          className: "user-piece-item-background",
+        });
+        pieceDivBackground.style.height = `${
+          (1 - piece.health / piece.fullHealth) * 100
+        }%`;
+        pieceDiv.appendChild(pieceDivBackground);
       }
       pieceDiv.appendChild(pieceImg);
       pieceWrap.appendChild(pieceDiv);

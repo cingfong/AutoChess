@@ -16,9 +16,13 @@ class ChessStore {
     this.level++;
   }
   hidden() {
+    const shopWrap = document.querySelector(".shop-wrap");
+    shopWrap.style.display = "none";
     this.display = false;
   }
   show() {
+    const shopWrap = document.querySelector(".shop-wrap");
+    shopWrap.style.display = "flex";
     this.display = true;
   }
 
@@ -122,7 +126,12 @@ class ChessStore {
     if (!this.firstLoad) {
       setTimeout(() => {
         const { left, right, top, bottom } = shopWrap.getBoundingClientRect();
-        this.storeScope = { left: left - 15, right: right + 15, top: top - 15, bottom: bottom + 15 };
+        this.storeScope = {
+          left: left - 15,
+          right: right + 15,
+          top: top - 15,
+          bottom: bottom + 15,
+        };
         this.shopAddEvent();
       });
       this.firstLoad = true;
@@ -131,15 +140,12 @@ class ChessStore {
 
   shopAddEvent() {
     const shopCloseBtn = document.querySelector(".shop-close");
-    const shopWrap = document.querySelector(".shop-wrap");
     const shopShowBtn = document.querySelector(".shop-show-btn");
     const shopRefreshBtn = document.querySelector(".shop-refresh-btn");
     shopCloseBtn.addEventListener("click", () => {
-      shopWrap.style.display = "none";
       this.hidden();
     });
     shopShowBtn.addEventListener("click", () => {
-      shopWrap.style.display = "flex";
       this.show();
     });
     shopRefreshBtn.addEventListener("click", () => {

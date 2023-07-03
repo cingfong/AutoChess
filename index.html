@@ -1,106 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-</head>
-
-<body>
-  <link rel="stylesheet" href="./prepare.css" />
-  <link rel="stylesheet" href="./fight.css" />
-  <link rel="stylesheet" href="./utils.css" />
-  <div id="app">
-    <div class="pop-up-card hidden">
-      <div class="title"></div>
-      <div class="content"></div>
-      <div class="button-wrap">
-        <div class="button">確定</div>
-        <!-- <div class="button cancel"></div> -->
-      </div>
-    </div>
-    <div class="prepare-wrap">
-      <div class="board-wrap"></div>
-      <div class="user-piece-wrap"></div>
-      <div class="shop-wrap">
-        <div class="shop-title">商店</div>
-        <div class="shop-refresh-btn"></div>
-        <div class="shop-piece"></div>
-        <div class="shop-close"></div>
-      </div>
-      <div class="user-money-wrap">
-        <div class="user-money-pre">玩家金額:</div>
-        <div class="user-money"></div>
-      </div>
-      <div class="shop-show-btn">商店</div>
-      <div class="fight-show-btn">戰鬥</div>
-    </div>
-    <div class="fight-wrap hidden">
-      <div class="fight-board-wrap">
-        <div class="board-wrap">
-          <div class="compute-board-wrap"></div>
-          <div class="user-board-wrap"></div>
-        </div>
-        <div class="fight-btn-wrap">
-          <div class="speed-btn"></div>
+  <body>
+    <link rel="stylesheet" href="./prepare.css" />
+    <link rel="stylesheet" href="./fight.css" />
+    <link rel="stylesheet" href="./utils.css" />
+    <div id="app">
+      <div class="pop-up-card hidden">
+        <div class="title"></div>
+        <div class="content"></div>
+        <div class="button-wrap">
+          <div class="button">確定</div>
+          <!-- <div class="button cancel"></div> -->
         </div>
       </div>
+      <div class="prepare-wrap">
+        <div class="board-wrap"></div>
+        <div class="user-piece-wrap"></div>
+        <div class="shop-wrap">
+          <div class="shop-title">商店</div>
+          <div class="shop-refresh-btn"></div>
+          <div class="shop-piece"></div>
+          <div class="shop-close"></div>
+        </div>
+        <div class="user-money-wrap">
+          <div class="user-money-pre">玩家金額:</div>
+          <div class="user-money"></div>
+        </div>
+        <div class="shop-show-btn">商店</div>
+        <div class="fight-show-btn">戰鬥</div>
+      </div>
+      <div class="fight-wrap hidden">
+        <div class="fight-board-wrap">
+          <div class="board-wrap">
+            <div class="compute-board-wrap"></div>
+            <div class="user-board-wrap"></div>
+          </div>
+          <div class="fight-btn-wrap">
+            <div class="speed-btn speed-btn-1"></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <script type="module">
-    import Shop from "./shop.js";
-    import Chess from "./chess.js";
-    import User from "./user.js";
-    import Stage from "./stage.js";
-    import utils from "./utils.js";
-    // 商店
-    // 棋盤
-    function mainRender() {
-      const _globalAutoChess = {
-        User: new User(),
-        Stage: new Stage(),
-        ready: function () {
-          this.Stage.setUserObject(this.User);
-        },
-        prepareRender: function () {
-          this.User.render();
-        },
-        getUser: function () {
-          return this.User;
-        },
-        fightRender: function () {
-          this.Stage.renderBoard();
-        },
-        fight: function () {
-          return this.Stage.startFight(mainRender);
-        },
+    <script type="module">
+      import Shop from "./shop.js";
+      import Chess from "./chess.js";
+      import User from "./user.js";
+      import Stage from "./stage.js";
+      import utils from "./utils.js";
+      // 商店
+      // 棋盤
+      function mainRender() {
+        const _globalAutoChess = {
+          User: new User(),
+          Stage: new Stage(),
+          ready: function () {
+            this.Stage.setUserObject(this.User);
+          },
+          prepareRender: function () {
+            this.User.render();
+          },
+          getUser: function () {
+            return this.User;
+          },
+          fightRender: function () {
+            this.Stage.renderBoard();
+          },
+          fight: function () {
+            return this.Stage.startFight(mainRender);
+          },
+        };
+
+        window._globalAutoChess = _globalAutoChess;
+        _globalAutoChess.ready();
+        _globalAutoChess.prepareRender();
+        testFightRender();
+      }
+      function testFightRender() {
+        // _globalAutoChess.fightRender();
+        // _globalAutoChess.fight();
+      }
+      mainRender();
+      // 動畫觀測器
+      // window.requestAnimationFrame(() => {
+      // })
+      // renderPiece()
+      // render();
+      window.onload = () => {
+        const fightBtn = document.querySelector(".fight-show-btn");
+        fightBtn.addEventListener("click", () => {
+          _globalAutoChess.fightRender();
+          _globalAutoChess.fight();
+        });
       };
-
-      window._globalAutoChess = _globalAutoChess;
-      _globalAutoChess.ready();
-      _globalAutoChess.prepareRender();
-      testFightRender();
-    }
-    function testFightRender() {
-      // _globalAutoChess.fightRender();
-      // _globalAutoChess.fight();
-    }
-    mainRender();
-    // 動畫觀測器
-    // window.requestAnimationFrame(() => {
-    // })
-    // renderPiece()
-    // render();
-    window.onload = () => {
-      const fightBtn = document.querySelector(".fight-show-btn");
-      fightBtn.addEventListener("click", () => {
-        _globalAutoChess.fightRender();
-        _globalAutoChess.fight();
-      });
-    };
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

@@ -80,13 +80,14 @@ class stage {
           className:
             "user-board-col-item-attack-wrap board-col-item-attack-wrap",
         });
-        colAttack.style.backgroundImage = `url('./static/${col?.effect[0]}.png')`;
-        colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
         if (col?.race === "ninja") {
           const _effectName = col.effect[0];
           const _newEffectName = _effectName.slice(0, -1) + ninjaIndex;
           colAttack.style.backgroundImage = `url('./static/${_newEffectName}.png')`;
           ninjaIndex++;
+        } else if (col?.race) {
+          colAttack.style.backgroundImage = `url('./static/${col?.effect[0]}.png')`;
+          colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
         }
         const colImg = lib.createDOM("img", "", {
           src: `./static/user/${col?.name ?? "space"}.png`,
@@ -143,13 +144,14 @@ class stage {
           className:
             "compute-board-col-item-attack-wrap board-col-item-attack-wrap",
         });
-        colAttack.style.backgroundImage = `url('./static/${col?.effect[0]}.png')`;
-        colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
         if (col?.race === "ninja") {
           const _effectName = col.effect[0];
           const _effectBackground = _effectName.slice(0, -1) + ninjaIndex;
           colAttack.style.backgroundImage = `url('./static/${_effectBackground}.png')`;
           ninjaIndex++;
+        } else if (col?.race) {
+          colAttack.style.backgroundImage = `url('./static/${col?.effect[0]}.png')`;
+          colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
         }
         const colImg = lib.createDOM("img", "", {
           src: `./static/stage/${col?.name ?? "space"}.png`,
@@ -207,11 +209,11 @@ class stage {
     this.fightProcess().then(({ winner, money }) => {
       if (winner === "user") {
         const User = _this.User;
-        User.battleOver();
-        User.addMoney(money);
         utils
           .popUps({ type: "win", title: "獲勝", content: "前往下一關" })
           .then((v) => {
+            User.battleOver();
+            User.addMoney(money);
             _this.level++;
             _this.getStageData();
             User.render();
