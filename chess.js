@@ -34,16 +34,14 @@ class ChessPiece {
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
       );
     }
-    opponentPiece.backgroundElement.style.height = `${
-      (1 - opponentPiece.health / opponentPiece.fullHealth) * 100
-    }%`;
+    opponentPiece.backgroundElement.style.height = `${(1 - opponentPiece.health / opponentPiece.fullHealth) * 100
+      }%`;
   }
   restore(treat) {
     if (!this.health) return;
     this.health += treat;
-    this.backgroundElement.style.height = `${
-      (1 - this.health / this.fullHealth) * 100
-    }%`;
+    this.backgroundElement.style.height = `${(1 - this.health / this.fullHealth) * 100
+      }%`;
   }
 
   setBackgroundElement(element) {
@@ -89,9 +87,9 @@ class ChessPiece {
   getBonus() {
     const levelBonusList = [1, 1.6, 1.5, 1.4, 1.3, 1.5];
     // 假設加成是攻擊力的 10%
-    this.attack = this.attack * levelBonusList[this.level + 1];
-    this.health = this.health * this.levelBonusList[this.level + 1];
-    this.fullHealth = this.health * this.levelBonusList[this.level + 1];
+    this.attack = this.attack * levelBonusList[this.level - 1];
+    this.health = this.health * levelBonusList[this.level - 1];
+    this.fullHealth = this.health * levelBonusList[this.level - 1];
   }
   levelUp() {
     this.level++;

@@ -28,7 +28,7 @@ class User {
     return this.Board.displayBoard();
   }
   testAddPiece() {
-    const chess1 = new Chess("infantry", 1);
+    // const chess1 = new Chess("infantry", 1);
     // const chess = new Chess("cavalry", 3);
     // const chess2 = new Chess("cavalry", 3);
     // const chess3 = new Chess("ninja", 3);
@@ -38,7 +38,7 @@ class User {
     // const chess7 = new Chess("ninja", 3);
     // const chess8 = new Chess("ninja", 3);
 
-    this.Board.setPiece(null, 0, chess1);
+    // this.Board.setPiece(null, 0, chess1);
     // this.Board.setPiece(null, 2, chess);
     // this.Board.setPiece(null, 1, chess2);
     // this.Board.setPiece(null, 3, chess3);
@@ -177,9 +177,8 @@ class User {
         const pieceDivBackground = lib.createDOM("div", "", {
           className: "user-piece-item-background",
         });
-        pieceDivBackground.style.height = `${
-          (1 - piece.health / piece.fullHealth) * 100
-        }%`;
+        pieceDivBackground.style.height = `${(1 - piece.health / piece.fullHealth) * 100
+          }%`;
         pieceDiv.appendChild(pieceDivBackground);
       }
       pieceDiv.appendChild(pieceImg);

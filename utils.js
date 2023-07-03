@@ -1,8 +1,9 @@
 export default {
-  popUps: ({ type, title, content }) => {
-    const typeClass = type === 'win' ? 'win' : 'fail'
+  popUps: ({ type = 'win', title, content, cancelBtn }) => {
+    const typeClassList = ['win', 'fail', 'error', 'success']
+    const typeClass = type
     const resetClass = (dom) => {
-      ['win', 'fail'].forEach(classItem => {
+      typeClassList.forEach(classItem => {
         dom.classList.remove(classItem)
       });
     }
@@ -11,6 +12,12 @@ export default {
       const titleDom = wrap.querySelector(".title");
       const contentDom = wrap.querySelector(".content");
       const buttonDom = wrap.querySelector(".button");
+      const cancelButtonDom = wrap.querySelector(".cancel");
+      if (cancelBtn) {
+        cancelButtonDom.classList.remove('hidden')
+      } else {
+        cancelButtonDom.classList.add('hidden')
+      }
       resetClass(wrap)
       resetClass(titleDom)
       resetClass(buttonDom)
@@ -29,6 +36,9 @@ export default {
         wrap.classList.remove('hidden')
       }
       buttonDom.addEventListener("click", clickMethod);
+      cancelButtonDom.addEventListener("click", () => {
+        wrap.classList.add('hidden')
+      })
     });
   },
 };

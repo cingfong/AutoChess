@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   background-image: url("./static/background.png");
-  background-size: 100% auto;
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: left bottom;
 }

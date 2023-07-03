@@ -15,7 +15,7 @@
   width: 100vw;
   height: 100vh;
   background-image: url("./static/background.png");
-  background-size: 100% auto;
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: left bottom;
   left: 0px;
