@@ -9,6 +9,9 @@ class ChessPiece {
     Object.assign(this, chess);
     this.fullHealth = this.health;
     this.fightAddition = null;
+    if (this.level > 1) {
+      this.setBonus();
+    }
   }
   // 攻擊對手棋子
   attackPiece(opponentPiece, moveSpeed) {
@@ -34,14 +37,16 @@ class ChessPiece {
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
       );
     }
-    opponentPiece.backgroundElement.style.height = `${(1 - opponentPiece.health / opponentPiece.fullHealth) * 100
-      }%`;
+    opponentPiece.backgroundElement.style.height = `${
+      (1 - opponentPiece.health / opponentPiece.fullHealth) * 100
+    }%`;
   }
   restore(treat) {
     if (!this.health) return;
     this.health += treat;
-    this.backgroundElement.style.height = `${(1 - this.health / this.fullHealth) * 100
-      }%`;
+    this.backgroundElement.style.height = `${
+      (1 - this.health / this.fullHealth) * 100
+    }%`;
   }
 
   setBackgroundElement(element) {
@@ -82,14 +87,20 @@ class ChessPiece {
     this.fightAddition[type] += addAttack;
     this.fightAddition.items = items;
   }
-
+  setBonus() {
+    let defaultLevel = 1;
+    while (defaultLevel <= this.level) {
+      this.getBonus(defaultLevel);
+      defaultLevel++;
+    }
+  }
   // 獲取加成
-  getBonus() {
+  getBonus(_level) {
     const levelBonusList = [1, 1.6, 1.5, 1.4, 1.3, 1.5];
     // 假設加成是攻擊力的 10%
-    this.attack = this.attack * levelBonusList[this.level - 1];
-    this.health = this.health * levelBonusList[this.level - 1];
-    this.fullHealth = this.health * levelBonusList[this.level - 1];
+    this.attack = this.attack * levelBonusList[_level || this.level - 1];
+    this.health = this.health * levelBonusList[_level || this.level - 1];
+    this.fullHealth = this.health;
   }
   levelUp() {
     this.level++;

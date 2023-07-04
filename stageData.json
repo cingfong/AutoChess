@@ -9,22 +9,22 @@
       [null, null, null],
       [null, null, null]
     ],
-    "money": 50
+    "money": 100
   },
   "level2": {
     "chessList": [
-      [null, null, null],
       [
         { "race": "cavalry", "level": 1 },
         { "race": "cavalry", "level": 1 },
         null
       ],
       [
-        { "race": "shield", "level": 2 },
+        { "race": "shield", "level": 1 },
         { "race": "shield", "level": 1 },
         { "race": "shield", "level": 1 }
-      ]
+      ],
+      [null, null, null]
     ],
-    "money": 50
+    "money": 100
   }
 }

@@ -12,6 +12,7 @@ class User {
     this.Board = new Board();
     this.Shop = new Shop();
     this.Shop.setUserObject(this);
+    this.Shop.show();
     this.storageDivScope = [];
     this.Stage = null;
     // 模擬事件

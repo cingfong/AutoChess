@@ -198,12 +198,15 @@ class stage {
     const _this = this;
     const speedClassList = _this.speedList.map((e) => `speed-btn-${e}`);
     const speedBtn = document.querySelector(".speed-btn");
-    speedBtn.addEventListener("click", () => {
+    speedBtn.classList.remove(...speedClassList);
+    speedBtn.classList.add(`speed-btn-${_this.moveSpeed}`);
+    speedBtn.onclick = null;
+    speedBtn.onclick = () => {
       _this.addSpeed();
       const nowSpeed = _this.moveSpeed;
       speedBtn.classList.remove(...speedClassList);
       speedBtn.classList.add(`speed-btn-${nowSpeed}`);
-    });
+    };
   }
 
   startFight(callBack) {

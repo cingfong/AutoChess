@@ -1,8 +1,9 @@
 import Chess from "./chess.js";
 import lib from "./lib.js";
+import utils from "./utils.js";
 class ChessStore {
-  constructor(level) {
-    // this.level = level; // 商店等級
+  constructor(level = 1) {
+    this.level = level; // 商店等級
     this.stock = []; // 商品庫存
     this.generateStock();
     this.User = null;
@@ -32,16 +33,18 @@ class ChessStore {
 
   // 隨機生成商品庫存
   generateStock() {
-    const races = [
-      "cavalry",
-      "shield",
-      "spearman",
-      "archer",
-      "handCannoneer",
-      "horseArcher",
+    const racesList = [
+      ["cavalry", "axeman", "shield", "spearman", "infantry", "skirmisher"],
+      ["archer", "handCannoneer", "horseArcher"],
+      ["ninja", "drummer", "medic"],
     ];
+    const shopLength = this.level > 1 ? 10 : 5;
+    const races = [];
+    for (let i = 0; i < this.level; i++) {
+      races.push(...racesList[i]);
+    }
     this.stock = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < shopLength; i++) {
       // 每次生成五種商品
       const race = races[Math.floor(Math.random() * races.length)];
       const piece = new Chess(race);
@@ -70,11 +73,29 @@ class ChessStore {
     const _chessMoney = _chess.price;
     if (!_chess) return;
     if (_userMoney < _chessMoney) {
-      alert("玩家金額不足");
+      utils
+        .popUps({
+          type: "fail",
+          title: "提醒",
+          content: "玩家金額不足",
+        })
+        .then((v) => {
+          const fightWrap = document.querySelector(".fight-wrap");
+          fightWrap.classList.add("hidden");
+        });
       return;
     }
     if (_userMaxPieces <= _userPieceLength) {
-      alert("棋子已滿");
+      utils
+        .popUps({
+          type: "fail",
+          title: "提醒",
+          content: "棋子已滿",
+        })
+        .then((v) => {
+          const fightWrap = document.querySelector(".fight-wrap");
+          fightWrap.classList.add("hidden");
+        });
       return;
     }
     const piece = this.stock.splice(index, 1, "")[0]; // 從庫存中移除已購買的商品
@@ -88,7 +109,16 @@ class ChessStore {
     const _user = this.User;
     const _userMoney = _user.getMoney();
     if (_userMoney < refreshMoney) {
-      alert("玩家金額不足");
+      utils
+        .popUps({
+          type: "fail",
+          title: "提醒",
+          content: "玩家金額不足",
+        })
+        .then((v) => {
+          const fightWrap = document.querySelector(".fight-wrap");
+          fightWrap.classList.add("hidden");
+        });
       return;
     }
     _user.reduceMoney(refreshMoney);
@@ -139,18 +169,22 @@ class ChessStore {
   }
 
   shopAddEvent() {
+    const _this = this;
     const shopCloseBtn = document.querySelector(".shop-close");
     const shopShowBtn = document.querySelector(".shop-show-btn");
     const shopRefreshBtn = document.querySelector(".shop-refresh-btn");
-    shopCloseBtn.addEventListener("click", () => {
-      this.hidden();
-    });
-    shopShowBtn.addEventListener("click", () => {
-      this.show();
-    });
-    shopRefreshBtn.addEventListener("click", () => {
-      this.refresh();
-    });
+    shopCloseBtn.onclick = null;
+    shopShowBtn.onclick = null;
+    shopRefreshBtn.onclick = null;
+    shopCloseBtn.onclick = () => {
+      _this.hidden();
+    };
+    shopShowBtn.onclick = () => {
+      _this.show();
+    };
+    shopRefreshBtn.onclick = () => {
+      _this.refresh();
+    };
   }
 
   getScope() {
