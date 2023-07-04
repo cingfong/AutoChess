@@ -10,6 +10,7 @@ class stage {
     this.stageDataList = stageDataList;
     this.nowStage = null;
     this.level = 1;
+    this.levelLength = null;
     this.speedList = [1, 2, 4];
     this.moveSpeed = 1;
     this.getStageData();
@@ -23,6 +24,7 @@ class stage {
 
   getStageData() {
     const _nowStageData = this.stageDataList[`level${this.level}`];
+    this.levelLength = Object.keys(this.stageDataList).length;
     _nowStageData.chessList.forEach((row, rowIndex) => {
       row.forEach((col, colIndex) => {
         if (col === null) return;
@@ -209,13 +211,23 @@ class stage {
     this.fightProcess().then(({ winner, money }) => {
       if (winner === "user") {
         const User = _this.User;
+        if (_this.level === this.levelLength) {
+          utils
+            .popUps({ type: "win", title: "大獲全勝", content: "重新開始" })
+            .then((v) => {
+              const fightWrap = document.querySelector(".fight-wrap");
+              fightWrap.classList.add("hidden");
+              callBack();
+            });
+          return;
+        }
         utils
           .popUps({ type: "win", title: "獲勝", content: "前往下一關" })
           .then((v) => {
-            User.battleOver();
-            User.addMoney(money);
             _this.level++;
             _this.getStageData();
+            User.battleOver();
+            User.addMoney(money);
             User.render();
             const fightWrap = document.querySelector(".fight-wrap");
             fightWrap.classList.add("hidden");

@@ -13,6 +13,7 @@ class User {
     this.Shop = new Shop();
     this.Shop.setUserObject(this);
     this.storageDivScope = [];
+    this.Stage = null;
     // 模擬事件
     this.testAddPiece();
   }
@@ -37,7 +38,6 @@ class User {
     // const chess6 = new Chess("ninja", 3);
     // const chess7 = new Chess("ninja", 3);
     // const chess8 = new Chess("ninja", 3);
-
     // this.Board.setPiece(null, 0, chess1);
     // this.Board.setPiece(null, 2, chess);
     // this.Board.setPiece(null, 1, chess2);
@@ -63,6 +63,34 @@ class User {
     this.reduceMoney(piece.price);
     this.addPiece(piece);
     this.makeupPieceLevel();
+  }
+
+  renderStage() {
+    const arrFristLastCheange = (arr) => {
+      const _arr = arr.slice();
+      const first = _arr.shift();
+      const last = _arr.pop();
+      return [last, ..._arr, first];
+    };
+    const stageBoardDom = document.querySelector(".stage-board");
+    const stageChessList = this.Stage.nowStage.chessList;
+    const renderStageChessList = arrFristLastCheange(stageChessList);
+    stageBoardDom.textContent = "";
+
+    renderStageChessList.forEach((row, rowIndex) => {
+      const rowDiv = lib.createDOM("div", null, {
+        className: "stage-board-row",
+      });
+      stageBoardDom.appendChild(rowDiv);
+      let i = 0;
+
+      row.forEach((col, colIndex) => {
+        const colImg = lib.createDOM("img", "", {
+          src: `./static/stage/${col?.name ?? "space"}.png`,
+        });
+        rowDiv.appendChild(colImg);
+      });
+    });
   }
 
   reduceMoney(price = 0) {
@@ -121,6 +149,7 @@ class User {
     const boardList = this.getBoard().flat();
     this.Shop.generateStock();
     this.Shop.show();
+    this.renderStage();
     boardList.forEach((e, i) => {
       if (!e) return;
       if (e.health) {
@@ -177,8 +206,9 @@ class User {
         const pieceDivBackground = lib.createDOM("div", "", {
           className: "user-piece-item-background",
         });
-        pieceDivBackground.style.height = `${(1 - piece.health / piece.fullHealth) * 100
-          }%`;
+        pieceDivBackground.style.height = `${
+          (1 - piece.health / piece.fullHealth) * 100
+        }%`;
         pieceDiv.appendChild(pieceDivBackground);
       }
       pieceDiv.appendChild(pieceImg);
@@ -269,6 +299,10 @@ class User {
       }
     };
     repeatChessFunc(getTotalChess());
+  }
+
+  setStageObject(stage) {
+    this.Stage = stage;
   }
 }
 export default User;
