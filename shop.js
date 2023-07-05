@@ -60,7 +60,7 @@ class ChessStore {
 
   // 購買商品
   purchase(index) {
-    if (index < 0 || index > 5) {
+    if (index < 0) {
       console.log("Invalid index.");
       return;
     }

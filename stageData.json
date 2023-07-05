@@ -69,7 +69,7 @@
       ],
       [null, null, null]
     ],
-    "money": 100
+    "money": 200
   },
   "level6": {
     "chessList": [
@@ -85,7 +85,7 @@
       ],
       [null, null, null]
     ],
-    "money": 100
+    "money": 200
   },
   "level7": {
     "chessList": [
@@ -101,7 +101,7 @@
       ],
       [null, null, null]
     ],
-    "money": 100
+    "money": 200
   },
   "level8": {
     "chessList": [
@@ -117,7 +117,7 @@
       ],
       [null, null, null]
     ],
-    "money": 100
+    "money": 200
   },
   "level9": {
     "chessList": [
@@ -133,7 +133,7 @@
       ],
       [null, null, null]
     ],
-    "money": 100
+    "money": 200
   },
   "level10": {
     "chessList": [
@@ -153,7 +153,7 @@
         { "race": "archer", "level": 1 }
       ]
     ],
-    "money": 100
+    "money": 300
   },
   "level11": {
     "chessList": [
@@ -173,7 +173,7 @@
         { "race": "ninja", "level": 1 }
       ]
     ],
-    "money": 100
+    "money": 300
   },
   "level12": {
     "chessList": [
@@ -193,7 +193,7 @@
         { "race": "ninja", "level": 1 }
       ]
     ],
-    "money": 100
+    "money": 300
   },
   "level13": {
     "chessList": [
@@ -213,7 +213,7 @@
         { "race": "ninja", "level": 2 }
       ]
     ],
-    "money": 100
+    "money": 300
   },
   "level14": {
     "chessList": [
@@ -233,7 +233,7 @@
         { "race": "ninja", "level": 3 }
       ]
     ],
-    "money": 100
+    "money": 300
   },
   "level15": {
     "chessList": [
@@ -253,7 +253,7 @@
         { "race": "medic", "level": 2 }
       ]
     ],
-    "money": 100
+    "money": 400
   },
   "level16": {
     "chessList": [
@@ -273,7 +273,7 @@
         { "race": "medic", "level": 2 }
       ]
     ],
-    "money": 100
+    "money": 400
   },
   "level17": {
     "chessList": [
@@ -293,7 +293,7 @@
         { "race": "handCannoneer", "level": 2 }
       ]
     ],
-    "money": 100
+    "money": 400
   },
   "level18": {
     "chessList": [
@@ -313,7 +313,7 @@
         { "race": "handCannoneer", "level": 3 }
       ]
     ],
-    "money": 100
+    "money": 400
   },
   "level19": {
     "chessList": [
@@ -333,7 +333,7 @@
         { "race": "medic", "level": 2 }
       ]
     ],
-    "money": 100
+    "money": 400
   },
   "level20": {
     "chessList": [
@@ -353,6 +353,6 @@
         { "race": "medic", "level": 3 }
       ]
     ],
-    "money": 100
+    "money": 1000
   }
 }
