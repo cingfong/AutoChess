@@ -118,8 +118,7 @@ class User {
     // 從棋盤移來
     if (oldIndex === null) {
       if (this.storage[index]) {
-        const nextPieceRace = this.storage[index]?.race;
-        oldPiece = new Chess(nextPieceRace);
+        oldPiece = this.storage[index];
       }
       this.storage[index] = piece;
     } else {
@@ -127,7 +126,7 @@ class User {
         this.storage[index] = piece;
         this.storage[oldIndex] = null;
       } else {
-        oldPiece = new Chess(nextPieceRace);
+        oldPiece = this.storage[index];
         this.storage[index] = piece;
       }
     }

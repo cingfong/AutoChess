@@ -45,8 +45,7 @@ class Board {
     // 從玩家拖動到棋盤
     if (oldIndex === null) {
       if (this.board[row][col]) {
-        const nextPieceRace = this.board[row][col]?.race;
-        oldPiece = new ChessPiece(nextPieceRace);
+        oldPiece = this.board[row][col];
       }
       this.board[row][col] = piece;
     } else {
@@ -57,7 +56,7 @@ class Board {
         this.board[row][col] = piece;
         this.board[oldRow][oldCol] = "";
       } else {
-        oldPiece = new ChessPiece(nextPieceRace);
+        oldPiece = this.board[row][col];
         this.board[row][col] = piece;
       }
     }

@@ -213,7 +213,7 @@ class stage {
     const _this = this;
     this.fightProcess().then(({ winner, money }) => {
       if (winner === "user") {
-        const User = _this.User;
+        const _User = _this.User;
         if (_this.level === this.levelLength) {
           utils
             .popUps({ type: "win", title: "大獲全勝", content: "重新開始" })
@@ -228,10 +228,13 @@ class stage {
           .popUps({ type: "win", title: "獲勝", content: "前往下一關" })
           .then((v) => {
             _this.level++;
+            if (_this.level < 15 && !(_this.level % 5)) {
+              _User.Shop.upgrade();
+            }
             _this.getStageData();
-            User.battleOver();
-            User.addMoney(money);
-            User.render();
+            _User.battleOver();
+            _User.addMoney(money);
+            _User.render();
             const fightWrap = document.querySelector(".fight-wrap");
             fightWrap.classList.add("hidden");
           });

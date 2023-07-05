@@ -38,7 +38,7 @@
     "race": "spearman",
     "attack": 25,
     "health": 150,
-    "counter": ["skirmisher", "cavalry"],
+    "counter": ["axeman", "cavalry"],
     "price": 20,
     "skill": "",
     "effect": ["cut-effect", "cut-effect-2"]
