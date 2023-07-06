@@ -35,6 +35,7 @@ class ChessStore {
   generateStock() {
     const racesList = [
       ["cavalry", "axeman", "shield", "spearman", "infantry", "skirmisher"],
+      // ["cavalry", "cavalry", "cavalry", "cavalry", "cavalry", "cavalry"],
       ["archer", "handCannoneer", "horseArcher"],
       ["ninja", "drummer", "medic"],
     ];

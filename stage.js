@@ -1,5 +1,5 @@
 import Chess from "./chess.js";
-import stageDataList from "./stageData.json" assert { type: "json" };
+import stageDataList from "./stageData.js";
 import lib from "./lib.js";
 import chessSkill from "./chessSkill.js";
 import utils from "./utils.js";

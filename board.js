@@ -95,8 +95,12 @@ class Board {
           className: "board-col-item",
         });
         const colImg = lib.createDOM("img", "", {
-          src: `./static/user/${col?.name ?? "space"}.png`,
+          src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
         });
+        if (col?.name) {
+          colImg.style.backgroundImage = `url(./static/user/${col.name}.png)`;
+        }
+        colImg.style.backgroundSize = "cover";
         colDiv.setAttribute("draggable", !!col);
         if (col) {
           const pieceIndex = rowIndex * 3 + colIndex;

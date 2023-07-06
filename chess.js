@@ -1,5 +1,5 @@
 import lib from "./lib.js";
-import chessDefaultList from "./chessList.json" assert { type: "json" };
+import chessDefaultList from "./chessList.js";
 class ChessPiece {
   constructor(chessName, level) {
     const chess = chessDefaultList[chessName];

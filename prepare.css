@@ -54,11 +54,17 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   width: 150px;
-  height: 120px;
+  height: 150px;
   background-color: rgba(200, 200, 200, 0.1);
-  padding: 10px 0px;
+  padding: 5px 0px 10px;
   margin-bottom: 10px;
   border-radius: 10px;
+}
+.stage-board-title {
+  padding-bottom: 5px;
+  color: #333;
+  /* font-weight: bold; */
+  font-family: Impact;
 }
 .stage-board-row {
   width: 100%;

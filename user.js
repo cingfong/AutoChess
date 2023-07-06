@@ -2,7 +2,7 @@ import Board from "./board.js";
 import Chess from "./chess.js";
 import Shop from "./shop.js";
 import lib from "./lib.js";
-import chessDefaultList from "./chessList.json" assert { type: "json" };
+import chessDefaultList from "./chessList.js";
 class User {
   constructor(maxPieces, money, health) {
     this.maxPieces = maxPieces || 6; // 最大棋子數量
@@ -31,7 +31,7 @@ class User {
   }
   testAddPiece() {
     // const chess1 = new Chess("infantry", 1);
-    // const chess = new Chess("cavalry", 3);
+    const chess = new Chess("skirmisher", 2);
     // const chess2 = new Chess("cavalry", 3);
     // const chess3 = new Chess("ninja", 3);
     // const chess4 = new Chess("ninja", 3);
@@ -40,7 +40,7 @@ class User {
     // const chess7 = new Chess("ninja", 3);
     // const chess8 = new Chess("ninja", 3);
     // this.Board.setPiece(null, 0, chess1);
-    // this.Board.setPiece(null, 2, chess);
+    this.Board.setPiece(null, 8, chess);
     // this.Board.setPiece(null, 1, chess2);
     // this.Board.setPiece(null, 3, chess3);
     // this.Board.setPiece(null, 4, chess4);
@@ -77,7 +77,10 @@ class User {
     const stageChessList = this.Stage.nowStage.chessList;
     const renderStageChessList = arrFristLastCheange(stageChessList);
     stageBoardDom.textContent = "";
-
+    const stageBoardTitle = lib.createDOM("div", `Level ${this.Stage.level}`, {
+      className: "stage-board-title",
+    });
+    stageBoardDom.appendChild(stageBoardTitle);
     renderStageChessList.forEach((row, rowIndex) => {
       const rowDiv = lib.createDOM("div", null, {
         className: "stage-board-row",
