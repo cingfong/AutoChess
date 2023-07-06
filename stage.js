@@ -92,8 +92,10 @@ class stage {
           colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
         }
         const colImg = lib.createDOM("img", "", {
-          src: `./static/user/${col?.name ?? "space"}.png`,
+          src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
         });
+        colImg.style.backgroundImage = `url(./static/user/${col?.name ?? "space"}.png)`;
+        colImg.style.backgroundSize = "cover";
         const colBatleSkill = lib.createDOM("div", "", {
           className: "borard-col-batle-skill",
         });
@@ -155,9 +157,17 @@ class stage {
           colAttack.style.backgroundImage = `url('./static/${col?.effect[0]}.png')`;
           colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
         }
+
         const colImg = lib.createDOM("img", "", {
-          src: `./static/stage/${col?.name ?? "space"}.png`,
+          src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
         });
+        if (col?.name) {
+          colImg.style.backgroundImage = `url(./static/user/${col.name}.png)`;
+        }
+        colImg.style.backgroundSize = "cover";
+        // const colImg = lib.createDOM("img", "", {
+        //   src: `./static/stage/${col?.name ?? "space"}.png`,
+        // });
         const colBatleSkill = lib.createDOM("div", "", {
           className: "borard-col-batle-skill",
         });
@@ -165,9 +175,8 @@ class stage {
           className: "compute-board-col-item-background",
         });
         if (col) {
-          colDivBackground.style.height = `${
-            (1 - col.health / col.fullHealth) * 100
-          }%`;
+          colDivBackground.style.height = `${(1 - col.health / col.fullHealth) * 100
+            }%`;
         }
         const colDivBuffBackground = lib.createDOM("div", "", {
           className: "compute-board-col-item-buff board-col-item-buff",

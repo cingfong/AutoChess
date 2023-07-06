@@ -90,8 +90,10 @@ class User {
 
       row.forEach((col, colIndex) => {
         const colImg = lib.createDOM("img", "", {
-          src: `./static/stage/${col?.name ?? "space"}.png`,
+          src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
         });
+        colImg.style.backgroundImage = `url(./static/user/${col?.name}.png)`;
+        colImg.style.backgroundSize = "cover";
         rowDiv.appendChild(colImg);
       });
     });
@@ -200,8 +202,10 @@ class User {
         className: "user-piece-item",
       });
       const pieceImg = lib.createDOM("img", "", {
-        src: `./static/user/${piece?.name ?? "space"}.png`,
+        src: `./static/${piece?.level ? "level-" + piece.level : "space"}.png`,
       });
+      pieceImg.style.backgroundImage = `url(./static/user/${piece?.name ?? "space"}.png)`;
+      pieceImg.style.backgroundSize = "cover";
 
       pieceDiv.setAttribute("draggable", !!piece);
       if (piece) {
