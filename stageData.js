@@ -43,9 +43,9 @@ export default {
   level4: {
     chessList: [
       [
-        { race: "infantry", level: 2 },
-        { race: "infantry", level: 2 },
-        { race: "infantry", level: 1 },
+        { race: "spearman", level: 2 },
+        { race: "spearman", level: 2 },
+        { race: "spearman", level: 1 },
       ],
       [
         { race: "cavalry", level: 1 },
@@ -59,9 +59,9 @@ export default {
   level5: {
     chessList: [
       [
-        { race: "infantry", level: 2 },
-        { race: "infantry", level: 2 },
-        { race: "infantry", level: 1 },
+        { race: "spearman", level: 2 },
+        { race: "spearman", level: 2 },
+        { race: "spearman", level: 1 },
       ],
       [
         { race: "cavalry", level: 2 },
@@ -75,9 +75,9 @@ export default {
   level6: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 1 },
-        { race: "infantry", level: 1 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 1 },
+        { race: "spearman", level: 1 },
       ],
       [
         { race: "cavalry", level: 2 },
@@ -91,9 +91,9 @@ export default {
   level7: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 2 },
-        { race: "infantry", level: 1 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 2 },
+        { race: "spearman", level: 1 },
       ],
       [
         { race: "cavalry", level: 2 },
@@ -107,9 +107,9 @@ export default {
   level8: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 1 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 1 },
       ],
       [
         { race: "cavalry", level: 3 },
@@ -123,9 +123,9 @@ export default {
   level9: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "cavalry", level: 3 },
@@ -139,9 +139,9 @@ export default {
   level10: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "cavalry", level: 3 },
@@ -159,9 +159,9 @@ export default {
   level11: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "cavalry", level: 3 },
@@ -179,9 +179,9 @@ export default {
   level12: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "ninja", level: 3 },
@@ -199,9 +199,9 @@ export default {
   level13: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "ninja", level: 3 },
@@ -219,9 +219,9 @@ export default {
   level14: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "drummer", level: 2 },
@@ -239,9 +239,9 @@ export default {
   level15: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "drummer", level: 2 },
@@ -259,9 +259,9 @@ export default {
   level16: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "handCannoneer", level: 3 },
@@ -279,9 +279,9 @@ export default {
   level17: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "shield", level: 1 },
@@ -299,9 +299,9 @@ export default {
   level18: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "shield", level: 3 },
@@ -319,9 +319,9 @@ export default {
   level19: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "handCannoneer", level: 3 },
@@ -339,9 +339,9 @@ export default {
   level20: {
     chessList: [
       [
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
-        { race: "infantry", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
+        { race: "spearman", level: 3 },
       ],
       [
         { race: "shield", level: 3 },
