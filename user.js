@@ -30,20 +30,20 @@ class User {
     return this.Board.displayBoard();
   }
   testAddPiece() {
-    const chess1 = new Chess("infantry", 2);
-    const chess = new Chess("infantry", 3);
-    const chess2 = new Chess("infantry", 1);
-    // const chess3 = new Chess("ninja", 3);
-    // const chess4 = new Chess("ninja", 3);
+    const chess1 = new Chess("spearman", 2);
+    const chess = new Chess("medic", 3);
+    const chess2 = new Chess("spearman", 1);
+    const chess3 = new Chess("medic", 3);
+    const chess4 = new Chess("medic", 1);
     // const chess5 = new Chess("ninja", 3);
     // const chess6 = new Chess("ninja", 3);
     // const chess7 = new Chess("ninja", 3);
     // const chess8 = new Chess("ninja", 3);
     this.Board.setPiece(null, 7, chess1);
     this.Board.setPiece(null, 8, chess);
-    this.Board.setPiece(null, 6, chess2);
-    // this.Board.setPiece(null, 3, chess3);
-    // this.Board.setPiece(null, 4, chess4);
+    this.Board.setPiece(null, 1, chess2);
+    this.Board.setPiece(null, 3, chess3);
+    this.Board.setPiece(null, 6, chess4);
     // this.Board.setPiece(null, 5, chess5);
     // this.Board.setPiece(null, 6, chess6);
     // this.Board.setPiece(null, 7, chess7);
@@ -92,7 +92,7 @@ class User {
         const colImg = lib.createDOM("img", "", {
           src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
         });
-        colImg.style.backgroundImage = `url(./static/user/${col?.name}.png)`;
+        colImg.style.backgroundImage = `url(./static/stage/${col?.name}.png)`;
         colImg.style.backgroundSize = "cover";
         rowDiv.appendChild(colImg);
       });
@@ -204,7 +204,9 @@ class User {
       const pieceImg = lib.createDOM("img", "", {
         src: `./static/${piece?.level ? "level-" + piece.level : "space"}.png`,
       });
-      pieceImg.style.backgroundImage = `url(./static/user/${piece?.name ?? "space"}.png)`;
+      pieceImg.style.backgroundImage = `url(./static/user/${
+        piece?.name ?? "space"
+      }.png)`;
       pieceImg.style.backgroundSize = "cover";
 
       pieceDiv.setAttribute("draggable", !!piece);

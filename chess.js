@@ -8,7 +8,7 @@ class ChessPiece {
     this.element = null;
     Object.assign(this, chess);
     this.fullHealth = this.health;
-    this.fightAddition = null;
+    this.fightAddition = {};
     if (this.level > 1) {
       this.setBonus();
     }
@@ -19,7 +19,7 @@ class ChessPiece {
       this.attack * ((Math.random(4) + 8) / 10),
       2
     );
-    const getAddition = this.fightAddition?.attack || 0;
+    const getAddition = this.fightAddition?.attack?.val || 0;
     const attackAddition = attackRandom + getAddition;
     const _counterChess = this.getCounter();
     if (_counterChess.includes(opponentPiece.race)) {
@@ -76,16 +76,16 @@ class ChessPiece {
     if (this.level === 1) return this.price;
     return this.price * 0.8 * chessNum;
   }
-
   setFightAddition({ addAttack, type, items }) {
-    if (!this.fightAddition) this.fightAddition = {};
+    if (!this.fightAddition[type]) this.fightAddition[type] = {};
+
     if (!this.fightAddition[type]) {
-      this.fightAddition[type] = addAttack;
-      this.fightAddition.items = 1;
+      this.fightAddition[type].val = addAttack;
+      this.fightAddition[type].level = 1;
       return;
     }
-    this.fightAddition[type] += addAttack;
-    this.fightAddition.items = items;
+    this.fightAddition[type].val += addAttack;
+    this.fightAddition[type].level = items;
   }
   setBonus() {
     let defaultLevel = 1;

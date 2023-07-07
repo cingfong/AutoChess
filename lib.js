@@ -9,5 +9,10 @@ const lib = {
     }
     return DOM;
   },
+  judgeObjectSame(oldObj, newObj) {
+    const oldObjStr = JSON.stringify(oldObj);
+    const newObjStr = JSON.stringify(newObj);
+    return oldObjStr === newObjStr;
+  },
 };
 export default lib;

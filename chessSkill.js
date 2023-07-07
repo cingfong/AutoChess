@@ -12,14 +12,14 @@ export default {
       if (!e) return;
       if (this.support.includes(e.race)) return;
       if (!e.health) return;
-      if (e.fightAddition?.items >= 4) return;
+      if (e.fightAddition?.attack?.level >= 4) return;
       this.animation(e, chess, 0);
       const chessAttack = e.attack;
-      const chessAddition = e.fightAddition?.attack || 0;
-      const chessAdditionItems = e.fightAddition?.items
-        ? e.fightAddition?.items + 1
+      const chessAddition = e.fightAddition?.attack?.val || 0;
+      const chessAdditionLevel = e.fightAddition?.attack?.level
+        ? e.fightAddition?.attack?.level + 1
         : 1;
-      const additionPercent = [0.15, 0.3, 0.5][chess.level];
+      const additionPercent = [0, 0.15, 0.3, 0.5][chess.level];
       const chessBattleSkill = e.element.querySelector(
         ".borard-col-batle-skill"
       );
@@ -29,9 +29,9 @@ export default {
       e.setFightAddition({
         addAttack: additionAttack,
         type: "attack",
-        items: chessAdditionItems,
+        items: chessAdditionLevel,
       });
-      chessBattleSkill.style.backgroundImage = `url('./static/attack-icon-${chessAdditionItems}.png')`;
+      chessBattleSkill.style.backgroundImage = `url('./static/attack-icon-${chessAdditionLevel}.png')`;
     });
     await this.delay(1000);
   },
@@ -45,7 +45,7 @@ export default {
       this.animation(e, chess, 0);
       const fullHealth = e.fullHealth;
       const health = e.health;
-      const treatPercent = [0.15, 0.3, 0.5][chess.level];
+      const treatPercent = [0, 0.15, 0.3, 0.5][chess.level];
       const treat = Math.floor((fullHealth - health) * treatPercent);
       e.restore(treat);
     });

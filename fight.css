@@ -191,7 +191,7 @@
 }
 /* 戰鼓者特效 */
 .borard-col-batle-skill {
-  position: relative;
+  position: absolute;
   left: 0px;
   top: 0px;
   width: 100%;
