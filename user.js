@@ -160,6 +160,7 @@ class User {
       if (e.health) {
         const treatHealth = (e.fullHealth - e.health) * 0.5;
         e.health += Math.round(treatHealth);
+        e.fightAddition = {};
       } else {
         this.Board.removePiece(i);
       }
@@ -275,7 +276,8 @@ class User {
     const repeatChessFunc = (list) => {
       const groupChessList = chessNameList.map((name) => {
         return list.filter(
-          (item) => item?.name === name && item?.level === chessLevel
+          (item) =>
+            item?.name === name && item?.level === chessLevel && item.level < 3
         );
       });
       const repeatChess = groupChessList.find((e) => e.length >= 3);

@@ -34,7 +34,7 @@ class ChessStore {
   // 隨機生成商品庫存
   generateStock() {
     const racesList = [
-      ["cavalry", "shield", "spearman"],
+      ["cavalry"],
       ["archer", "handCannoneer", "horseArcher"],
       ["ninja", "drummer", "medic"],
     ];

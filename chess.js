@@ -76,15 +76,15 @@ class ChessPiece {
     if (this.level === 1) return this.price;
     return this.price * 0.8 * chessNum;
   }
-  setFightAddition({ addAttack, type, items }) {
+  setFightAddition({ val, type, items }) {
     if (!this.fightAddition[type]) this.fightAddition[type] = {};
-
-    if (!this.fightAddition[type]) {
-      this.fightAddition[type].val = addAttack;
+    
+    if (!Object.keys(this.fightAddition[type]).length) {
+      this.fightAddition[type].val = val;
       this.fightAddition[type].level = 1;
       return;
     }
-    this.fightAddition[type].val += addAttack;
+    this.fightAddition[type].val += val;
     this.fightAddition[type].level = items;
   }
   setBonus() {
@@ -98,8 +98,12 @@ class ChessPiece {
   getBonus(_level) {
     const levelBonusList = [1, 1.6, 1.5, 1.4, 1.3, 1.5];
     // 假設加成是攻擊力的 10%
-    this.attack = this.attack * levelBonusList[_level || this.level - 1];
-    this.health = this.health * levelBonusList[_level || this.level - 1];
+    this.attack = Math.round(
+      this.attack * levelBonusList[_level || this.level - 1]
+    );
+    this.health = Math.round(
+      this.health * levelBonusList[_level || this.level - 1]
+    );
     this.fullHealth = this.health;
   }
   levelUp() {

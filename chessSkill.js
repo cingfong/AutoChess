@@ -27,7 +27,7 @@ export default {
         (chessAttack + chessAddition) * additionPercent
       );
       e.setFightAddition({
-        addAttack: additionAttack,
+        val: additionAttack,
         type: "attack",
         items: chessAdditionLevel,
       });
