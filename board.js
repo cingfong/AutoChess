@@ -92,13 +92,14 @@ class Board {
   }
 
   renderBoard() {
-    const reRenderIndexList = this.getRenderIndex();
+    const _this = this
+    const reRenderIndexList = _this.getRenderIndex();
     const parent = document.querySelector(".board-wrap");
     const childRowList = parent.childNodes;
     reRenderIndexList.forEach((reRenderIndexList) => {
       const rowIndex = Math.floor(reRenderIndexList / 3);
       const colIndex = reRenderIndexList % 3;
-      const col = this.board[rowIndex][colIndex];
+      const col = _this.board[rowIndex][colIndex];
       let rowDiv;
       if (!childRowList[rowIndex]) {
         rowDiv = lib.createDOM("div", null, { className: "board-row" });
@@ -120,7 +121,7 @@ class Board {
       colDiv.setAttribute("draggable", !!col);
       if (col) {
         const pieceIndex = rowIndex * 3 + colIndex;
-        col.drag(colDiv, "board", pieceIndex, this, this.User);
+        col.drag(colDiv, "board", pieceIndex, _this, _this.User);
       }
       if (col) {
         const colDivBackground = lib.createDOM("div", "", {

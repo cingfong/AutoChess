@@ -17,7 +17,6 @@ class User {
     this.storageDivScope = [];
     this.Stage = null;
     // 模擬事件
-    this.testAddPiece();
   }
 
   render() {
@@ -25,6 +24,7 @@ class User {
     this.renderMoney();
     this.Board.render();
     this.Shop.render();
+    this.testAddPiece();
   }
   renderShop() {
     this.Shop.render();
@@ -202,10 +202,10 @@ class User {
     if (!this.storage.length) {
       this.storage = [null, null, null, null, null, null];
     }
-    const _storag = this.storage;
-    const _oldStorag = this.oldStorage;
-    const renderIndexList = _storag.reduce((arr, item, index) => {
-      if (item !== _oldStorag[index]) {
+    const _storage = this.storage;
+    const _oldStorage = this.oldStorage;
+    const renderIndexList = _storage.reduce((arr, item, index) => {
+      if (item !== _oldStorage[index]) {
         arr.push(index);
       }
       return arr;

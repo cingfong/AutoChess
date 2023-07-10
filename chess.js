@@ -229,8 +229,10 @@ class ChessPiece {
           item.left <= touchLeft
       );
       if (!~boardIndex && !~storageIndex) {
-        User.renderStoragePiece();
-        _Board.renderBoard();
+        element.style.position = "relative";
+        element.style.zIndex = "1";
+        element.style.left = "0";
+        element.style.top = "0";
         return;
       }
 
