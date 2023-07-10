@@ -5,6 +5,7 @@ class Board {
     this.rows = rows || 3;
     this.cols = cols || 3;
     this.board = [];
+    this.oldBoard = [];
     this.colDivScope = [];
     this.User = null;
     this.createBoard();
@@ -77,49 +78,75 @@ class Board {
     return piece;
   }
 
-  renderBoard() {
-    const boardList = this.displayBoard();
-    const parent = document.querySelector(".board-wrap");
-    parent.textContent = "";
-    const colDivList = [];
-    boardList.forEach((row, rowIndex) => {
-      const rowDiv = lib.createDOM("div", null, { className: "board-row" });
-      parent.appendChild(rowDiv);
-      let i = 0;
+  getRenderIndex() {
+    const _boardList = this.displayBoard().flat();
+    const _oldBoardList = this.oldBoard;
+    const renderIndexList = _boardList.reduce((arr, item, index) => {
+      if (item !== _oldBoardList[index]) {
+        arr.push(index);
+      }
+      return arr;
+    }, []);
+    this.oldBoard = _boardList.slice();
+    return renderIndexList;
+  }
 
-      row.forEach((col, colIndex) => {
-        const colWrap = lib.createDOM("div", "", {
-          className: "board-col-item-wrap",
-        });
-        const colDiv = lib.createDOM("div", "", {
-          className: "board-col-item",
-        });
-        const colImg = lib.createDOM("img", "", {
-          src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
-        });
-        colImg.style.backgroundImage = `url(./static/user/${col?.name}.png)`;
-        colImg.style.backgroundSize = "cover";
-        colDiv.setAttribute("draggable", !!col);
-        if (col) {
-          const pieceIndex = rowIndex * 3 + colIndex;
-          col.drag(colDiv, "board", pieceIndex, this, this.User);
-        }
-        if (col) {
-          const colDivBackground = lib.createDOM("div", "", {
-            className: "ready-board-col-item-background",
-          });
-          colDivBackground.style.height = `${
-            (1 - col.health / col.fullHealth) * 100
-          }%`;
-          colDiv.appendChild(colDivBackground);
-        }
-        colDiv.appendChild(colImg);
-        colWrap.appendChild(colDiv);
-        colDivList.push(colWrap);
-        rowDiv.appendChild(colWrap);
+  renderBoard() {
+    const reRenderIndexList = this.getRenderIndex();
+    const parent = document.querySelector(".board-wrap");
+    const childRowList = parent.childNodes;
+    reRenderIndexList.forEach((reRenderIndexList) => {
+      const rowIndex = Math.floor(reRenderIndexList / 3);
+      const colIndex = reRenderIndexList % 3;
+      const col = this.board[rowIndex][colIndex];
+      let rowDiv;
+      if (!childRowList[rowIndex]) {
+        rowDiv = lib.createDOM("div", null, { className: "board-row" });
+        parent.appendChild(rowDiv);
+      } else {
+        rowDiv = childRowList[rowIndex];
+      }
+      const colWrap = lib.createDOM("div", "", {
+        className: "board-col-item-wrap",
       });
+      const colDiv = lib.createDOM("div", "", {
+        className: "board-col-item",
+      });
+      const colImg = lib.createDOM("img", "", {
+        src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
+      });
+      colImg.style.backgroundImage = `url(./static/user/${col?.name}.png)`;
+      colImg.style.backgroundSize = "cover";
+      colDiv.setAttribute("draggable", !!col);
+      if (col) {
+        const pieceIndex = rowIndex * 3 + colIndex;
+        col.drag(colDiv, "board", pieceIndex, this, this.User);
+      }
+      if (col) {
+        const colDivBackground = lib.createDOM("div", "", {
+          className: "ready-board-col-item-background",
+        });
+        colDivBackground.style.height = `${
+          (1 - col.health / col.fullHealth) * 100
+        }%`;
+        colDiv.appendChild(colDivBackground);
+      }
+      colDiv.appendChild(colImg);
+      colWrap.appendChild(colDiv);
+      const rowDivChild = rowDiv.childNodes;
+      const childItem = rowDivChild[colIndex];
+
+      if (!childItem) {
+        rowDiv.appendChild(colWrap);
+      } else {
+        rowDiv.replaceChild(colWrap, childItem);
+      }
     });
     // promise
+    const colDivList = [...parent.childNodes]
+      .map((row) => [...row.childNodes])
+      .flat();
+
     setTimeout(() => {
       const _colDivScope = this.colDivScope;
       _colDivScope.length = 0;

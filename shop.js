@@ -5,6 +5,7 @@ class ChessStore {
   constructor(level = 1) {
     this.level = level; // 商店等級
     this.stock = []; // 商品庫存
+    this.oldStock = [];
     this.generateStock();
     this.User = null;
     this.display = true;
@@ -123,20 +124,40 @@ class ChessStore {
     }
     _user.reduceMoney(refreshMoney);
     this.generateStock();
-    this.render();
+    this.renderShop();
   }
 
   render() {
     this.renderShop();
   }
 
+  getRenderIndex() {
+    if (!this.stock.length) {
+      this.stock = [null, null, null, null, null, null];
+    }
+    const _stock = this.stock;
+    const _oldStock = this.oldStock;
+    const renderIndexList = _stock.reduce((arr, item, index) => {
+      if (item !== _oldStock[index]) {
+        arr.push(index);
+      }
+      return arr;
+    }, []);
+    this.oldStock = this.stock.slice();
+    return renderIndexList;
+  }
+
   renderShop() {
     const _this = this;
+    const reRenderIndexList = _this.getRenderIndex();
     const shopWrap = document.querySelector(".shop-wrap");
     const storeList = this.displayStock();
     const parent = document.querySelector(".shop-piece");
-    parent.textContent = "";
-    storeList.forEach((item, index) => {
+    const childList = parent.childNodes;
+    reRenderIndexList.forEach((reRenderIndex) => {
+      const item = storeList[reRenderIndex];
+      const index = reRenderIndex;
+      const childItem = childList[index];
       const chessWrap = lib.createDOM("div", "", {
         className: "chess-item-wrap",
       });
@@ -151,7 +172,11 @@ class ChessStore {
       });
       elementDiv.appendChild(elementImg);
       chessWrap.appendChild(elementDiv);
-      parent.appendChild(chessWrap);
+      if (!childItem) {
+        parent.appendChild(chessWrap);
+      } else {
+        parent.replaceChild(chessWrap, childItem);
+      }
     });
     if (!this.firstLoad) {
       setTimeout(() => {

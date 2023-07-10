@@ -181,7 +181,8 @@ class ChessPiece {
       });
       element.style.zIndex = 1;
       element.style.position = "fixed";
-      element.style.opacity = elementShow ? 1 : 0;
+      element.style.opacity = 1;
+      // element.style.opacity = elementShow ? 1 : 0;
       element.style.left = `${mouseX - offsetX}px`;
       element.style.top = `${mouseY - offsetY}px`;
     }

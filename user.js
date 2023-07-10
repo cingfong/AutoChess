@@ -8,7 +8,8 @@ class User {
     this.maxPieces = maxPieces || 6; // 最大棋子數量
     this.money = money || 100; // 玩家擁有的金額
     this.health = health || 100; // 玩家的血量
-    this.storage = [null, null, null, null, null, null]; // 玩家擁有的棋子
+    this.storage = []; // 玩家擁有的棋子
+    this.oldStorage = []; // 玩家擁有的棋子
     this.Board = new Board();
     this.Shop = new Shop();
     this.Shop.setUserObject(this);
@@ -25,14 +26,21 @@ class User {
     this.Board.render();
     this.Shop.render();
   }
+  renderShop() {
+    this.Shop.render();
+  }
+
+  renderBoard() {
+    this.Board.render();
+  }
 
   getBoard() {
     return this.Board.displayBoard();
   }
   testAddPiece() {
-    const chess1 = new Chess("spearman", 2);
-    const chess = new Chess("medic", 3);
-    const chess2 = new Chess("spearman", 1);
+    const chess1 = new Chess("cavalry", 2);
+    const chess = new Chess("cavalry", 3);
+    const chess2 = new Chess("cavalry", 1);
     const chess3 = new Chess("medic", 3);
     const chess4 = new Chess("medic", 1);
     // const chess5 = new Chess("ninja", 3);
@@ -190,12 +198,30 @@ class User {
     return this.storage.filter((e) => e).length;
   }
 
+  getRenderIndex() {
+    if (!this.storage.length) {
+      this.storage = [null, null, null, null, null, null];
+    }
+    const _storag = this.storage;
+    const _oldStorag = this.oldStorage;
+    const renderIndexList = _storag.reduce((arr, item, index) => {
+      if (item !== _oldStorag[index]) {
+        arr.push(index);
+      }
+      return arr;
+    }, []);
+    this.oldStorage = this.storage.slice();
+    return renderIndexList;
+  }
+
   renderStoragePiece() {
-    const storagePiece = this.displayPieces();
+    const reRenderIndexList = this.getRenderIndex();
     const parent = document.querySelector(".user-piece-wrap");
-    parent.textContent = "";
-    const storeDivList = [];
-    storagePiece.forEach((piece, pieceIndex) => {
+    const childList = parent.childNodes;
+    reRenderIndexList.forEach((reRenderIndex) => {
+      const piece = this.storage[reRenderIndex];
+      const pieceIndex = reRenderIndex;
+      const childItem = childList[pieceIndex];
       const pieceWrap = lib.createDOM("div", "", {
         className: "user-piece-item-wrap",
       });
@@ -223,9 +249,13 @@ class User {
       }
       pieceDiv.appendChild(pieceImg);
       pieceWrap.appendChild(pieceDiv);
-      storeDivList.push(pieceWrap);
-      parent.appendChild(pieceWrap);
+      if (!childItem) {
+        parent.appendChild(pieceWrap);
+      } else {
+        parent.replaceChild(pieceWrap, childItem);
+      }
     });
+    const storeDivList = childList;
     setTimeout(() => {
       const _storageDivScope = this.storageDivScope;
       _storageDivScope.length = 0;
