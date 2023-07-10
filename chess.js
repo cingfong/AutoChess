@@ -78,7 +78,7 @@ class ChessPiece {
   }
   setFightAddition({ val, type, items }) {
     if (!this.fightAddition[type]) this.fightAddition[type] = {};
-    
+
     if (!Object.keys(this.fightAddition[type]).length) {
       this.fightAddition[type].val = val;
       this.fightAddition[type].level = 1;
@@ -113,13 +113,16 @@ class ChessPiece {
 
   // 頁面事件
   drag(element, type, typeIndex, Board, User, Shop) {
-    element.addEventListener("drag", (event) => {
-      playerPieceDrag(event, element);
-    });
+    let touchCtl = false;
     element.addEventListener("dragstart", (event) => {
+      if (touchCtl) return;
       const { offsetX, offsetY } = event;
       element.dataset.offsetX = offsetX;
       element.dataset.offsetY = offsetY;
+    });
+    element.addEventListener("drag", (event) => {
+      if (touchCtl) return;
+      playerPieceDragMove(event, element, "mouse");
     });
     element.addEventListener(
       "dragover",
@@ -129,7 +132,62 @@ class ChessPiece {
       false
     );
     element.addEventListener("dragend", (event) => {
-      const _Board = Board;
+      if (touchCtl) return;
+      playerPieceDragEnd(event, element, { Board, User, Shop, _this: this });
+    });
+
+    // touch 事件
+    element.addEventListener("touchstart", function (event) {
+      touchCtl = true;
+      const rect = event.target.getBoundingClientRect();
+      const offsetX = event.targetTouches[0].pageX - rect.left;
+      const offsetY = event.targetTouches[0].pageY - rect.top;
+      element.dataset.offsetX = offsetX;
+      element.dataset.offsetY = offsetY;
+    });
+    element.addEventListener("touchmove", (event) => {
+      playerPieceDragMove(event, element, "touch");
+    });
+    element.addEventListener("touchend", (event) => {
+      touchCtl = false;
+      playerPieceDragEnd(event, element, { Board, User, Shop, _this: this });
+    });
+    function playerPieceDragMove(mouse, element, type) {
+      let mouseX, mouseY, elementShow;
+      if (type === "mouse") {
+        const { clientX, clientY } = mouse;
+        mouseX = clientX;
+        mouseY = clientY;
+        elementShow = false;
+      } else if (type === "touch") {
+        const { pageX, pageY } = mouse.targetTouches[0];
+        mouseX = pageX;
+        mouseY = pageY;
+        elementShow = true;
+      }
+
+      const { offsetX, offsetY } = element.dataset;
+      const { offsetWidth, offsetHeight } = element;
+      const touchLeft = mouseX - offsetX;
+      const touchRight = mouseX + (offsetWidth - offsetX);
+      const touchTop = mouseY - offsetY;
+      const touchBottom = mouseY + (offsetHeight - offsetY);
+      if (touchLeft < 0 || touchTop < 0) return;
+      Object.assign(element.dataset, {
+        touchLeft,
+        touchRight,
+        touchTop,
+        touchBottom,
+      });
+      element.style.zIndex = 1;
+      element.style.position = "fixed";
+      element.style.opacity = elementShow ? 1 : 0;
+      element.style.left = `${mouseX - offsetX}px`;
+      element.style.top = `${mouseY - offsetY}px`;
+    }
+    function playerPieceDragEnd(event, element, _thisObject) {
+      const { Board: _Board, Shop, User, _this } = _thisObject;
+      // const _Board = Board;
       const { touchLeft, touchRight, touchTop, touchBottom } = element.dataset;
       // 旗子被賣掉
       // 待調整
@@ -148,7 +206,7 @@ class ChessPiece {
         ) {
           User.removePiece(typeIndex);
           User.renderStoragePiece();
-          const sellPrice = this.getPrice();
+          const sellPrice = _this.getPrice();
           User.sellChess(sellPrice);
           return;
         }
@@ -182,7 +240,7 @@ class ChessPiece {
           _Board.renderBoard();
           return;
         }
-        oldPiece = _Board.setPiece(_oldIndex, boardIndex, this);
+        oldPiece = _Board.setPiece(_oldIndex, boardIndex, _this);
       }
       if (~storageIndex) {
         const _oldIndex = type === "user" ? typeIndex : null;
@@ -190,7 +248,7 @@ class ChessPiece {
           User.renderStoragePiece();
           return;
         }
-        oldPiece = User.setPiece(_oldIndex, storageIndex, this);
+        oldPiece = User.setPiece(_oldIndex, storageIndex, _this);
       }
       if (type === "user") User.removePiece(typeIndex);
       if (type === "board") _Board.removePiece(typeIndex);
@@ -201,27 +259,6 @@ class ChessPiece {
           _Board.setPiece(null, typeIndex, oldPiece);
         }
       }
-    });
-    function playerPieceDrag(mouse, element) {
-      const { clientX: mouseX, clientY: mouseY } = mouse;
-      const { offsetX, offsetY } = element.dataset;
-      const { offsetWidth, offsetHeight } = element;
-      const touchLeft = mouseX - offsetX;
-      const touchRight = mouseX + (offsetWidth - offsetX);
-      const touchTop = mouseY - offsetY;
-      const touchBottom = mouseY + (offsetHeight - offsetY);
-      if (touchLeft < 0 || touchTop < 0) return;
-      Object.assign(element.dataset, {
-        touchLeft,
-        touchRight,
-        touchTop,
-        touchBottom,
-      });
-      element.style.zIndex = 1;
-      element.style.position = "fixed";
-      element.style.opacity = 0;
-      element.style.left = `${mouseX - offsetX}px`;
-      element.style.top = `${mouseY - offsetY}px`;
     }
   }
 
