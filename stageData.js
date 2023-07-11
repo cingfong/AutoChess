@@ -1,4 +1,3 @@
-
 export default {
   level1: {
     chessList: [
@@ -111,11 +110,7 @@ export default {
         { race: "spearman", level: 3 },
         { race: "spearman", level: 1 },
       ],
-      [
-        { race: "cavalry", level: 3 },
-        { race: "cavalry", level: 2 },
-        null,
-      ],
+      [{ race: "cavalry", level: 3 }, { race: "cavalry", level: 2 }, null],
       [null, null, null],
     ],
     money: 200,
@@ -127,11 +122,7 @@ export default {
         { race: "spearman", level: 3 },
         { race: "spearman", level: 3 },
       ],
-      [
-        { race: "cavalry", level: 3 },
-        { race: "cavalry", level: 2 },
-        null,
-      ],
+      [{ race: "cavalry", level: 3 }, { race: "cavalry", level: 2 }, null],
       [null, null, null],
     ],
     money: 200,
@@ -244,14 +235,14 @@ export default {
         { race: "spearman", level: 3 },
       ],
       [
+        { race: "horseArcher", level: 3 },
+        { race: "horseArcher", level: 2 },
+        { race: "horseArcher", level: 2 },
+      ],
+      [
         { race: "drummer", level: 2 },
         { race: "ninja", level: 2 },
         { race: "ninja", level: 2 },
-      ],
-      [
-        { race: "medic", level: 3 },
-        { race: "medic", level: 2 },
-        { race: "medic", level: 2 },
       ],
     ],
     money: 400,
@@ -269,9 +260,9 @@ export default {
         { race: "handCannoneer", level: 2 },
       ],
       [
-        { race: "medic", level: 3 },
-        { race: "medic", level: 2 },
-        { race: "medic", level: 2 },
+        { race: "horseArcher", level: 3 },
+        { race: "horseArcher", level: 2 },
+        { race: "horseArcher", level: 2 },
       ],
     ],
     money: 400,
@@ -329,9 +320,9 @@ export default {
         { race: "handCannoneer", level: 3 },
       ],
       [
-        { race: "medic", level: 3 },
-        { race: "medic", level: 2 },
-        { race: "medic", level: 2 },
+        { race: "horseArcher", level: 3 },
+        { race: "horseArcher", level: 2 },
+        { race: "horseArcher", level: 2 },
       ],
     ],
     money: 400,
@@ -349,11 +340,11 @@ export default {
         { race: "shield", level: 3 },
       ],
       [
-        { race: "medic", level: 3 },
-        { race: "medic", level: 3 },
-        { race: "medic", level: 3 },
+        { race: "horseArcher", level: 3 },
+        { race: "horseArcher", level: 3 },
+        { race: "horseArcher", level: 3 },
       ],
     ],
     money: 1000,
   },
-}
+};
