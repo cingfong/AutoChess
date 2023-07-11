@@ -84,8 +84,8 @@ class Board {
     const renderIndexList = _boardList.reduce((arr, item, index) => {
       if (item !== _oldBoardList[index]) {
         arr.push(index);
-      } else if (item && _oldBoardList[index]) {
-        if (item.health !== _oldBoardList[index].health) {
+      } else if (item) {
+        if (item.health !== item.fullHealth) {
           arr.push(index);
         }
       }
@@ -95,10 +95,14 @@ class Board {
     return renderIndexList;
   }
 
-  renderBoard() {
+  renderBoard(renderIndex) {
     const _this = this;
-    const reRenderIndexList = _this.getRenderIndex();
-    console.log(reRenderIndexList);
+    let reRenderIndexList
+    if (typeof renderIndex === 'number') {
+      reRenderIndexList = [renderIndex]
+    } else {
+      reRenderIndexList = _this.getRenderIndex();
+    }
     const parent = document.querySelector(".board-wrap");
     const childRowList = parent.childNodes;
     reRenderIndexList.forEach((reRenderIndexList) => {

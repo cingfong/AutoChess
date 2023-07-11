@@ -240,7 +240,7 @@ class ChessPiece {
       if (~boardIndex) {
         const _oldIndex = type === "board" ? typeIndex : null;
         if (_oldIndex === boardIndex) {
-          _Board.renderBoard();
+          _Board.renderBoard(_oldIndex);
           return;
         }
         oldPiece = _Board.setPiece(_oldIndex, boardIndex, _this);
@@ -248,7 +248,7 @@ class ChessPiece {
       if (~storageIndex) {
         const _oldIndex = type === "user" ? typeIndex : null;
         if (_oldIndex === storageIndex) {
-          User.renderStoragePiece();
+          User.renderStoragePiece(_oldIndex);
           return;
         }
         oldPiece = User.setPiece(_oldIndex, storageIndex, _this);

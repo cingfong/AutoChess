@@ -214,8 +214,13 @@ class User {
     return renderIndexList;
   }
 
-  renderStoragePiece() {
-    const reRenderIndexList = this.getRenderIndex();
+  renderStoragePiece(renderIndex) {
+    let reRenderIndexList
+    if (typeof renderIndex === 'number') {
+      reRenderIndexList = [renderIndex]
+    } else {
+      reRenderIndexList = this.getRenderIndex();
+    }
     const parent = document.querySelector(".user-piece-wrap");
     const childList = parent.childNodes;
     reRenderIndexList.forEach((reRenderIndex) => {
