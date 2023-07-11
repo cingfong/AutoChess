@@ -172,6 +172,7 @@ class User {
         this.Board.removePiece(i);
       }
     });
+    this.renderBoard();
   }
 
   addMoney(money) {

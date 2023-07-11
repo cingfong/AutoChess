@@ -84,6 +84,10 @@ class Board {
     const renderIndexList = _boardList.reduce((arr, item, index) => {
       if (item !== _oldBoardList[index]) {
         arr.push(index);
+      } else if (item && _oldBoardList[index]) {
+        if (item.health !== _oldBoardList[index].health) {
+          arr.push(index);
+        }
       }
       return arr;
     }, []);
@@ -94,6 +98,7 @@ class Board {
   renderBoard() {
     const _this = this;
     const reRenderIndexList = _this.getRenderIndex();
+    console.log(reRenderIndexList);
     const parent = document.querySelector(".board-wrap");
     const childRowList = parent.childNodes;
     reRenderIndexList.forEach((reRenderIndexList) => {

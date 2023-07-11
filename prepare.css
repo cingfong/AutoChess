@@ -457,6 +457,7 @@ body {
   .shop-piece {
     width: 320px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
 
