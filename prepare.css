@@ -1,3 +1,8 @@
+html,
+body {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
 body {
   margin: 0px;
   padding: 0px;
@@ -18,8 +23,7 @@ body {
 }
 
 .prepare-wrap {
-  width: 500px;
-  /* background-color: white; */
+  width: 600px;
   background-image: url("./static/userBoardBackground.png");
   background-size: cover;
   background-position: center bottom;
@@ -36,8 +40,7 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 300px;
-  /* background-color: #ddd; */
+  width: 350px;
   background-color: rgba(200, 200, 200, 0.1);
   padding: 10px 0px;
   margin-bottom: 20px;
@@ -53,8 +56,8 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   background-color: rgba(200, 200, 200, 0.1);
   padding: 5px 0px 10px;
   margin-bottom: 10px;
@@ -63,7 +66,6 @@ body {
 .stage-board-title {
   padding-bottom: 5px;
   color: #333;
-  /* font-weight: bold; */
   font-family: Impact;
 }
 .stage-board-row {
@@ -72,8 +74,8 @@ body {
   justify-content: center;
 }
 .stage-board-row img {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border: solid 1px #aaa;
   border-radius: 5px;
   margin: 1.5px;
@@ -84,17 +86,16 @@ body {
 }
 
 .board-col-item-wrap {
-  /* background-color: white; */
   border: solid 1px #aaa;
   border-radius: 5px;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   margin: 0px 10px;
 }
 
 .board-col-item {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -110,7 +111,7 @@ body {
 .user-piece-wrap {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  width: 420px;
+  width: 550px;
   background-color: rgba(200, 200, 200, 0.2);
   padding: 5px;
   margin-bottom: 20px;
@@ -118,20 +119,19 @@ body {
 }
 
 .user-piece-item-wrap {
-  /* background-color: white; */
   border: solid 1px #aaa;
   border-radius: 5px;
   margin: 0px 3px;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 
 .user-piece-item {
   position: relative;
   box-sizing: border-box;
   border-radius: 5px;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -174,7 +174,8 @@ body {
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 24px;
+  font-weight: bold;
   color: white;
 }
 
@@ -183,7 +184,8 @@ body {
   top: 10px;
   left: 5px;
   display: flex;
-  font-size: 14px;
+  font-size: 24px;
+  font-weight: bold;
 }
 .question-show-btn {
   position: absolute;
@@ -204,10 +206,11 @@ body {
   background-color: rgba(255, 255, 255, 1);
   border: solid 1px #aaa;
   border-radius: 8px;
-  height: 400px;
-  width: 300px;
+  height: 450px;
+  width: 500px;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 1;
 }
 .question-content-wrap {
   display: flex;
@@ -218,6 +221,7 @@ body {
   width: 100%;
   font-size: 24px;
   padding: 5px 0px;
+  font-weight: bold;
 }
 .question-content-text {
   width: 100%;
@@ -227,15 +231,15 @@ body {
   position: absolute;
   top: 5px;
   right: 5px;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
   background-image: url(./static/close-black.png);
   background-size: cover;
   cursor: pointer;
 }
 .question-content-item {
-  height: 330px;
+  height: 400px;
   width: 90%;
   overflow-y: auto;
   border: solid 1px #aaa;
@@ -251,9 +255,8 @@ body {
   width: 100%;
 }
 .user-money {
-  line-height: 20px;
+  line-height: 32px;
   width: 35px;
-  /* text-align: right; */
   padding-left: 5px;
 }
 
@@ -262,17 +265,30 @@ body {
   right: 10px;
   top: 10px;
   position: absolute;
-  font-size: 14px;
+  font-size: 18px;
   padding: 5px 10px;
   background-color: rgba(0, 0, 0, 0.4);
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
+  z-index: 0;
 }
-
+.fight-show-btn {
+  right: 10px;
+  top: 50px;
+  position: absolute;
+  font-size: 18px;
+  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 0;
+}
 .shop-piece {
-  width: 380px;
-  /* background-color: #ddd; */
+  width: 500px;
   border-radius: 5px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -282,8 +298,8 @@ body {
   position: absolute;
   top: 5px;
   right: 5px;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
   background-image: url("./static/close.png");
   background-size: cover;
@@ -292,29 +308,27 @@ body {
   position: absolute;
   left: 5px;
   top: 5px;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
   background-image: url("./static/update.png");
   background-size: cover;
 }
 
 .chess-item-wrap {
-  /* background-color: white; */
   border: solid 1px #aaa;
   border-radius: 5px;
   margin: 3px 8px;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 
 .chess-item {
   border: solid 0px;
-  /* background-color: white; */
   box-sizing: border-box;
   border-radius: 5px;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -323,4 +337,130 @@ body {
 }
 .chess-item img {
   width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .prepare-wrap {
+    width: 400px;
+  }
+
+  .board-wrap {
+    width: 300px;
+  }
+
+  .stage-board {
+    width: 150px;
+    height: 150px;
+  }
+
+  .stage-board-row img {
+    width: 40px;
+    height: 40px;
+  }
+  .board-col-item-wrap {
+    width: 60px;
+    height: 60px;
+  }
+  .board-col-item {
+    width: 60px;
+    height: 60px;
+  }
+  .user-piece-wrap {
+    width: 370px;
+    margin-bottom: 10px;
+  }
+  .user-piece-item-wrap {
+    width: 55px;
+    height: 55px;
+  }
+  .user-piece-item {
+    width: 55px;
+    height: 55px;
+  }
+  .shop-title {
+    font-size: 18px;
+  }
+  .question-wrap {
+    height: 400px;
+    width: 375px;
+  }
+  .question-close-btn {
+    width: 30px;
+    height: 30px;
+  }
+  .question-content-item {
+    height: 330px;
+  }
+  .user-money-wrap {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .user-money {
+    line-height: 24px;
+  }
+  .shop-show-btn,
+  .fight-show-btn {
+    font-size: 14px;
+  }
+
+  .shop-piece {
+    width: 350px;
+  }
+  .shop-close {
+    width: 30px;
+    height: 30px;
+  }
+
+  .shop-refresh-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .chess-item-wrap {
+    width: 60px;
+    height: 60px;
+    margin: 3px 4px;
+  }
+  .chess-item {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .prepare-wrap {
+    width: 350px;
+  }
+  .user-piece-wrap {
+    width: 350px;
+    margin-bottom: 5px;
+  }
+  .user-piece-item-wrap {
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+  }
+  .user-piece-item {
+    width: 50px;
+    height: 50px;
+  }
+  .shop-title {
+    font-size: 18px;
+  }
+  .question-wrap {
+    height: 370px;
+    width: 355px;
+  }
+  .question-content-item {
+    height: 320px;
+  }
+  .shop-piece {
+    width: 320px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .chess-item-wrap {
+    margin: 0;
+  }
 }

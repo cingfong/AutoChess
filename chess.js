@@ -230,7 +230,7 @@ class ChessPiece {
       );
       if (!~boardIndex && !~storageIndex) {
         element.style.position = "relative";
-        element.style.zIndex = "1";
+        element.style.zIndex = "0";
         element.style.left = "0";
         element.style.top = "0";
         return;

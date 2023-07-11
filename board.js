@@ -92,7 +92,7 @@ class Board {
   }
 
   renderBoard() {
-    const _this = this
+    const _this = this;
     const reRenderIndexList = _this.getRenderIndex();
     const parent = document.querySelector(".board-wrap");
     const childRowList = parent.childNodes;
@@ -151,14 +151,20 @@ class Board {
     setTimeout(() => {
       const _colDivScope = this.colDivScope;
       _colDivScope.length = 0;
+      let scopeRange;
+      if (document.documentElement.scrollWidth > 767) {
+        scopeRange = 40;
+      } else {
+        scopeRange = 30;
+      }
       // 元素插入完才可以抓到元素範圍
       colDivList.forEach((item) => {
         const { left, right, top, bottom } = item.getBoundingClientRect();
         _colDivScope.push({
-          left: left - 15,
-          right: right + 15,
-          top: top - 15,
-          bottom: bottom + 15,
+          left: left - scopeRange,
+          right: right + scopeRange,
+          top: top - scopeRange,
+          bottom: bottom + scopeRange,
         });
       });
     });

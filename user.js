@@ -24,7 +24,6 @@ class User {
     this.renderMoney();
     this.Board.render();
     this.Shop.render();
-    this.testAddPiece();
   }
   renderShop() {
     this.Shop.render();
@@ -258,15 +257,21 @@ class User {
     const storeDivList = childList;
     setTimeout(() => {
       const _storageDivScope = this.storageDivScope;
+      let scopeRange;
+      if (document.documentElement.scrollWidth > 767) {
+        scopeRange = 40;
+      } else {
+        scopeRange = 30;
+      }
       _storageDivScope.length = 0;
       // 元素插入完才可以抓到元素範圍
       storeDivList.forEach((item) => {
         const { left, right, top, bottom } = item.getBoundingClientRect();
         _storageDivScope.push({
-          left: left - 15,
-          right: right + 15,
-          top: top - 15,
-          bottom: bottom + 15,
+          left: left - scopeRange,
+          right: right + scopeRange,
+          top: top - scopeRange,
+          bottom: bottom + scopeRange,
         });
       });
     });
