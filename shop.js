@@ -10,12 +10,14 @@ class ChessStore {
     this.User = null;
     this.display = true;
     this.storeScope = null;
-    this.firstLoad = false;
   }
 
   // 升級商店
   upgrade() {
     this.level++;
+  }
+  resetLevel() {
+    this.level = 1;
   }
   hidden() {
     const shopWrap = document.querySelector(".shop-wrap");
@@ -178,19 +180,16 @@ class ChessStore {
         parent.replaceChild(chessWrap, childItem);
       }
     });
-    if (!this.firstLoad) {
-      setTimeout(() => {
-        const { left, right, top, bottom } = shopWrap.getBoundingClientRect();
-        this.storeScope = {
-          left: left - 15,
-          right: right + 15,
-          top: top - 15,
-          bottom: bottom + 15,
-        };
-        this.shopAddEvent();
-      });
-      this.firstLoad = true;
-    }
+    setTimeout(() => {
+      const { left, right, top, bottom } = shopWrap.getBoundingClientRect();
+      this.storeScope = {
+        left: left - 15,
+        right: right + 15,
+        top: top - 15,
+        bottom: bottom + 15,
+      };
+      this.shopAddEvent();
+    });
   }
 
   shopAddEvent() {

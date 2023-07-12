@@ -44,6 +44,9 @@ class ChessPiece {
   restore(treat) {
     if (!this.health) return;
     this.health += treat;
+    if (this.health > this.fullHealth) {
+      this.health = this.fullHealth;
+    }
     this.backgroundElement.style.height = `${
       (1 - this.health / this.fullHealth) * 100
     }%`;

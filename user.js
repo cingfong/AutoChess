@@ -159,6 +159,7 @@ class User {
 
   battleOver() {
     const boardList = this.getBoard().flat();
+    this.Shop.resetLevel();
     this.Shop.generateStock();
     this.Shop.show();
     this.renderStage();
@@ -215,9 +216,9 @@ class User {
   }
 
   renderStoragePiece(renderIndex) {
-    let reRenderIndexList
-    if (typeof renderIndex === 'number') {
-      reRenderIndexList = [renderIndex]
+    let reRenderIndexList;
+    if (typeof renderIndex === "number") {
+      reRenderIndexList = [renderIndex];
     } else {
       reRenderIndexList = this.getRenderIndex();
     }

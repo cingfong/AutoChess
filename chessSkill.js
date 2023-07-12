@@ -43,10 +43,7 @@ export default {
       if (this.support.includes(e.race)) return;
       if (!e.health) return;
       this.animation(e, chess, 0);
-      const fullHealth = e.fullHealth;
-      const health = e.health;
-      const treatPercent = [0, 0.15, 0.3, 0.5][chess.level];
-      const treat = Math.floor((fullHealth - health) * treatPercent);
+      const treat = [0, 20, 50, 80][chess.level];
       e.restore(treat);
     });
     await this.delay(1000);
