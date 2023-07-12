@@ -1,12 +1,12 @@
 export default {
-  popUps: ({ type = 'win', title, content, cancelBtn }) => {
-    const typeClassList = ['win', 'fail', 'error', 'success']
-    const typeClass = type
+  popUps: ({ type = "win", title, content, cancelBtn }) => {
+    const typeClassList = ["win", "fail", "error", "success"];
+    const typeClass = type;
     const resetClass = (dom) => {
-      typeClassList.forEach(classItem => {
-        dom.classList.remove(classItem)
+      typeClassList.forEach((classItem) => {
+        dom.classList.remove(classItem);
       });
-    }
+    };
     return new Promise((resolve, reject) => {
       const wrap = document.querySelector(".pop-up-card");
       const titleDom = wrap.querySelector(".title");
@@ -14,16 +14,16 @@ export default {
       const buttonDom = wrap.querySelector(".button");
       const cancelButtonDom = wrap.querySelector(".cancel");
       if (cancelBtn) {
-        cancelButtonDom.classList.remove('hidden')
+        cancelButtonDom.classList.remove("hidden");
       } else {
-        cancelButtonDom.classList.add('hidden')
+        cancelButtonDom.classList.add("hidden");
       }
-      resetClass(wrap)
-      resetClass(titleDom)
-      resetClass(buttonDom)
-      wrap.classList.add(typeClass)
-      titleDom.classList.add(typeClass)
-      buttonDom.classList.add(typeClass)
+      resetClass(wrap);
+      resetClass(titleDom);
+      resetClass(buttonDom);
+      wrap.classList.add(typeClass);
+      titleDom.classList.add(typeClass);
+      buttonDom.classList.add(typeClass);
       titleDom.textContent = title;
       contentDom.textContent = content;
       const clickMethod = () => {
@@ -32,13 +32,25 @@ export default {
         resolve();
       };
       // 彈窗顯示
-      if ([...wrap.classList].includes('hidden')) {
-        wrap.classList.remove('hidden')
+      if ([...wrap.classList].includes("hidden")) {
+        wrap.classList.remove("hidden");
       }
       buttonDom.addEventListener("click", clickMethod);
       cancelButtonDom.addEventListener("click", () => {
-        wrap.classList.add('hidden')
-      })
+        wrap.classList.add("hidden");
+      });
     });
+  },
+  screenJudge() {
+    const remindDom = document.querySelector(".screen-vertical");
+    if (window.orientation == 180 || window.orientation == 0) {
+      remindDom.classList.remove("flex");
+      remindDom.classList.add("hidden");
+    }
+    if (window.orientation == 90 || window.orientation == -90) {
+      remindDom.classList.remove("hidden");
+      remindDom.classList.add("flex");
+      window.requestAnimationFrame(() => this.screenJudge());
+    }
   },
 };

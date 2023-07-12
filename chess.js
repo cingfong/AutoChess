@@ -208,8 +208,13 @@ class ChessPiece {
           SHopBottom >= touchBottom &&
           ShopLeft <= touchLeft
         ) {
-          User.removePiece(typeIndex);
-          User.renderStoragePiece();
+          if (type === "user") {
+            User.removePiece(typeIndex);
+            User.renderStoragePiece();
+          } else {
+            _Board.removePiece(typeIndex);
+            _Board.renderBoard();
+          }
           const sellPrice = _this.getPrice();
           User.sellChess(sellPrice);
           return;

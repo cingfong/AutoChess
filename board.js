@@ -97,9 +97,9 @@ class Board {
 
   renderBoard(renderIndex) {
     const _this = this;
-    let reRenderIndexList
-    if (typeof renderIndex === 'number') {
-      reRenderIndexList = [renderIndex]
+    let reRenderIndexList;
+    if (typeof renderIndex === "number") {
+      reRenderIndexList = [renderIndex];
     } else {
       reRenderIndexList = _this.getRenderIndex();
     }
@@ -130,7 +130,8 @@ class Board {
       colDiv.setAttribute("draggable", !!col);
       if (col) {
         const pieceIndex = rowIndex * 3 + colIndex;
-        col.drag(colDiv, "board", pieceIndex, _this, _this.User);
+        const Shop = _this.User.Shop;
+        col.drag(colDiv, "board", pieceIndex, _this, _this.User, Shop);
       }
       if (col) {
         const colDivBackground = lib.createDOM("div", "", {

@@ -110,6 +110,7 @@
           </div>
         </div>
       </div>
+      <div class="screen-vertical hidden">請保持螢幕直立</div>
     </div>
     <script type="module">
       import Shop from "./shop.js";
@@ -168,6 +169,7 @@
         };
       };
       window.onload = () => {
+        utils.screenJudge();
         questionAddEvent();
         const fightBtn = document.querySelector(".fight-show-btn");
         fightBtn.addEventListener("click", () => {
@@ -202,6 +204,9 @@
                 _globalAutoChess.fight();
               });
           }
+        });
+        window.addEventListener("orientationchange", () => {
+          utils.screenJudge();
         });
       };
     </script>

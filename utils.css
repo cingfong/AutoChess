@@ -93,3 +93,25 @@
 .pop-up-card.success {
   background-color: #eee;
 }
+
+/* 螢幕直立 */
+.screen-vertical {
+  position: fixed;
+  z-index: 9999999;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+  background-color: #eee;
+  font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體",
+    sans-serif;
+}
+.hidden {
+  display: none;
+}
+.flex {
+  display: flex;
+}
