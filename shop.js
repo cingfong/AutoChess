@@ -157,6 +157,13 @@ class ChessStore {
     const storeList = this.displayStock();
     const parent = document.querySelector(".shop-piece");
     const childList = parent.childNodes;
+    if ([...childList].length > this.stock.length) {
+      [...childList].forEach((element, index) => {
+        if (index + 1 > this.stock.length) {
+          element.remove();
+        }
+      });
+    }
     reRenderIndexList.forEach((reRenderIndex) => {
       const item = storeList[reRenderIndex];
       const index = reRenderIndex;
