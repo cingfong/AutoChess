@@ -53,4 +53,46 @@ export default {
       window.requestAnimationFrame(() => this.screenJudge());
     }
   },
+  questionAddEvent() {
+    const questionShowBtn = document.querySelector(".question-show-btn");
+    const questionCloseBtn = document.querySelector(".question-close-btn");
+    const questionWrap = document.querySelector(".question-wrap");
+    questionShowBtn.onclick = () => {
+      questionWrap.classList.remove("hidden");
+    };
+    questionCloseBtn.onclick = () => {
+      questionWrap.classList.add("hidden");
+    };
+  },
+  fightBtnAddEvent() {
+    const fightBtn = document.querySelector(".fight-show-btn");
+    const fightWrap = document.querySelector(".fight-wrap");
+    fightBtn.addEventListener("click", () => {
+      if (
+        !window._globalAutoChess.User.getBoard()
+          .flat()
+          .some((e) => e)
+      ) {
+        this.popUps({
+          type: "error",
+          title: "錯誤",
+          content: "沒有任何棋子在場上",
+        }).then((v) => {
+          fightWrap.classList.add("hidden");
+        });
+        return;
+      } else {
+        this.popUps({
+          type: "success",
+          title: "開始",
+          content: "確定開始戰鬥嗎",
+          cancelBtn: true,
+        }).then((v) => {
+          fightWrap.classList.add("hidden");
+          window._globalAutoChess.fightRender();
+          window._globalAutoChess.fight();
+        });
+      }
+    });
+  },
 };

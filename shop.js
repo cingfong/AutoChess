@@ -167,13 +167,18 @@ class ChessStore {
       const elementDiv = lib.createDOM("div", "", {
         className: "chess-item",
       });
-      const elementImg = lib.createDOM("img", "", {
-        src: "./static/level-1.png",
-      });
-      elementImg.style.backgroundImage = `url(./static/user/${
-        item?.name ?? "space"
-      }.png)`;
-      elementImg.style.backgroundSize = "cover";
+      let elementImg;
+      if (item) {
+        elementImg = lib.createDOM("img", "", {
+          src: "./static/level-1.png",
+        });
+        elementImg.style.backgroundImage = `url(./static/user/${item?.name}.png)`;
+        elementImg.style.backgroundSize = "cover";
+      } else {
+        elementImg = lib.createDOM("img", "", {
+          src: "./static/space.png",
+        });
+      }
       elementDiv.addEventListener("click", () => {
         _this.purchase(index);
       });
