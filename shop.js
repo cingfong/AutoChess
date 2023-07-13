@@ -168,8 +168,12 @@ class ChessStore {
         className: "chess-item",
       });
       const elementImg = lib.createDOM("img", "", {
-        src: `./static/user/${item?.name ?? "space"}.png`,
+        src: "./static/level-1.png",
       });
+      elementImg.style.backgroundImage = `url(./static/user/${
+        item?.name ?? "space"
+      }.png)`;
+      elementImg.style.backgroundSize = "cover";
       elementDiv.addEventListener("click", () => {
         _this.purchase(index);
       });

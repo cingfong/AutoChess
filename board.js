@@ -125,7 +125,9 @@ class Board {
       const colImg = lib.createDOM("img", "", {
         src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
       });
-      colImg.style.backgroundImage = `url(./static/user/${col?.name}.png)`;
+      colImg.style.backgroundImage = `url(./static/user/${
+        col?.name ?? "space"
+      }.png)`;
       colImg.style.backgroundSize = "cover";
       colDiv.setAttribute("draggable", !!col);
       if (col) {

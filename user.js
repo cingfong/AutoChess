@@ -97,9 +97,11 @@ class User {
 
       row.forEach((col, colIndex) => {
         const colImg = lib.createDOM("img", "", {
-          src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
+          src: `./static/${col ? "level-" + col.level : "space"}.png`,
         });
-        colImg.style.backgroundImage = `url(./static/stage/${col?.name}.png)`;
+        colImg.style.backgroundImage = `url(./static/stage/${
+          col?.name ?? "space"
+        }.png)`;
         colImg.style.backgroundSize = "cover";
         rowDiv.appendChild(colImg);
       });
@@ -159,7 +161,6 @@ class User {
 
   battleOver() {
     const boardList = this.getBoard().flat();
-    this.Shop.resetLevel();
     this.Shop.generateStock();
     this.Shop.show();
     this.renderStage();
