@@ -97,7 +97,7 @@ class User {
 
       row.forEach((col, colIndex) => {
         const colImg = lib.createDOM("img", "", {
-          src: `./static/${col ? "level-" + col.level : "space"}.png`,
+          src: `./static/stage/${col ? "level-" + col.level : "space"}.png`,
         });
         colImg.style.backgroundImage = `url(./static/stage/${
           col?.name ?? "space"
@@ -236,7 +236,7 @@ class User {
         className: "user-piece-item",
       });
       const pieceImg = lib.createDOM("img", "", {
-        src: `./static/${piece?.level ? "level-" + piece.level : "space"}.png`,
+        src: `./static/user/${piece?.level ? "level-" + piece.level : "space"}.png`,
       });
       pieceImg.style.backgroundImage = `url(./static/user/${
         piece?.name ?? "space"

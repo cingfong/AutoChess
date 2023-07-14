@@ -92,7 +92,7 @@ class stage {
           colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
         }
         const colImg = lib.createDOM("img", "", {
-          src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
+          src: `./static/user/${col?.level ? "level-" + col.level : "space"}.png`,
         });
         colImg.style.backgroundImage = `url(./static/user/${
           col?.name ?? "space"
@@ -161,7 +161,7 @@ class stage {
         }
 
         const colImg = lib.createDOM("img", "", {
-          src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
+          src: `./static/stage/${col?.level ? "level-" + col.level : "space"}.png`,
         });
         if (col?.name) {
           colImg.style.backgroundImage = `url(./static/stage/${col.name}.png)`;

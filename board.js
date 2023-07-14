@@ -123,7 +123,7 @@ class Board {
         className: "board-col-item",
       });
       const colImg = lib.createDOM("img", "", {
-        src: `./static/${col?.level ? "level-" + col.level : "space"}.png`,
+        src: `./static/user/${col?.level ? "level-" + col.level : "space"}.png`,
       });
       colImg.style.backgroundImage = `url(./static/user/${
         col?.name ?? "space"

@@ -177,7 +177,7 @@ class ChessStore {
       let elementImg;
       if (item) {
         elementImg = lib.createDOM("img", "", {
-          src: "./static/level-1.png",
+          src: "./static/user/level-1.png",
         });
         elementImg.style.backgroundImage = `url(./static/user/${item?.name}.png)`;
         elementImg.style.backgroundSize = "cover";
