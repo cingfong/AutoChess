@@ -1,4 +1,5 @@
 export default {
+  loadCtl: true,
   popUps: ({ type = "win", title, content, cancelBtn }) => {
     const typeClassList = ["win", "fail", "error", "success"];
     const typeClass = type;
@@ -94,5 +95,67 @@ export default {
         });
       }
     });
+  },
+  doubleFinger() {
+    document.documentElement.addEventListener(
+      "touchstart",
+      (event) => {
+        if (event.touches.length > 1) {
+          event.preventDefault();
+        }
+      },
+      { passive: false }
+    );
+  },
+  doubleTouch() {
+    let lastTouchEnd = 0;
+    document.documentElement.addEventListener(
+      "touchend",
+      (event) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 200) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      },
+      {
+        passive: false,
+      }
+    );
+  },
+  async loadImage(imgList) {
+    this.load(true);
+    window.gameImageList = [];
+    const _gloablImgList = window.gameImageList;
+    console.log("a");
+    await imgList.forEach((item) => {
+      console.log("c");
+      const img = new Image();
+      img.src = item;
+      _gloablImgList.push(img);
+    });
+    console.log("b");
+    await this.load(false);
+  },
+  load(ctl) {
+    const _this = this;
+    _this.loadCtl = ctl;
+    const _loadCtl = _this.loadCtl;
+    const element = document.querySelector(".loading");
+    const elementSpan = document.querySelector(".loading span");
+    if (!_loadCtl || typeof _loadCtl !== Boolean) {
+      element.style.display = "none";
+      return;
+    }
+    const spanContent = elementSpan.textContent;
+    element.style.display = "flex";
+    if (spanContent.length !== 4) {
+      elementSpan.textContent = spanContent + ".";
+    } else {
+      elementSpan.textContent = ".";
+    }
+    setTimeout(() => {
+      _this.load();
+    }, 500);
   },
 };

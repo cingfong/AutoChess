@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="./fight.css" />
     <link rel="stylesheet" href="./utils.css" />
     <div id="app">
+      <div class="loading">
+        <p>載入中<span>....</span></p>
+      </div>
       <div class="pop-up-card hidden">
         <div class="title"></div>
         <div class="content"></div>
@@ -57,27 +60,27 @@
                   <br />
                   擁有三個相同等級與兵種即可合成，並恢復生命值。攻擊力與血量也會獲得加成，棋子滿等為三等。
                   <br />
-                  到達第五關時，可選擇棋子為10個，可購買弓兵、火槍兵、弓騎兵。
+                  到達第五關時，可選擇棋子為10個，可購買弓箭手、火槍手、弓騎兵。
                   <br />
                   到達第十關，可購買刺客、戰鼓者、醫療兵。
                 </li>
                 <li>
                   兵種相剋，若遇到兵種相剋則傷害加倍。以下為兵種相剋
                   <br />
-                  騎兵 -> 槍兵、火槍兵
+                  騎兵 -> 盾兵
                   <br />
-                  盾兵 -> 騎兵、弓騎兵
+                  盾兵 -> 槍兵
                   <br />
-                  槍兵 -> 盾兵、弓兵
+                  槍兵 -> 騎兵
                   <br />
-                  弓兵 -> 弓騎兵
+                  弓箭手 -> 火槍手、槍兵
                   <br />
-                  火槍兵 -> 弓兵
+                  火槍手 -> 弓騎兵、騎兵
                   <br />
-                  弓騎兵 -> 火槍兵
+                  弓騎兵 -> 弓箭手、盾兵
                   <br />
                   <br />
-                  例: 騎兵被槍兵、火槍兵攻擊時，承受傷害加倍
+                  例: 盾兵被騎兵、弓騎兵攻擊時，承受傷害加倍
                 </li>
                 <br />
                 <br />
@@ -118,6 +121,7 @@
       import User from "./user.js";
       import Stage from "./stage.js";
       import utils from "./utils.js";
+      import imageList from "./static/imgData.js";
       // 商店
       // 棋盤
       function mainRender() {
@@ -152,6 +156,9 @@
 
       window.onload = () => {
         utils.screenJudge();
+        utils.doubleFinger();
+        utils.doubleTouch();
+        utils.loadImage(imageList);
         // 渲染
         mainRender();
         // 監聽螢幕方向

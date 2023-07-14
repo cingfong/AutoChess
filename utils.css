@@ -115,3 +115,28 @@
 .flex {
   display: flex;
 }
+.loading {
+  position: fixed;
+  z-index: 9999999;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+  background-color: #eee;
+  font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體",
+    sans-serif;
+}
+
+.loading p {
+  display: flex;
+  align-items: flex-end;
+}
+.loading span {
+  display: inline-block;
+  width: 35px;
+  margin-left: 5px;
+  font-size: 32px;
+}
