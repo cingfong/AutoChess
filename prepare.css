@@ -102,6 +102,7 @@ body {
   justify-content: center;
   user-select: none;
   position: relative;
+  -webkit-touch-callout: none;
 }
 .board-col-item img {
   width: 100%;
@@ -137,6 +138,8 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  /* safari touch事件 */
+  -webkit-touch-callout: none;
 }
 
 .user-piece-item-background {

@@ -127,14 +127,11 @@ export default {
     this.load(true);
     window.gameImageList = [];
     const _gloablImgList = window.gameImageList;
-    console.log("a");
     await imgList.forEach((item) => {
-      console.log("c");
       const img = new Image();
       img.src = item;
       _gloablImgList.push(img);
     });
-    console.log("b");
     await this.load(false);
   },
   load(ctl) {
