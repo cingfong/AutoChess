@@ -400,10 +400,10 @@ class stage {
               left: receiveChessLeft,
               top: receiveChessTop + typeHeight,
             };
-            chessMove(attack, 250 / _this.moveSpeed, chessPosition);
+            chessMove(attack, 1000 / _this.moveSpeed, chessPosition);
             setTimeout(() => {
               resolve();
-            }, 250 / _this.moveSpeed + delayTime);
+            }, 1000 / _this.moveSpeed + delayTime);
           });
         }
         function animation2() {
@@ -452,7 +452,7 @@ class stage {
               left: attackOriginLeft,
               top: attackOriginTop,
             };
-            chessMove(attack, 250, chessPosition);
+            chessMove(attack, 1000, chessPosition);
             attackChess.classList.remove("revice-move-chess");
             attackChess.classList.add("attack-move-chess");
             attackChess.classList.remove(...speedClassList);
@@ -461,7 +461,7 @@ class stage {
             );
             setTimeout(() => {
               resolve();
-            }, 250 / _this.moveSpeed);
+            }, 1000 / _this.moveSpeed);
           });
         }
         function animation5() {

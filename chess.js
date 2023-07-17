@@ -31,7 +31,7 @@ class ChessPiece {
       opponentPiece.health = 0;
       setTimeout(() => {
         opponentPiece.element.classList.add(`dead-${moveSpeed}`);
-      }, 250 / moveSpeed);
+      }, 1000 / moveSpeed);
     } else {
       console.log(
         `${this.name} attacked ${opponentPiece.name}. ${opponentPiece.name}'s health is now ${opponentPiece.health}.`
