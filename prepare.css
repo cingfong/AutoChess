@@ -151,7 +151,7 @@ body {
   z-index: 0;
   background-color: rgba(255, 126, 126, 0.6);
   user-select: none;
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
 }
 
 .user-piece-item img {
