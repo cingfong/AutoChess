@@ -44,13 +44,16 @@ export default {
   },
   screenJudge() {
     const remindDom = document.querySelector(".screen-vertical");
+    window.landscape = false;
     if (window.orientation == 180 || window.orientation == 0) {
+      window.landscape = false;
       remindDom.classList.remove("flex");
       remindDom.classList.add("hidden");
     }
     if (window.orientation == 90 || window.orientation == -90) {
       remindDom.classList.remove("hidden");
       remindDom.classList.add("flex");
+      window.landscape = true;
       window.requestAnimationFrame(() => this.screenJudge());
     }
   },
@@ -110,10 +113,10 @@ export default {
   doubleTouch() {
     let lastTouchEnd = 0;
     document.documentElement.addEventListener(
-      "touchend",
+      "touchstart",
       (event) => {
         const now = Date.now();
-        if (now - lastTouchEnd <= 200) {
+        if (now - lastTouchEnd <= 100) {
           event.preventDefault();
         }
         lastTouchEnd = now;

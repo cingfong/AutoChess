@@ -154,10 +154,10 @@
         utils.fightBtnAddEvent();
       }
 
+      utils.doubleFinger();
+      utils.doubleTouch();
       window.onload = () => {
         utils.screenJudge();
-        utils.doubleFinger();
-        utils.doubleTouch();
         utils.loadImage(imageList);
         // 渲染
         mainRender();

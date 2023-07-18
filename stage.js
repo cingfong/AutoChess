@@ -92,7 +92,9 @@ class stage {
           colAttack2.style.backgroundImage = `url('./static/${col?.effect[1]}.png')`;
         }
         const colImg = lib.createDOM("img", "", {
-          src: `./static/user/${col?.level ? "level-" + col.level : "space"}.png`,
+          src: `./static/user/${
+            col?.level ? "level-" + col.level : "space"
+          }.png`,
         });
         colImg.style.backgroundImage = `url(./static/user/${
           col?.name ?? "space"
@@ -161,7 +163,9 @@ class stage {
         }
 
         const colImg = lib.createDOM("img", "", {
-          src: `./static/stage/${col?.level ? "level-" + col.level : "space"}.png`,
+          src: `./static/stage/${
+            col?.level ? "level-" + col.level : "space"
+          }.png`,
         });
         if (col?.name) {
           colImg.style.backgroundImage = `url(./static/stage/${col.name}.png)`;
@@ -386,6 +390,15 @@ class stage {
         const speedClassList = _this.speedList.map(
           (e) => `attack-move-chess-speed-${e}`
         );
+        const _load = (_callback) => {
+          window.requestAnimationFrame(() => {
+            if (!window.landscape) {
+              _callback();
+              return;
+            }
+            _load(_callback);
+          });
+        };
         function animation1() {
           return new Promise((resolve, reject) => {
             attack.element.style.left = `${attackOriginLeft}px`;
@@ -402,7 +415,7 @@ class stage {
             };
             chessMove(attack, 1000 / _this.moveSpeed, chessPosition);
             setTimeout(() => {
-              resolve();
+              _load(resolve);
             }, 1000 / _this.moveSpeed + delayTime);
           });
         }
@@ -434,7 +447,7 @@ class stage {
               attackChessEffect.style.height = "0%";
               attackChessEffect2.style.opacity = "0";
               attackChessEffect2.style.height = "0%";
-              resolve();
+              _load(resolve);
             }, 500);
           });
         }
@@ -442,7 +455,7 @@ class stage {
           return new Promise((resolve, reject) => {
             receiveChess.style.top = `${receiveChessTop}px`;
             setTimeout(() => {
-              resolve();
+              _load(resolve);
             }, 500);
           });
         }
@@ -460,7 +473,7 @@ class stage {
               `attack-move-chess-speed-${_this.moveSpeed}`
             );
             setTimeout(() => {
-              resolve();
+              _load(resolve);
             }, 1000 / _this.moveSpeed);
           });
         }
@@ -468,7 +481,7 @@ class stage {
           return new Promise((resolve, reject) => {
             attackChess.parentNode.style.zIndex = 1;
             setTimeout(() => {
-              resolve();
+              _load(resolve);
             }, 10);
           });
         }
