@@ -89,6 +89,13 @@ class ChessStore {
         });
       return;
     }
+    if (_user.checkPieceThree(this.stock[index])) {
+      // 合成
+      const piece = this.stock.splice(index, 1, "")[0]; // 從庫存中移除已購買的商品
+      _user.makeupPieceLevel(piece);
+      this.renderShop();
+      return;
+    }
     if (_userMaxPieces <= _userPieceLength) {
       utils
         .popUps({

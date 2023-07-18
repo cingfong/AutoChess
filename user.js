@@ -70,7 +70,6 @@ class User {
   buyPiece(piece) {
     this.reduceMoney(piece.price);
     this.addPiece(piece);
-    this.makeupPieceLevel();
   }
 
   renderStage() {
@@ -236,7 +235,9 @@ class User {
         className: "user-piece-item",
       });
       const pieceImg = lib.createDOM("img", "", {
-        src: `./static/user/${piece?.level ? "level-" + piece.level : "space"}.png`,
+        src: `./static/user/${
+          piece?.level ? "level-" + piece.level : "space"
+        }.png`,
       });
       pieceImg.style.backgroundImage = `url(./static/user/${
         piece?.name ?? "space"
@@ -302,8 +303,20 @@ class User {
     _moneyDom.appendChild(moneyDiv);
   }
 
-  makeupPieceLevel() {
+  checkPieceThree(chess) {
+    const getTotalChess = [
+      ...this.Board.displayBoard().flat(Infinity),
+      ...this.getStorage(),
+    ];
+    const sameChess = getTotalChess.filter(
+      (e) => e && e.race === chess.race && e.level === chess.level
+    );
+    return sameChess.length === 2;
+  }
+
+  makeupPieceLevel(chessItem) {
     const chessNameList = [];
+    this.reduceMoney(chessItem.price);
     for (const key in chessDefaultList) {
       const chessName = chessDefaultList[key].name;
       chessNameList.push(chessName);
@@ -314,7 +327,6 @@ class User {
         ...this.getStorage(),
       ];
     };
-
     let chessLevel = 1;
     const repeatChessFunc = (list) => {
       const groupChessList = chessNameList.map((name) => {
@@ -352,7 +364,7 @@ class User {
         repeatChessFunc(getTotalChess());
       }
     };
-    repeatChessFunc(getTotalChess());
+    repeatChessFunc([...getTotalChess(), chessItem]);
   }
 
   setStageObject(stage) {
