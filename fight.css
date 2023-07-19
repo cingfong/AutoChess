@@ -80,10 +80,10 @@
   overflow: hidden;
 }
 .user-board-col-item-attack-wrap {
-  top: calc(-100% - 10px);
+  top: calc(-100% + 10px);
 }
 .compute-board-col-item-attack-wrap {
-  top: calc(100% + 10px);
+  top: calc(100% - 10px);
 }
 .user-board-col-item {
   width: 80px;
@@ -246,6 +246,12 @@
   }
   .user-board-wrap {
     margin-top: 30px;
+  }
+  .user-board-col-item-attack-wrap {
+    top: calc(-100% - 10px);
+  }
+  .compute-board-col-item-attack-wrap {
+    top: calc(100% + 10px);
   }
   .user-board-col-item-wrap {
     width: 60px;
