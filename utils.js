@@ -71,7 +71,8 @@ export default {
   fightBtnAddEvent() {
     const fightBtn = document.querySelector(".fight-show-btn");
     const fightWrap = document.querySelector(".fight-wrap");
-    fightBtn.addEventListener("click", () => {
+    fightBtn.onclick = null;
+    fightBtn.onclick = () => {
       if (
         !window._globalAutoChess.User.getBoard()
           .flat()
@@ -97,7 +98,7 @@ export default {
           window._globalAutoChess.fight();
         });
       }
-    });
+    };
   },
   doubleFinger() {
     document.documentElement.addEventListener(
