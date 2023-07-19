@@ -315,12 +315,7 @@ class User {
   }
 
   makeupPieceLevel(chessItem) {
-    const chessNameList = [];
-    this.reduceMoney(chessItem.price);
-    for (const key in chessDefaultList) {
-      const chessName = chessDefaultList[key].name;
-      chessNameList.push(chessName);
-    }
+    const chessItemName = chessItem.name;
     const getTotalChess = () => {
       return [
         ...this.Board.displayBoard().flat(Infinity),
@@ -329,14 +324,13 @@ class User {
     };
     let chessLevel = 1;
     const repeatChessFunc = (list) => {
-      const groupChessList = chessNameList.map((name) => {
-        return list.filter(
-          (item) =>
-            item?.name === name && item?.level === chessLevel && item.level < 3
-        );
-      });
-      const repeatChess = groupChessList.find((e) => e.length >= 3);
-      if (repeatChess) {
+      const groupChessList = list.filter(
+        (item) =>
+          item?.name === chessItemName &&
+          item?.level === chessLevel &&
+          item.level < 3
+      );
+      if (groupChessList.length >= 3) {
         const getRepeatChess = (list) => {
           return list.reduce((list, item, index) => {
             if (!item) return list;
@@ -347,11 +341,11 @@ class User {
           }, []);
         };
         const removeForeach = (list, Class) => {
-          list.forEach((e) => {
-            Class.removePiece(e);
+          list.forEach((index) => {
+            Class.removePiece(index);
           });
         };
-        const repeatName = repeatChess[0].name;
+        const repeatName = groupChessList[0].name;
         const boardRepeatChess = getRepeatChess(
           this.Board.displayBoard().flat(Infinity)
         );
@@ -364,6 +358,7 @@ class User {
         repeatChessFunc(getTotalChess());
       }
     };
+    // 第一次需帶入購買的棋子
     repeatChessFunc([...getTotalChess(), chessItem]);
   }
 
