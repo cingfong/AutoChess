@@ -112,15 +112,33 @@ export default {
     );
   },
   doubleTouch() {
-    let lastTouchEnd = 0;
+    let lastTouchEndTime = 0;
+    let lastTouchEndPosition = { X: 0, Y: 0 };
     document.documentElement.addEventListener(
-      "touchstart",
+      "touchend",
       (event) => {
+        const position = {
+          X: event.changedTouches[0].pageX,
+          Y: event.changedTouches[0].pageY,
+        };
+        const diferenceX = lastTouchEndPosition.X
+          ? lastTouchEndPosition.X - position.X
+          : false;
+        const diferenceY = lastTouchEndPosition.Y
+          ? lastTouchEndPosition.Y - position.Y
+          : false;
         const now = Date.now();
-        if (now - lastTouchEnd <= 100) {
+        if (
+          now - lastTouchEndTime <= 300 &&
+          Math.abs(diferenceX) < 15 &&
+          Math.abs(diferenceY) < 15
+        ) {
           event.preventDefault();
         }
-        lastTouchEnd = now;
+        lastTouchEndTime = now;
+        lastTouchEndPosition.X = position.X;
+        lastTouchEndPosition.Y = position.Y;
+        console.log(Math.abs(diferenceX), Math.abs(diferenceY));
       },
       {
         passive: false,
