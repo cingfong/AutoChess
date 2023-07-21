@@ -316,7 +316,7 @@ class stage {
       const receiverBoardList = eval(`${receiver}BoardList`);
       for (const [colIndex, attackChess] of attackerChessList.entries()) {
         if (!attackChess || !attackChess.health || winner) continue;
-        await delay(10);
+        await delay(50);
         // 特殊技能直接調過攻擊
         if (chessSkill.anyAttck.includes(attackChess.skill)) continue;
         // 輔助技能
@@ -465,13 +465,13 @@ class stage {
               left: attackOriginLeft,
               top: attackOriginTop,
             };
-            chessMove(attack, 250, chessPosition);
             attackChess.classList.remove("revice-move-chess");
             attackChess.classList.add("attack-move-chess");
             attackChess.classList.remove(...speedClassList);
             attackChess.classList.add(
               `attack-move-chess-speed-${_this.moveSpeed}`
             );
+            chessMove(attack, 250 / _this.moveSpeed, chessPosition);
             setTimeout(() => {
               _load(resolve);
             }, 250 / _this.moveSpeed);
@@ -482,7 +482,7 @@ class stage {
             attackChess.parentNode.style.zIndex = 1;
             setTimeout(() => {
               _load(resolve);
-            }, 10);
+            }, 50);
           });
         }
         await animation1();
