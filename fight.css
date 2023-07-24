@@ -132,17 +132,17 @@
   width: 100%;
 }
 .attack-move-chess {
-  transition: all 250ms cubic-bezier(0.39, 0.58, 0.57, 1);
+  /* transition: all 250ms cubic-bezier(0.39, 0.58, 0.57, 1); */
   position: fixed;
 }
 .attack-move-chess-speed-1 {
-  transition: all 250ms cubic-bezier(0.39, 0.58, 0.57, 1);
+  transition: all 240ms cubic-bezier(0.39, 0.58, 0.57, 1);
 }
 .attack-move-chess-speed-2 {
-  transition: all 125ms cubic-bezier(0.39, 0.58, 0.57, 1);
+  transition: all 115ms cubic-bezier(0.39, 0.58, 0.57, 1);
 }
 .attack-move-chess-speed-4 {
-  transition: all 60ms cubic-bezier(0.39, 0.58, 0.57, 1);
+  transition: all 50ms cubic-bezier(0.39, 0.58, 0.57, 1);
 }
 
 .revice-move-chess {
