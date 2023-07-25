@@ -405,10 +405,17 @@ class stage {
             attack.element.style.top = `${attackOriginTop}px`;
             attackChess.classList.remove("revice-move-chess");
             attackChess.classList.add("attack-move-chess");
-            attackChess.classList.remove(...speedClassList);
-            attackChess.classList.add(
-              `attack-move-chess-speed-${_this.moveSpeed}`
-            );
+            const attackChessClass = [...attackChess.classList];
+            if (
+              !attackChessClass.some(
+                (e) => e === `attack-move-chess-speed-${_this.moveSpeed}`
+              )
+            ) {
+              attackChess.classList.remove(...speedClassList);
+              attackChess.classList.add(
+                `attack-move-chess-speed-${_this.moveSpeed}`
+              );
+            }
             const chessPosition = {
               left: receiveChessLeft,
               top: receiveChessTop + typeHeight,
@@ -467,10 +474,17 @@ class stage {
             };
             attackChess.classList.remove("revice-move-chess");
             attackChess.classList.add("attack-move-chess");
-            attackChess.classList.remove(...speedClassList);
-            attackChess.classList.add(
-              `attack-move-chess-speed-${_this.moveSpeed}`
-            );
+            const attackChessClass = [...attackChess.classList];
+            if (
+              !attackChessClass.some(
+                (e) => e === `attack-move-chess-speed-${_this.moveSpeed}`
+              )
+            ) {
+              attackChess.classList.remove(...speedClassList);
+              attackChess.classList.add(
+                `attack-move-chess-speed-${_this.moveSpeed}`
+              );
+            }
             chessMove(attack, 250 / _this.moveSpeed, chessPosition);
             setTimeout(() => {
               _load(resolve);
