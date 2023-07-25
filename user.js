@@ -353,7 +353,13 @@ class User {
         removeForeach(boardRepeatChess, this.Board);
         removeForeach(userRepeatChess, this);
         const chessLevelUp = new Chess(repeatName, chessLevel + 1);
-        this.addPiece(chessLevelUp);
+        if (this.storage.every((e) => e)) {
+          const boardList = this.getBoard().flat();
+          const spaceBoardIndex = boardList.findIndex((e) => !e);
+          this.Board.setPiece(null, spaceBoardIndex, chessLevelUp);
+        } else {
+          this.addPiece(chessLevelUp);
+        }
         chessLevel++;
         repeatChessFunc(getTotalChess());
       }

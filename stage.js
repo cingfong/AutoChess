@@ -66,7 +66,6 @@ class stage {
       });
       userBoardWrap.appendChild(rowDiv);
 
-      let ninjaIndex = 1;
       row.forEach((col, colIndex) => {
         const colWrap = lib.createDOM("div", "", {
           className: "user-board-col-item-wrap",
@@ -130,6 +129,7 @@ class stage {
       });
     });
 
+    ninjaIndex = 1;
     renderStageBoardList.forEach((row, rowIndex) => {
       const rowDiv = lib.createDOM("div", null, {
         className: "compute-board-row",
