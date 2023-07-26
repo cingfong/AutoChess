@@ -1,3 +1,4 @@
+import language from "./static/i18n.js";
 export default {
   loadCtl: true,
   popUps: ({ type = "win", title, content, cancelBtn }) => {
@@ -138,7 +139,6 @@ export default {
         lastTouchEndTime = now;
         lastTouchEndPosition.X = position.X;
         lastTouchEndPosition.Y = position.Y;
-        console.log(Math.abs(diferenceX), Math.abs(diferenceY));
       },
       {
         passive: false,
@@ -176,5 +176,37 @@ export default {
     setTimeout(() => {
       _this.load();
     }, 500);
+  },
+  i18n: {
+    langObject: null,
+    t(text) {
+      if (!this.langObject || !text) return "";
+      const langKeyList = text.split(".");
+      const getText = (lang, langKeyList) => {
+        const _key = langKeyList.shift();
+        const _lang = lang[_key];
+        if (langKeyList.length) {
+          return getText(_lang, langKeyList);
+        }
+        return _lang;
+      };
+      return getText(this.langObject, langKeyList);
+    },
+    init(lang = "zh-Hant") {
+      this.langObject = language[lang] ?? null;
+    },
+    text() {
+      const DomList = document.querySelectorAll(".i18n-text");
+      [...DomList].forEach((item) => {
+        const dataText = item.dataset.i18nText;
+        if (dataText) {
+          item.textContent = this.t(dataText);
+          return;
+        }
+        const text = item.textContent;
+        item.dataset.i18nText = text;
+        item.textContent = this.t(text);
+      });
+    },
   },
 };

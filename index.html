@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="./utils.css" />
     <div id="app">
       <div class="loading">
-        <p>載入中<span>....</span></p>
+        <p>Loading<span>....</span></p>
       </div>
       <div class="pop-up-card hidden">
         <div class="title"></div>
         <div class="content"></div>
         <div class="button-wrap">
-          <div class="button">確定</div>
-          <div class="button cancel">取消</div>
+          <div class="button i18n-text">button.confirm</div>
+          <div class="button cancel i18n-text">button.cancel</div>
         </div>
       </div>
       <div class="prepare-wrap">
@@ -30,13 +30,13 @@
         <div class="board-wrap"></div>
         <div class="user-piece-wrap"></div>
         <div class="shop-wrap">
-          <div class="shop-title">商店</div>
+          <div class="shop-title i18n-text">button.shop</div>
           <div class="shop-refresh-btn"></div>
           <div class="shop-piece"></div>
           <div class="shop-close"></div>
         </div>
         <div class="user-money-wrap">
-          <div class="user-money-pre">玩家金額:</div>
+          <div class="user-money-pre i18n-text">other.userMoney</div>
           <div class="user-money"></div>
         </div>
         <div class="question-show-btn">
@@ -99,8 +99,8 @@
             </div>
           </div>
         </div>
-        <div class="shop-show-btn">商店</div>
-        <div class="fight-show-btn">戰鬥</div>
+        <div class="shop-show-btn i18n-text">button.shop</div>
+        <div class="fight-show-btn i18n-text">button.fight</div>
       </div>
       <div class="fight-wrap hidden">
         <div class="fight-board-wrap">
@@ -165,6 +165,9 @@
         window.addEventListener("orientationchange", () => {
           utils.screenJudge();
         });
+        window.$i18n = utils.i18n;
+        $i18n.init();
+        $i18n.text();
       };
     </script>
   </body>
