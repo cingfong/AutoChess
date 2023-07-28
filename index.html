@@ -16,8 +16,8 @@
         <p>Loading<span>....</span></p>
       </div>
       <div class="pop-up-card hidden">
-        <div class="title"></div>
-        <div class="content"></div>
+        <div class="title i18n-text"></div>
+        <div class="content i18n-text"></div>
         <div class="button-wrap">
           <div class="button i18n-text">button.confirm</div>
           <div class="button cancel i18n-text">button.cancel</div>
@@ -42,60 +42,52 @@
         <div class="question-show-btn">
           <img src="./static/question.png" />
         </div>
+        <div class="translate-btn">
+          <img src="./static/translate.png" />
+        </div>
         <div class="question-wrap hidden">
           <div class="question-content-wrap">
             <div class="question-content-title">
-              <div class="question-content-text">遊戲說明</div>
+              <div class="question-content-text i18n-text">manual.title</div>
               <div class="question-close-btn"></div>
             </div>
             <div class="question-content-item">
-              <ol>
-                <li>
-                  遊戲總共關卡為20關，棋子在戰場上死亡則不會復活，戰鬥結束後受傷棋子可恢復所受傷害的50%。
-                  <br />
-                  每回合戰鬥結束可獲得100金幣，購買棋子需要20金幣，刷新商店需要10金幣。
-                  <br />
-                  若要將棋子售出，將棋子移至商店欄位即賣出。(等級2以上販售價格為棋子
-                  X 0.8)。
-                  <br />
-                  擁有三個相同等級與兵種即可合成，並恢復生命值。攻擊力與血量也會獲得加成，棋子滿等為三等。
-                  <br />
-                  到達第五關時，可選擇棋子為10個，可購買弓箭手、火槍手、弓騎兵。
-                  <br />
-                  到達第十關，可購買刺客、戰鼓者、醫療兵。
-                </li>
-                <li>
-                  兵種相剋，若遇到兵種相剋則傷害加倍。以下為兵種相剋
-                  <br />
-                  騎兵 -> 盾兵
-                  <br />
-                  盾兵 -> 槍兵
-                  <br />
-                  槍兵 -> 騎兵
-                  <br />
-                  弓箭手 -> 火槍手、槍兵
-                  <br />
-                  火槍手 -> 弓騎兵、騎兵
-                  <br />
-                  弓騎兵 -> 弓箭手、盾兵
-                  <br />
-                  <br />
-                  例: 盾兵被騎兵、弓騎兵攻擊時，承受傷害加倍
-                </li>
+              <div class="question-content-li li-1">
+                <div class="i18n-text">manual.content1-1</div>
                 <br />
+                <div class="i18n-text">manual.content1-2</div>
                 <br />
-                <li>
-                  以下為特殊單位：<br />
-                  刺客：<br />
-                  每次有單位攻擊時則追加刺客傷害<br />
-                  戰鼓者：<br />
-                  輪到戰鼓者攻擊時，提升所有單位攻擊力 X 1.15
-                  (隨著等級累進0.15倍，最多四次)<br />
-                  醫療兵：<br />
-                  輪到醫療兵攻擊時，恢復所有單位血量 (隨著等級恢復 20、50、80
-                  血量)
-                </li>
-              </ol>
+                <div class="i18n-text">manual.content1-3</div>
+                <br />
+                <div class="i18n-text">manual.content1-4</div>
+                <br />
+                <div class="i18n-text">manual.content1-5</div>
+                <br />
+                <div class="i18n-text">manual.content1-6</div>
+              </div>
+              <br />
+              <div class="question-content-li li-2">
+                <div class="i18n-text">manual.content2-1</div>
+                <br />
+                <div class="i18n-text">manual.content2-2</div>
+                <div class="i18n-text">manual.content2-3</div>
+                <div class="i18n-text">manual.content2-4</div>
+                <div class="i18n-text">manual.content2-5</div>
+                <div class="i18n-text">manual.content2-6</div>
+                <div class="i18n-text">manual.content2-7</div>
+                <br />
+                <div class="i18n-text">manual.content2-8</div>
+              </div>
+              <br />
+              <div class="question-content-li li-3">
+                <div class="i18n-text">manual.content3-1</div>
+                <div class="i18n-text">manual.content3-2</div>
+                <div class="i18n-text">manual.content3-3</div>
+                <div class="i18n-text">manual.content3-4</div>
+                <div class="i18n-text">manual.content3-5</div>
+                <div class="i18n-text">manual.content3-6</div>
+                <div class="i18n-text">manual.content3-7</div>
+              </div>
             </div>
           </div>
         </div>
@@ -113,7 +105,7 @@
           </div>
         </div>
       </div>
-      <div class="screen-vertical hidden">請保持螢幕直立</div>
+      <div class="screen-vertical hidden i18n-text">other.keepDirection</div>
     </div>
     <script type="module">
       import Shop from "./shop.js";
@@ -151,6 +143,7 @@
         _globalAutoChess.prepareRender();
         // dialog事件
         utils.questionAddEvent();
+        utils.translateAddEvent();
         utils.fightBtnAddEvent();
       }
 
@@ -165,8 +158,17 @@
         window.addEventListener("orientationchange", () => {
           utils.screenJudge();
         });
+
+        const language =
+          navigator.language.toLowerCase() ||
+          navigator.browserLanguage.toLowerCase();
+        const i18nType = language.slice(0, 2) === "zh" ? "ZH-TW" : "EN-US";
+        const cookieLanguage = utils.getCookie("language");
+        if (!cookieLanguage) {
+          utils.setCookie("language", i18nType);
+        }
         window.$i18n = utils.i18n;
-        $i18n.init();
+        $i18n.init(cookieLanguage || i18nType);
         $i18n.text();
       };
     </script>

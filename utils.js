@@ -69,6 +69,17 @@ export default {
       questionWrap.classList.add("hidden");
     };
   },
+  translateAddEvent() {
+    const translateBtn = document.querySelector(".translate-btn");
+    const langList = ["ZH-TW", "EN-US"];
+    translateBtn.onclick = () => {
+      const cookieLang = this.getCookie("language");
+      const _lang = langList.find((e) => e !== cookieLang);
+      this.setCookie("language", _lang);
+      $i18n.init(_lang);
+      $i18n.text();
+    };
+  },
   fightBtnAddEvent() {
     const fightBtn = document.querySelector(".fight-show-btn");
     const fightWrap = document.querySelector(".fight-wrap");
@@ -81,8 +92,8 @@ export default {
       ) {
         this.popUps({
           type: "error",
-          title: "錯誤",
-          content: "沒有任何棋子在場上",
+          title: window.$i18n.t("popup.notChess.title"),
+          content: window.$i18n.t("popup.notChess.content"),
         }).then((v) => {
           fightWrap.classList.add("hidden");
         });
@@ -90,8 +101,8 @@ export default {
       } else {
         this.popUps({
           type: "success",
-          title: "開始",
-          content: "確定開始戰鬥嗎",
+          title: window.$i18n.t("popup.ready.title"),
+          content: window.$i18n.t("popup.ready.content"),
           cancelBtn: true,
         }).then((v) => {
           fightWrap.classList.add("hidden");
@@ -184,6 +195,7 @@ export default {
       const langKeyList = text.split(".");
       const getText = (lang, langKeyList) => {
         const _key = langKeyList.shift();
+        if (!lang[_key]) return "";
         const _lang = lang[_key];
         if (langKeyList.length) {
           return getText(_lang, langKeyList);
@@ -192,7 +204,7 @@ export default {
       };
       return getText(this.langObject, langKeyList);
     },
-    init(lang = "zh-Hant") {
+    init(lang) {
       this.langObject = language[lang] ?? null;
     },
     text() {
@@ -208,5 +220,24 @@ export default {
         item.textContent = this.t(text);
       });
     },
+  },
+  setCookie(name, value) {
+    document.cookie = name + "=" + value;
+  },
+  getCookie(name) {
+    const cookieName = name + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(";");
+
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookie = cookieArray[i];
+      while (cookie.charAt(0) === " ") {
+        cookie = cookie.substring(1);
+      }
+      if (cookie.indexOf(cookieName) === 0) {
+        return cookie.substring(cookieName.length, cookie.length);
+      }
+    }
+    return null;
   },
 };

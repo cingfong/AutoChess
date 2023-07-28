@@ -80,8 +80,8 @@ class ChessStore {
       utils
         .popUps({
           type: "fail",
-          title: "提醒",
-          content: "玩家金額不足",
+          title: window.$i18n.t("popup.notMoney.title"),
+          content: window.$i18n.t("popup.notMoney.content"),
         })
         .then((v) => {
           const fightWrap = document.querySelector(".fight-wrap");
@@ -101,8 +101,8 @@ class ChessStore {
       utils
         .popUps({
           type: "fail",
-          title: "提醒",
-          content: "棋子已滿",
+          title: window.$i18n.t("popup.chessFull.title"),
+          content: window.$i18n.t("popup.chessFull.content"),
         })
         .then((v) => {
           const fightWrap = document.querySelector(".fight-wrap");
@@ -124,8 +124,8 @@ class ChessStore {
       utils
         .popUps({
           type: "fail",
-          title: "提醒",
-          content: "玩家金額不足",
+          title: window.$i18n.t("popup.notMoney.title"),
+          content: window.$i18n.t("popup.notMoney.content"),
         })
         .then((v) => {
           const fightWrap = document.querySelector(".fight-wrap");

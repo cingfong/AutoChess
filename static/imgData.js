@@ -15,6 +15,7 @@ export default [
   "/static/cut-effect-2.png",
   "/static/cut-effect.png",
   "/static/question.png",
+  "/static/translate.png",
   "/static/raid-effect-1.png",
   "/static/raid-effect-2.png",
   "/static/raid-effect-3.png",

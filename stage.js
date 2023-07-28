@@ -232,7 +232,11 @@ class stage {
         const _User = _this.User;
         if (_this.level === this.levelLength) {
           utils
-            .popUps({ type: "win", title: "大獲全勝", content: "重新開始" })
+            .popUps({
+              type: "win",
+              title: window.$i18n.t("popup.allwin.title"),
+              content: window.$i18n.t("popup.allwin.content"),
+            })
             .then((v) => {
               const fightWrap = document.querySelector(".fight-wrap");
               fightWrap.classList.add("hidden");
@@ -241,7 +245,11 @@ class stage {
           return;
         }
         utils
-          .popUps({ type: "win", title: "獲勝", content: "前往下一關" })
+          .popUps({
+            type: "win",
+            title: window.$i18n.t("popup.win.title"),
+            content: window.$i18n.t("popup.win.content"),
+          })
           .then((v) => {
             _this.level++;
             if (_this.level < 15 && !(_this.level % 5)) {
@@ -257,7 +265,11 @@ class stage {
       } else {
         // 待調整
         utils
-          .popUps({ type: "fail", title: "失敗", content: "重新開始" })
+          .popUps({
+            type: "fail",
+            title: window.$i18n.t("popup.fail.title"),
+            content: window.$i18n.t("popup.fail.content"),
+          })
           .then((v) => {
             const fightWrap = document.querySelector(".fight-wrap");
             fightWrap.classList.add("hidden");
