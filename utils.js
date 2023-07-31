@@ -1,7 +1,7 @@
 import language from "./static/i18n.js";
 export default {
   loadCtl: true,
-  popUps: ({ type = "win", title, content, cancelBtn }) => {
+  popUps: ({ type = "win", title, content, cancelBtn, mask }) => {
     const typeClassList = ["win", "fail", "error", "success"];
     const typeClass = type;
     const resetClass = (dom) => {
@@ -14,7 +14,13 @@ export default {
       const titleDom = wrap.querySelector(".title");
       const contentDom = wrap.querySelector(".content");
       const buttonDom = wrap.querySelector(".button");
+      const maskDom = wrap.querySelector(".pop-up-card-mask");
       const cancelButtonDom = wrap.querySelector(".cancel");
+      if (!mask) {
+        maskDom.classList.add("hidden");
+      } else {
+        maskDom.classList.remove("hidden");
+      }
       if (cancelBtn) {
         cancelButtonDom.classList.remove("hidden");
       } else {
@@ -37,10 +43,16 @@ export default {
       if ([...wrap.classList].includes("hidden")) {
         wrap.classList.remove("hidden");
       }
-      buttonDom.addEventListener("click", clickMethod);
-      cancelButtonDom.addEventListener("click", () => {
+      buttonDom.onclick = null;
+      maskDom.onclick = null;
+      cancelButtonDom.onclick = null;
+      buttonDom.onclick = clickMethod;
+      maskDom.onclick = () => {
         wrap.classList.add("hidden");
-      });
+      };
+      cancelButtonDom.onclick = () => {
+        wrap.classList.add("hidden");
+      };
     });
   },
   screenJudge() {
@@ -94,6 +106,7 @@ export default {
           type: "error",
           title: window.$i18n.t("popup.notChess.title"),
           content: window.$i18n.t("popup.notChess.content"),
+          mask: true,
         }).then((v) => {
           fightWrap.classList.add("hidden");
         });
@@ -103,6 +116,7 @@ export default {
           type: "success",
           title: window.$i18n.t("popup.ready.title"),
           content: window.$i18n.t("popup.ready.content"),
+          mask: true,
           cancelBtn: true,
         }).then((v) => {
           fightWrap.classList.add("hidden");

@@ -82,6 +82,7 @@ class ChessStore {
           type: "fail",
           title: window.$i18n.t("popup.notMoney.title"),
           content: window.$i18n.t("popup.notMoney.content"),
+          mask: true,
         })
         .then((v) => {
           const fightWrap = document.querySelector(".fight-wrap");
@@ -103,6 +104,7 @@ class ChessStore {
           type: "fail",
           title: window.$i18n.t("popup.chessFull.title"),
           content: window.$i18n.t("popup.chessFull.content"),
+          mask: true,
         })
         .then((v) => {
           const fightWrap = document.querySelector(".fight-wrap");
@@ -126,6 +128,7 @@ class ChessStore {
           type: "fail",
           title: window.$i18n.t("popup.notMoney.title"),
           content: window.$i18n.t("popup.notMoney.content"),
+          mask: true,
         })
         .then((v) => {
           const fightWrap = document.querySelector(".fight-wrap");

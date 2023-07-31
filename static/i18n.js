@@ -31,7 +31,7 @@ export default {
         title: "錯誤",
         content: "沒有任何棋子在場上",
       },
-      start: {
+      ready: {
         title: "開始",
         content: "確定開始戰鬥嗎",
       },

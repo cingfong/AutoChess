@@ -5,7 +5,18 @@
   width: 320px;
   border-radius: 10px;
   overflow: hidden;
+}
+.pop-up-card-wrap {
   background-color: Bisque;
+}
+.pop-up-card-mask {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
 }
 .pop-up-card .title {
   width: 100%;
@@ -24,7 +35,7 @@
 }
 .pop-up-card .button-wrap {
   margin: 0px auto;
-  max-width: 120px;
+  max-width: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,7 +49,7 @@
   margin-bottom: 10px;
   padding: 0px 10px;
 }
-.pop-up-card .button.cancel {
+.pop-up-card .button {
   width: 50px;
   color: white;
   line-height: 30px;
@@ -47,7 +58,9 @@
   cursor: pointer;
   margin-bottom: 10px;
   background-color: #615756;
-  margin-left: 15px;
+}
+.pop-up-card .button.cancel {
+  margin-left: 10px;
 }
 .pop-up-card .button.cancel.hidden {
   display: none;
@@ -68,7 +81,7 @@
   color: white;
   background-color: #636b71;
 }
-.pop-up-card.fail {
+.pop-up-card.fail .pop-up-card-wrap {
   background-color: #eee;
 }
 .pop-up-card .title.error {
@@ -79,7 +92,7 @@
   color: white;
   background-color: #9d0b06;
 }
-.pop-up-card.error {
+.pop-up-card.error .pop-up-card-wrap {
   background-color: #eee;
 }
 .pop-up-card .title.success {
@@ -90,7 +103,7 @@
   color: white;
   background-color: #044e77;
 }
-.pop-up-card.success {
+.pop-up-card.success .pop-up-card-wrap {
   background-color: #eee;
 }
 

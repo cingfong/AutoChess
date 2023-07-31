@@ -263,7 +263,6 @@ class stage {
             fightWrap.classList.add("hidden");
           });
       } else {
-        // 待調整
         utils
           .popUps({
             type: "fail",
