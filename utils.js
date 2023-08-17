@@ -156,8 +156,8 @@ export default {
         const now = Date.now();
         if (
           now - lastTouchEndTime <= 1000 &&
-          Math.abs(diferenceX) < 15 &&
-          Math.abs(diferenceY) < 15
+          Math.abs(diferenceX) < 30 &&
+          Math.abs(diferenceY) < 30
         ) {
           event.preventDefault();
         }
