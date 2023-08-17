@@ -155,7 +155,7 @@ export default {
           : false;
         const now = Date.now();
         if (
-          now - lastTouchEndTime <= 1000 &&
+          now - lastTouchEndTime <= 500 &&
           Math.abs(diferenceX) < 20 &&
           Math.abs(diferenceY) < 20
         ) {
