@@ -140,7 +140,7 @@ export default {
   doubleTouch() {
     let lastTouchEndTime = 0;
     let lastTouchEndPosition = { X: 0, Y: 0 };
-    document.documentElement.addEventListener(
+    document.body.addEventListener(
       "touchend",
       (event) => {
         const position = {
@@ -156,8 +156,8 @@ export default {
         const now = Date.now();
         if (
           now - lastTouchEndTime <= 1000 &&
-          Math.abs(diferenceX) < 30 &&
-          Math.abs(diferenceY) < 30
+          Math.abs(diferenceX) < 20 &&
+          Math.abs(diferenceY) < 20
         ) {
           event.preventDefault();
         }
